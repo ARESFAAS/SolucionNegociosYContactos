@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Registro";
+}
+@Scripts.Render("~/bundles/account")
+@Scripts.Render("~/bundles/jqueryval")
+<h2>Registro</h2>
+<br />
+
+<div class="register-container">
+    <form id="frmRegister">
+        <p>Llena el siguiente formulario para registrate en nuestro sitio</p>
+        <br />
+        <div id="divSummaryErrors"><ul class="register-error"></ul></div>
+        <div><label class="register">Email: </label><input name="email" id="email" type="email" /></div>
+        <div>
+            <label class="register">Tipo de Identificación:</label>
+            <select id="cmbIdentificationType">
+                <option value="C">Cédula de Ciudadanía</option>
+                <option value="N">Nit</option>
+                <option value="T">Tarjeta de Identidad</option>
+                <option value="P">Pasaporte</option>
+            </select>
+        </div>
+        <div><label class="register">Número de Identificación:</label><input name="identificationNumber" id="identificationNumber" type="text" /></div>
+        <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="tel" /></div>
+        <div><label class="register">Nombre de usuario:</label><input name="userName" id="userName" type="text" /></div>
+        <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" /></div>
+        <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword">No concuerda</div></div>
+        <br />
+        <div><input id="btnEnviar" class="btn btn-default" href="" type="submit" value="Enviar" /></div>
+    </form>
+</div>
+

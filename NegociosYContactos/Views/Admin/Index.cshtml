@@ -1,0 +1,201 @@
+﻿@model NegociosYContactos.Models.BusinessWeb
+@{
+    ViewBag.Title = "Configuración de tu Espacio de Contacto:";
+}
+@Scripts.Render("~/bundles/jqueryupload")
+@Scripts.Render("~/bundles/colorpicker")
+@Scripts.Render("~/bundles/admin")
+<!-- The template to display files available for upload -->
+<script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            <p class="name">{%=file.name%}</p>
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Processing...</p>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+        </td>
+        <td>
+            {% if (!i && !o.options.autoUpload) { %}
+            <button class="btn btn-primary start" disabled>
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Iniciar</span>
+            </button>
+            {% } %}
+            {% if (!i) { %}
+            <button class="btn btn-warning cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>Cancelar</span>
+            </button>
+            {% } %}
+        </td>
+    </tr>
+    {% } %}
+</script>
+<!-- The template to display files available for download -->
+<script id="template-download" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            <p class="name">
+                {% if (file.url) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                {% } else { %}
+                <span>{%=file.name%}</span>
+                {% } %}
+            </p>
+            {% if (file.error) { %}
+            <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+            <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
+                <i class="glyphicon glyphicon-trash"></i>
+                <span>Borrar</span>
+            </button>
+            <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+            @*<button class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancelar</span>
+                </button>*@
+            {% } %}
+        </td>
+    </tr>
+    {% } %}
+</script>
+
+<h2 style="margin-top:4em;">@ViewBag.Title</h2>
+<p>Con solo cinco pasos ya tienes tus productos publicados en tu propio espacio en internet:</p>
+<hr />
+<div id="divPaso0" class="configSpaceStep">
+    <h3>1. Crea o actualiza el nombre de tu negocio:</h3>
+</div>
+<hr />
+<div id="divCargaNombre" style="display:none;background-color:moccasin;border-color:black;border:outset;"><label>Nuevo nombre:</label><input id="txtNombre" type="text" style="width:100%;" /><br /><br /><label>Nombre actual:</label><div>@Model.Name</div></div>
+<div id="divPaso1" class="configSpaceStep">
+    <h3>2. Crea o actualiza tu logo o foto de portada:</h3>
+</div>
+<div id="divCargaLogo" style="display:none;background-color:moccasin;border-color:black;border:outset;">
+    <span class="btn btn-default btn-file">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Agregar Archivo</span>
+        <input id="logoupload" type="file" name="files[]" multiple="">
+    </span>
+    <br />
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+            <span class="sr-only">0% complete </span>
+        </div>
+    </div>
+    <div class="file_name"></div>
+    <div class="file_type"></div>
+    <div class="file_size"></div>
+    <br /><br />
+    <div><label>Foto o logo actual</label><div><img src=@Model.UrlImage /></div></div>
+</div>
+<hr />
+<div id="divPaso2" class="configSpaceStep">
+    <h3>3. Crea o cambia las fotos de tus productos o servicios:</h3>
+</div>
+<div id="divCargaFotos" style="display:none;background-color:moccasin;border-color:black;border:outset;">
+    <form id="fileupload" action="@Url.Action("UploadFiles", "Admin")" method="POST" enctype="multipart/form-data">
+        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+        <noscript>&lt;input type="hidden" name="redirect" value="/Home/Index"&gt;</noscript>
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="col-lg-7" style="width:100%;">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-default btn-file">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Agregar Archivos</span>
+                    <input type="file" name="files[]" multiple="">
+                </span>
+                <button type="submit" class="btn btn-primary start">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Iniciar Carga</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancelar Carga</span>
+                </button>
+                @*<button type="button" class="btn btn-danger delete">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>Borrar</span>
+                    </button>
+                    <input type="checkbox" class="toggle">*@
+                <!-- The global file processing state -->
+                <span class="fileupload-process"></span>
+            </div>
+            <!-- The global progress state -->
+            <div class="col-lg-5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress state -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+    </form>
+    <br /><br />
+    <hr />
+    <div>
+        <label>Imágenes de tus productos o servicios actuales</label>
+        <br />
+        @{
+            foreach (var item in Model.Products)
+            {
+                <div style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;"><img src=@item.UrlImage /></div>
+            }
+        }
+    </div>
+</div>
+<hr />
+<div id="divPaso3" class="configSpaceStep">
+    <h3>4. Escoge o cambia el color de tu espacio de contacto: </h3>
+</div>
+<div id="divCambiaColor" style="@Model.Style">Color de tu Espacio:</div>
+<hr />
+<div id="divPaso4" class="configSpaceStep">
+    <h3>5. Crea o cambia la información asociada a las fotos de tus productos o servicios: </h3>
+</div>
+<div id="divAgregaInformacion" style="display:none;background-color:moccasin;border-color:black;border:outset;">
+    <label>Imágenes de tus productos o servicios</label>
+    <div>        
+        <br />
+        @{
+            foreach (var item in Model.Products)
+            {
+                <div style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;">
+                    <img src=@item.UrlImage /><br />
+                    <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Name" title="Aqui escribe el nombre de tu producto"/><br />
+                    <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Description" title="Aqui escribe algun dato o referencia de tu producto"/><br />
+                    <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Value" title="Aqui puedes colocar el valor de tu producto"/><br />
+                </div>
+            }
+        }
+    </div>
+ </div>
+<hr />
+<br /><br />
+<p style="text-align:right;"><a href="@Url.Action("GetData","Admin")" class="btn btn-success">Crea tu espacio o actualizalo ahora</a></p>
+<br /><br /><br />

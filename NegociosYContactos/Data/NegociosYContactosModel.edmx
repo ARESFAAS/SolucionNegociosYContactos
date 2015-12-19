@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContactosyNegociosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="IdentificationType" Type="nvarchar" MaxLength="10" />
+          <Property Name="IdentificationNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="Locked" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="UrlImage" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Style" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="InitDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Premium" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" />
+          <Property Name="UrlImage" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IdBusiness" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ContactosyNegocios.dbo.BusinessUser' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="BusinessUser">
+          <Key>
+            <PropertyRef Name="IdUser" />
+            <PropertyRef Name="IdBusiness" />
+          </Key>
+          <Property Name="IdUser" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IdBusiness" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BusinessProduct_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="BusinessProduct" Type="Self.BusinessProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessProduct">
+              <PropertyRef Name="IdBusiness" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessUser_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="BusinessUser" Type="Self.BusinessUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessUser">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BusinessUser_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="1" />
+          <End Role="BusinessUser" Type="Self.BusinessUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessUser">
+              <PropertyRef Name="IdBusiness" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="BusinessData_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUser" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ContactosyNegociosModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessProduct" EntityType="Self.BusinessProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessUser" EntityType="Self.BusinessUser" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[BusinessUser].[IdUser] AS [IdUser], 
+[BusinessUser].[IdBusiness] AS [IdBusiness]
+FROM [dbo].[BusinessUser] AS [BusinessUser]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BusinessProduct_Business" Association="Self.FK_BusinessProduct_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="BusinessProduct" EntitySet="BusinessProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessUser_AspNetUsers" Association="Self.FK_BusinessUser_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="BusinessUser" EntitySet="BusinessUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BusinessUser_Business" Association="Self.FK_BusinessUser_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="BusinessUser" EntitySet="BusinessUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContactosyNegociosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Business" Relationship="Self.BusinessUser" FromRole="AspNetUsers" ToRole="Business" />
+          <Property Name="IdentificationType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IdentificationNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Locked" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Business">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UrlImage" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Style" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InitDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Premium" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BusinessProduct" Relationship="Self.FK_BusinessProduct_Business" FromRole="Business" ToRole="BusinessProduct" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.BusinessUser" FromRole="Business" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="BusinessProduct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UrlImage" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdBusiness" Type="Int32" />
+          <NavigationProperty Name="Business" Relationship="Self.FK_BusinessProduct_Business" FromRole="BusinessProduct" ToRole="Business" />
+        </EntityType>
+        <Association Name="FK_BusinessProduct_Business">
+          <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
+          <End Role="BusinessProduct" Type="Self.BusinessProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Business">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BusinessProduct">
+              <PropertyRef Name="IdBusiness" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BusinessUser">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <End Role="Business" Type="Self.Business" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ContactosyNegociosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="Business" EntityType="Self.Business" />
+          <EntitySet Name="BusinessProduct" EntityType="Self.BusinessProduct" />
+          <AssociationSet Name="FK_BusinessProduct_Business" Association="Self.FK_BusinessProduct_Business">
+            <End Role="Business" EntitySet="Business" />
+            <End Role="BusinessProduct" EntitySet="BusinessProduct" />
+          </AssociationSet>
+          <AssociationSet Name="BusinessUser" Association="Self.BusinessUser">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
+          <FunctionImport Name="BusinessData_Get" ReturnType="Collection(ContactosyNegociosModel.BusinessData_Get_Result)">
+          <Parameter Name="IdUser" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="BusinessData_Get_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="UrlImage" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Style" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="InitDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Premium" Nullable="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="Int32" Name="IdBusinessProduct" Nullable="false" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ProductDescription" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ProductValue" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ProductUrlImage" Nullable="false" MaxLength="256" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContactosyNegociosModelStoreContainer" CdmEntityContainer="ContactosyNegociosEntities">
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ContactosyNegociosModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+                <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
+                <ScalarProperty Name="IdentificationType" ColumnName="IdentificationType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Business">
+            <EntityTypeMapping TypeName="ContactosyNegociosModel.Business">
+              <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="InitDate" ColumnName="InitDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Premium" ColumnName="Premium" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessProduct">
+            <EntityTypeMapping TypeName="ContactosyNegociosModel.BusinessProduct">
+              <MappingFragment StoreEntitySet="BusinessProduct">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
+                <ScalarProperty Name="IdBusiness" ColumnName="IdBusiness" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BusinessUser" TypeName="ContactosyNegociosModel.BusinessUser" StoreEntitySet="BusinessUser">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="IdUser" />
+            </EndProperty>
+            <EndProperty Name="Business">
+              <ScalarProperty Name="Id" ColumnName="IdBusiness" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="BusinessData_Get" FunctionName="ContactosyNegociosModel.Store.BusinessData_Get">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContactosyNegociosModel.BusinessData_Get_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UrlImage" ColumnName="UrlImage" />
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="InitDate" ColumnName="InitDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Premium" ColumnName="Premium" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IdBusinessProduct" ColumnName="IdBusinessProduct" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductValue" ColumnName="ProductValue" />
+                <ScalarProperty Name="ProductUrlImage" ColumnName="ProductUrlImage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

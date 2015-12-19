@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/site")
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <div id="divNavBarTop" style="width:5%;float:right;"><a class="navBarOptions">Opciones</a></div> 
+    <div id="divNavBar" class="navbar navbar-inverse navbar-fixed-top">
+            <div id="divContainer" class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home", new { Class = "homeLink", href = Url.Action("Index", "Home") } )</li>
+                        <li>@Html.ActionLink("Buscar", "Index", "Search") </li>
+                        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Tu Espacio", "Index", "Admin") </li>
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Únete a nosotros", "Index", "Account")</li>
+                        <li>@Html.ActionLink("Ya eres parte, Ingresa", "Contact", "Home")</li>
+                    </ul>
+                    @*@Html.Partial("_LoginPartial")*@
+                </div>
+            </div>
+        </div>
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+        <li>@Html.ActionLink("Buscar", "Index", "Search") </li>
+        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li>@Html.ActionLink("Tu Espacio", "Index", "Admin") </li>
+        }
+    </ul>
+    <div id="divBody" class="container body-content" style="width:80%;">
+        <div style="border-left:0.1em groove cornflowerblue;border-right:0.1em groove cornflowerblue;">
+            <div style="margin-left:4em;margin-right:4em;">
+                @RenderBody()
+                <hr />
+                <footer style="text-align:center;">
+                    @*<p>&copy; @DateTime.Now.Year - Negocios y Contactos es una marca registrada por FASMAV Software S.A. - First one Analytic Software and Model of Advance</p>*@
+                    <p>&copy; @DateTime.Now.Year - Negocios y Contactos - Marca Registrada - Bogotá, Colombia</p>
+                </footer>
+            </div>            
+        </div>        
+    </div>
+    <div class="social">        
+        <ul>          
+            <li><a href="http://www.facebook.com/sharer.php?u=@Url.Encode(@Request.Url.AbsoluteUri)/&t=ContactosYNegocios" target="_blank" class="icon-facebook"></a></li>
+            <li><a href="http://twitter.com/share?url=@Url.Encode(@Request.Url.AbsoluteUri)&text=ContactosYNegocios" target="_blank" class="icon-twitter"></a></li>
+            <li><a href="https://plus.google.com/share?url=@Url.Encode(@Request.Url.AbsoluteUri)" target="_blank" class="icon-googleplus"></a></li>
+        </ul>
+    </div>    
+    <div id="divBottom" class="navbar navbar-fixed-bottom" style="text-align:center;margin-top:0.5em;padding-top:0.5em;">NEGOCIOS Y CONTACTOS
+        <div id="divDate"></div>
+        <div id="reloj" style="font-size:20px;"></div>
+    </div>   
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

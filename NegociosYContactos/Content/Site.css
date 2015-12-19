@@ -1,0 +1,264 @@
+﻿body {
+    padding-top: 70px;
+    padding-bottom: 70px;
+    font-family: 'Arial Rounded MT';
+    font-size: medium;
+    background-color: #CBA135;
+    background-image: url('images/dubai-uae-buildings-skyscrapers-night.jpg');
+    /*background-image: url('images/cartagena.jpg');*/
+    background-repeat: no-repeat;
+    background-size: cover; /* Encajamos la imagen al 100% del ancho */
+    background-attachment: fixed; /* Establecemos una posicion fija para la imagen */
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    color:black;
+    background-color:#5ebdb2;
+    opacity:0.9;
+}
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.centrado-porcentual {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+.centrado-horizontal-porcentual {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+.navbar {
+    background-color:cornflowerblue;
+}
+
+#divIntro {
+    box-shadow: 30px 10px 20px #aaa;
+    border-radius: 20px;
+    background-color:black;
+    float: left;
+    display: table; 
+    margin: 0 auto; 
+    width:100%;
+    padding: 10px;
+    cursor: pointer;
+}
+.jumbotron{
+    box-shadow: 30px 10px 20px #aaa; 
+    border-radius: 20px; 
+    background-color:cornflowerblue;
+    text-align:center;
+}
+.navbar-inverse .navbar-nav > li > a {
+  color: #000000;
+}
+.social {
+	position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
+	left: 0; /* Establecemos la barra en la izquierda */
+	top: 400px; /* Bajamos la barra 200px de arriba a abajo */
+	z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
+} 
+.social ul {
+    list-style: none;
+    padding-left:0.6em;
+} 
+.social ul li a {
+	display: inline-block;
+	color:#fff;
+	background: #000;
+	padding: 29px 29px;
+	text-decoration: none;
+	-webkit-transition:all 500ms ease;
+	-o-transition:all 500ms ease;
+	transition:all 500ms ease; /* Establecemos una transición a todas las propiedades */
+    /*para Firefox*/
+    -moz-border-radius: 15px 15px 15px 15px;
+    /*para Safari y Chrome*/
+    -webkit-border-radius: 15px 15px 15px 15px;
+    /* para Opera */
+    border-radius: 15px 15px 15px 15px;
+
+}
+.social ul li .icon-facebook { background: url('images/iconos-sociales.png') #3b5998 no-repeat -3.5em -3.5em;} /* Establecemos los colores de cada red social, aprovechando su class */
+.social ul li .icon-twitter {background: url('images/iconos-sociales.png') #00abf0 no-repeat 0 -3.5em ;}
+.social ul li .icon-googleplus {background: url('images/iconos-sociales.png') #ae181f no-repeat -7.2em -3.5em;}
+.search-index {
+    width: 100%;
+    height: 100%
+}
+#btnSearch {    
+    background: url('images/lupa.png') 0 0 no-repeat;
+    width: 7em;
+    height: 4em;
+    border: none;
+    float: left;
+    margin: -0.1em 1em -1em;
+    cursor: pointer;
+}
+.banner {
+background-color: cornflowerblue;
+padding: 1.5em;
+border-top:double;
+border-left:double;
+/*para Firefox*/
+-moz-border-radius: 15px 15px 15px 15px;
+/*para Safari y Chrome*/
+-webkit-border-radius: 15px 15px 15px 15px;
+/* para Opera */
+border-radius: 15px 15px 15px 15px;
+}
+#topSearch{
+    column-count: 3;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    -o-column-count: 3;
+        /*Espacio entre columnas*/
+    column-gap: 2em;
+    -webkit-column-gap: 2em;
+    -moz-column-gap: 2em;
+    -o-column-gap: 2em;
+    /*Agrega una barra solida de color*/
+    column-rule: 2px solid #666;
+    -webkit-column-rule: 2px solid #666;
+    -moz-column-rule: 2px solid #666;
+    -o-column-rule: 2px solid #666;
+    box-shadow: 30px 10px 20px #aaa; 
+    border-radius: 20px; 
+    background-color:cornflowerblue;
+    
+}
+.itemTopSearch {
+    background-color:skyblue;
+    margin:0.1em;
+    /*para Firefox*/
+    -moz-border-radius: 15px 15px 15px 15px;
+    /*para Safari y Chrome*/
+    -webkit-border-radius: 15px 15px 15px 15px;
+    /* para Opera */
+    border-radius: 15px 15px 15px 15px;
+}
+.itemTopSearch:hover {
+    background-color:cornflowerblue;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    color:#ffffff;
+    background-color:cadetblue;
+    border-color:cadetblue;
+}
+.btn-file:hover,
+.btn-file:focus,
+.btn-file:active,
+.open .dropdown-toggle.btn-primary {
+  color: #ffffff;
+  background-color: cornflowerblue;
+  border-color: cornflowerblue;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background-color: palegoldenrod;
+    cursor: inherit;
+    display: block;
+}
+
+.configSpaceStep {
+    background-color: gainsboro;
+    cursor:pointer;
+    /*para Firefox*/
+    -moz-border-radius: 15px 15px 15px 15px;
+    /*para Safari y Chrome*/
+    -webkit-border-radius: 15px 15px 15px 15px;
+    /* para Opera */
+    border-radius: 15px 15px 15px 15px;
+}
+.configSpaceStep:hover,
+.configSpaceStep:focus, 
+.configSpaceStep:active  
+{
+   background-color: yellowgreen;
+}
+
+.colorpicker-2x .colorpicker-saturation {
+    width: 200px;
+    height: 200px;
+}
+
+.colorpicker-2x .colorpicker-hue,
+.colorpicker-2x .colorpicker-alpha {
+        width: 30px;
+        height: 200px;
+    }
+.colorpicker-2x .colorpicker-color,
+.colorpicker-2x .colorpicker-color div{
+        height: 30px;
+}
+.homeLink {
+    background-image: url('images/LogoContactosYNegocios_index.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+    display: block;
+    margin-top: 0.2em;
+    outline: none;
+    overflow: hidden;
+    text-indent: -999px;
+    white-space: nowrap;
+    width: 28px;
+    z-index: 2;
+    margin-left:1em;
+}
+.navBarOptions {
+    background-image: url('images/icono-menu-movil.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+    display: block;
+    margin-top: 0.2em;
+    outline: none;
+    overflow: hidden;
+    text-indent: -999px;
+    white-space: nowrap;
+    width: auto;
+    height: 3em;
+    z-index: 2;
+}
+
+#divBottom {
+    background-color:black;
+    color:white;
+}
+
+.register {
+    width:30%;
+}
+.register-container {
+    margin-left:25%;
+}
+.register-error {
+    list-style: none;
+    color: red;
+    font-size: medium;
+}

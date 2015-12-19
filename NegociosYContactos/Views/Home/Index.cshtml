@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Negocios y Contactos";    
+}
+@Scripts.Render("~/bundles/index")
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div class="jumbotron" style="float:left;">
+    <h1>NEGOCIOS Y CONTACTOS</h1>
+</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div id="divIntro">
+    <ul>
+        <li style="float:left;margin:0;list-style:none;"><canvas id="canvas-intro"></canvas></li>
+        <li style="float:left;margin:0;list-style:none;"><canvas id="canvas-intro2"></canvas></li>
+        <li style="float:left;margin:0;list-style:none;width:33%;text-align:center;text-wrap:normal;color:white;font:bold;margin-top:5%;">
+            Encuentre justo lo que necesita.</li>               
+    </ul>   
+</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div class="row">
+    <div class="col-md-4" style="width:100%">
+        <h2>Negocios y Contactos</h2>
+        <p>Es un centro de negocios, donde usted podrá hacer contactos o encontrar diferentes productos o servicios.</p>
+        <p><a href="@Url.Action("About","Home")" class="btn btn-default">Leer más &raquo;</a></p>
+    </div>
+</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div style="margin-left:2em;">
+    <div id="divVideoIntro1" style="float:left;">
+        <iframe id="frameVideo1" src="https://www.youtube.com/embed/Bmy-XEvdR8s" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div id="divVideoIntro2" style="float:left;">
+        <iframe id="frameVideo2" src="https://www.youtube.com/embed/CqsviG8x3y8" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div id="divVideoIntro3" style="float:left;">
+        <iframe id="frameVideo3" src="https://www.youtube.com/embed/B0m1WduCtQI" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div id="divVideoPlay"></div>

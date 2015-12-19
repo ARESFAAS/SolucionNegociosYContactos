@@ -1,0 +1,51 @@
+﻿@model NegociosYContactos.Models.SearchViewModel
+@{
+    ViewBag.Title = "Buscar";    
+}
+@Scripts.Render("~/bundles/search")
+<div class="jumbotron" style="float:left;">
+    <h1>NEGOCIOS Y CONTACTOS</h1>
+</div>  
+<div style="clear:both; border-top : 20px solid #5ebdb2"></div>
+<div class="centrado-horizontal-porcentual" style="font-weight:bold;">Monedas:</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"></div>
+<div id="divEconomic" class="banner">
+    <div style="margin-left:1em;">Dólar: 3076,40</div>
+    <div style="margin-left:1em;">Euro: 3312,65</div>
+    <div style="margin-left:1em;">Real Brasileño: 799,95</div>
+</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"></div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"></div>
+<div class="search-index">
+    <div style="clear:both; border-top : 40px solid #5ebdb2"> </div>
+    <div id="divSearch" style="width:100%;">
+     <div style="text-align:center;">
+         <div style="display:inline-block;"><input id="txtSearch" type="text" style="font-size:xx-large;" /></div>
+         <div style="display:inline-block;">         
+             <input id="btnSearch" type="button" value="" onclick="javascript:goRoom('@Url.Action("Room", "Search", new { searchWord = "[*]" })');" />  
+         </div>
+     </div>
+    </div> 
+    <div style="clear:both; border-top: 40px solid #5ebdb2;"> </div>    
+    <div id="topSearch" style="text-align:center;margin:1em;border:0.1em dotted cornflowerblue;padding:0.5em;">
+        <div class="itemTopSearch">Restaurante</div>
+        <div class="itemTopSearch">Muebles</div>
+        <div class="itemTopSearch">Fiestas</div>
+        <div class="itemTopSearch">Libreria</div>
+        <div class="itemTopSearch">Detalles</div>
+        <div class="itemTopSearch">Hogar</div>
+    </div>
+</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"></div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"></div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"></div>
+<div class="centrado-horizontal-porcentual" style="font-weight:bold;">Noticias: </div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div id="divNews" class="banner">
+    <div style="margin-left:1em;">Deportes: Millonarios venció 2 a 1 al Tolima en la octava fecha del torneo</div>
+    <div style="margin-left:1em;">Social: Avanzan los diálogos de paz en la habana</div>
+    <div style="margin-left:1em;">Internacional: Al menos 270 heridos dejó ataque de ISIS en Francia, el estado islámico se atribuyó los hechos</div>
+</div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
+<div style="clear:both; border-top : 20px solid #5ebdb2"> </div>
