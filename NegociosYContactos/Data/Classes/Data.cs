@@ -47,6 +47,34 @@ namespace NegociosYContactos.Data.Classes
             }
         }
 
+        public User GetUser(User user)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    var result = context.AspNetUsers.Select(x => new User
+                    {
+                        Id = x.Id,
+                        AccessFailedCount = x.AccessFailedCount,
+                        Email = x.Email,
+                        IdentificationNumber = x.IdentificationNumber,
+                        IdentificationType = x.IdentificationType,
+                        Locked = x.Locked,
+                        Password = x.PasswordHash,
+                        Phone = x.PhoneNumber,
+                        UserName = x.UserName
+                    }).Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
+
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public User SaveUser(User user)
         {
             try

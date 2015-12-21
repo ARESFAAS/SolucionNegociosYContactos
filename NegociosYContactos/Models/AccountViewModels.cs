@@ -17,6 +17,6 @@ namespace NegociosYContactos.Models
         public bool Locked { get; set; }
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
-        
+        public string Message { get; set; }
     }
 }

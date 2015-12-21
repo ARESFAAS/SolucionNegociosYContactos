@@ -1,5 +1,6 @@
 ﻿window.onload = function () {
     animateTopBar();
+    modalMessage();
 }
 function animateTopBar()
 {    
@@ -11,4 +12,17 @@ function animateTopBar()
             $('#divNavBar').show("fade");
         }
     });    
+}
+
+function modalMessage()
+{
+    $("#dialog-message").dialog({
+        modal: true,
+        autoOpen:false,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
 }

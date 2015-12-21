@@ -7,5 +7,7 @@ namespace NegociosYContactos.Data.Classes
         BusinessWeb GetBusinessData();
 
         User SaveUser(User user);
+
+        User GetUser(User user);
     }
 }

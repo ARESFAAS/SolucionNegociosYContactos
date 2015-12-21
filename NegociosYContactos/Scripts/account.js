@@ -1,5 +1,6 @@
 ﻿var validPass = false;
 $(function () {
+    $('#divValidarPassword').hide();
     configFormValidate();
     validatePassword();
 });
@@ -7,12 +8,16 @@ $(function () {
 function configFormValidate() {
     $('#frmRegister').validate({ // initialize plugin
         rules: {
-            userName: "required",
             identificationNumber: "required",
             password: {
                 required: true,
                 minlength: 4,
                 maxlength: 6
+            },
+            userName: {
+                required: true,
+                minlength: 4,
+                maxlength: 20
             },
             phone: "required",
             email: {
@@ -21,16 +26,20 @@ function configFormValidate() {
             }
         },
         messages: {
-            userName: "Especifica tu nombre",
             identificationNumber: "Necesitamos tu número de identificación",
+            userName: {
+                required: "Especifica tu nombre",
+                minlength: jQuery.validator.format("Al menos {0} caracteres son requeridos para el nombre!"),
+                maxlength: jQuery.validator.format("Hasta {0} caracteres son permitidos para el nombre!")
+            },
             password: {
-                required: "Asigna un password que recuerdes facilmente",
-                minlength: jQuery.validator.format("Al menos {0} caracteres son requeridos!"),
-                maxlength: jQuery.validator.format("Hasta {0} caracteres son permitidos!")
+                required: "Asigna una contraseña que recuerdes facilmente",
+                minlength: jQuery.validator.format("Al menos {0} caracteres son requeridos para la contraseña!"),
+                maxlength: jQuery.validator.format("Hasta {0} caracteres son permitidos en la contraseña!")
             },
             phone: "Necesitamos un número de teléfono para contactarnos contigo",
             email: {
-                required: "Necesitamos tu email para contactarnos contigo",
+                required: "Necesitamos tu correo electrónico para contactarnos contigo",
                 email: "Tu correo electrónico debe tener el formato nombre@dominio.com"
             }
         }
@@ -49,12 +58,20 @@ function configFormValidate() {
         errorContainer: "#divSummaryErrors",
         errorLabelContainer: "#divSummaryErrors ul",
         wrapper: "li",
-        errorClass: "authError"
+        errorClass: "authError",
+        highlight: function (element, required) {
+            $(element).fadeOut(function () {
+                $(element).fadeIn();
+                $(element).css('border', '2px solid #FDADAF');
+            });
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).css('border', '1px solid #CCC');
+        }
     });
 }
 
-function saveUser()
-{
+function saveUser() {
     $.ajax({
         url: 'Account/SaveUser',
         dataType: "json",
@@ -69,35 +86,39 @@ function saveUser()
         processData: false,
         cache: false,
         success: function (data) {
-            alert(data);
+            $("#dialog-message").html(data.Message).dialog('open');
         },
-        error: function (xhr) {
-            alert('error');
+        error: function (xhr, errorText) {
+            alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
         }
     })
 }
 
-function validatePassword()
-{
+function validatePassword() {
     $('#txtPassword1').change(function () {
         if ($('#txtPassword1').val() == '') {
             $('#txtPassword2').val('');
         }
+        if ($('#txtPassword2').val() != $('#txtPassword1').val()) {
+            validPass = false;
+            $('#divValidarPassword').show('fade');
+        }
+        else {
+            validPass = true;
+            $('#divValidarPassword').hide('fade');
+        }
     });
     $('#txtPassword2').change(function () {
-        if ($('#txtPassword1').val() == '')
-        {
+        if ($('#txtPassword1').val() == '') {
             $('#txtPassword2').val('');
         }
-        {
-            if ($('#txtPassword2').val() != $('#txtPassword1').val()) {
-                validPass = false;
-                $('#divValidarPassword').show('fade');
-            }
-            else {
-                validPass = true;
-                $('#divValidarPassword').hide('fade');
-            }
+        if ($('#txtPassword2').val() != $('#txtPassword1').val()) {
+            validPass = false;
+            $('#divValidarPassword').show('fade');
+        }
+        else {
+            validPass = true;
+            $('#divValidarPassword').hide('fade');
         }
     });
 }

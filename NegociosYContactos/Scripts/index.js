@@ -25,6 +25,7 @@ window.onload = function () {
     parallaxEfect();
     startTime();
     makeDate();
+    animateTitle();
 }
 
 function drawDoor1() {
@@ -159,6 +160,9 @@ function makeDate() {
     $('#divDate').html("Hoy es " + day + " de " + months[month] + " del " + year);
 }
 
+function animateTitle() {
+    $("#divTitle").show("slide", {}, 1500);
+}
 
 ////<![CDATA[
 //    // Nieve en el blog

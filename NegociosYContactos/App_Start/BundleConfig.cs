@@ -8,6 +8,8 @@ namespace NegociosYContactos
         // Para obtener más información sobre Bundles, visite http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/contact").Include(
+                        "~/Scripts/contact.js"));
             bundles.Add(new ScriptBundle("~/bundles/colorpicker").Include(
                        "~/Scripts/bootstrap-colorpicker.min.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryupload").Include(
@@ -61,7 +63,7 @@ namespace NegociosYContactos
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/jquery-ui.min.css",
-                      "~/Content/jquery-ui.structure.min.css"));
+                      "~/Content/jquery-ui.structure.min.css", "~/Content/jquery-ui.theme.min.css"));
         }
     }
 }

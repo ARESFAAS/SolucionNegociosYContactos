@@ -22,13 +22,13 @@
                 <option value="P">Pasaporte</option>
             </select>
         </div>
-        <div><label class="register">Número de Identificación:</label><input name="identificationNumber" id="identificationNumber" type="text" /></div>
-        <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="tel" /></div>
+        <div><label class="register">Número de Identificación:</label><input name="identificationNumber" id="identificationNumber" type="number" /></div>
+        <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="number" /></div>
         <div><label class="register">Nombre de usuario:</label><input name="userName" id="userName" type="text" /></div>
         <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" /></div>
-        <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword">No concuerda</div></div>
+        <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword" class="register-error">No concuerda</div></div>
         <br />
-        <div><input id="btnEnviar" class="btn btn-default" href="" type="submit" value="Enviar" /></div>
+        <div><p style="margin-left:18%;"><input id="btnEnviar" class="btn btn-primary" href="" type="submit" value="Enviar" /></p></div>
     </form>
 </div>
 

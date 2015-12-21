@@ -14,12 +14,21 @@ namespace NegociosYContactos.Controllers
             return View();
         }
 
-        public ViewResult SaveUser(Models.User user)
+        public ActionResult SaveUser(Models.User user)
         {
             Data.Classes.IData data = new Data.Classes.Data();
-            user.Id = Guid.NewGuid().ToString();
-            data.SaveUser(user);
-            return View("Index");
+            // El usuario es nuevo          
+            if (data.GetUser(user) == null)
+            {
+                user.Id = Guid.NewGuid().ToString();
+                data.SaveUser(user);
+                user.Message = "¡¡¡Correcto, ya estas registrado, continua navegando nuestro sitio!!!";
+            }
+            else
+            {
+                user.Message = "Lo sentimos... ya tenemos un usuario registrado con los mismos datos";
+            }
+            return Json(new { Message = user.Message });
         }
     }
 }

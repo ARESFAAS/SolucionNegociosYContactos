@@ -29,6 +29,7 @@ input,
 select,
 textarea {
     max-width: 280px;
+    width:100%;
 }
 .centrado-porcentual {
     position: absolute;
@@ -256,9 +257,25 @@ border-radius: 15px 15px 15px 15px;
 }
 .register-container {
     margin-left:25%;
+    margin-right:8%;
 }
 .register-error {
     list-style: none;
     color: red;
     font-size: medium;
+}
+.dialog-information {
+    background-color:white;
+}
+.dialog-error {
+    background-color:white;
+}
+.contact-error {
+    list-style: none;
+    color: red;
+    font-size: medium;
+}
+.contact-container {
+    margin-left:15%;
+    margin-right:15%;
 }
