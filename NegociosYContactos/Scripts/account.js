@@ -72,26 +72,26 @@ function configFormValidate() {
 }
 
 function saveUser() {
-    $.ajax({
-        url: 'Account/SaveUser',
-        dataType: "json",
-        type: "POST",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({
-            Email: $('#email').val(), IdentificationType: $('#cmbIdentificationType').val(),
-            IdentificationNumber: $('#identificationNumber').val(), Password: $('#txtPassword1').val(),
-            AccessFailedCount: '0', UserName: $('#userName').val(), Phone: $('#phone').val()
-        }),
-        async: true,
-        processData: false,
-        cache: false,
-        success: function (data) {
-            $("#dialog-message").html(data.Message).dialog('open');
-        },
-        error: function (xhr, errorText) {
-            alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
-        }
-    })
+   $.ajax({
+            url: 'Account/SaveUser',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                Email: $('#email').val(), IdentificationType: $('#cmbIdentificationType').val(),
+                IdentificationNumber: $('#identificationNumber').val(), Password: $('#txtPassword1').val(),
+                AccessFailedCount: '0', UserName: $('#userName').val(), Phone: $('#phone').val()
+            }),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                $("#dialog-message").html(data.Message).dialog('open');
+            },
+            error: function (xhr, errorText) {
+                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+            }
+        });
 }
 
 function validatePassword() {

@@ -3,7 +3,10 @@
 }
 @Scripts.Render("~/bundles/contact")
 @Scripts.Render("~/bundles/jqueryval")
-<h2 style="margin-top:4em;">@ViewBag.Title</h2>
+<div class="jumbotron" style="float:left;">
+    <h1>NEGOCIOS Y CONTACTOS</h1>
+</div> 
+<h2>@ViewBag.Title</h2>
 <h3>@ViewBag.Message</h3>
 <address>
     Calle 27 Bis S 12 K 64<br />
@@ -14,12 +17,12 @@
 <address>
     <strong>Soporte:</strong>   <a href="mailto:ares.faas@gmail.com">ares.faas@gmail.com</a><br />
 </address>
-<br /><br />
+<br />
 <div class="contact-container">
     <form id="frmContact">
         <div id="divSummaryErrors"><ul class="contact-error"></ul></div>
         <div style="padding:0.2em 0.2em 0.2em 0.2em;margin:0.2em 0.2em 0.2em 0.2em;border:0.2em inset">
-            <div><label>Envíanos un mensaje con este formulario de contacto</label></div>
+            <div style="text-align:center;"><label>Envíanos un mensaje con este formulario de contacto</label></div>
             <br />
             <div><label style="text-align:left;width:6em;">Nombre:</label><input id="name" name="name" type="text" /></div>
             <div><label style="text-align:left;width:6em;">E-mail:</label><input id="email" name="email" type="email" /></div>

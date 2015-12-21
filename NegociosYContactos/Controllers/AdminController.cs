@@ -9,15 +9,14 @@ using System.Web.Mvc;
 
 namespace NegociosYContactos.Controllers
 {
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         private string _folderTemplate = "~/App_Data/ClientImages/{0}";
         // GET: Admin
-        [Authorize]
         public ActionResult Index()
         {
             Data.Classes.Data data = new Data.Classes.Data();
-            return View(data.GetBusinessData());
+            return View(data.GetBusinessData(this.UserAutenticated));
         }
 
         [HttpPost]
@@ -81,7 +80,6 @@ namespace NegociosYContactos.Controllers
             return Content("{\"name\":\"" + fileList[0].Name + "\",\"type\":\"" + fileList[0].Type + "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) + "\"}", "application/json");
         }
 
-        [Authorize]
         public ActionResult SaveData(string business, string businessProduct)
         {
 
@@ -102,12 +100,11 @@ namespace NegociosYContactos.Controllers
             return View("Index");
         }
 
-        [Authorize]
         public ActionResult GetData()
         {
 
             Data.Classes.Data data = new Data.Classes.Data();
-            data.GetBusinessData();
+            data.GetBusinessData(this.UserAutenticated);
 
             return View("Index");
         }

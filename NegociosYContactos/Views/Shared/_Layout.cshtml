@@ -28,16 +28,15 @@
                     <li>@Html.ActionLink("Buscar", "Index", "Search") </li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]) != null && ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Tu Espacio", "Index", "Admin") </li>
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Únete a nosotros", "Index", "Account")</li>
-                    <li>@Html.ActionLink("Ya eres parte, Ingresa", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Únete a nosotros", "Register", "Account")</li>
+                    <li>@Html.ActionLink("Ya eres parte, Ingresa", "Login", "Account")</li>
                 </ul>
-                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>

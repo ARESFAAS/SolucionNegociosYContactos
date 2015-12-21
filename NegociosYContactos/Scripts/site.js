@@ -22,6 +22,7 @@ function modalMessage()
         buttons: {
             Ok: function () {
                 $(this).dialog("close");
+                location.reload();
             }
         }
     });

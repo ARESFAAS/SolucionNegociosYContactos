@@ -4,9 +4,12 @@
 }
 @Scripts.Render("~/bundles/account")
 @Scripts.Render("~/bundles/jqueryval")
-<h2>Registro</h2>
+<div class="jumbotron" style="float:left;">
+    <h1>NEGOCIOS Y CONTACTOS</h1>
+</div>
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
 <br />
-
 <div class="register-container">
     <form id="frmRegister">
         <p>Llena el siguiente formulario para registrate en nuestro sitio</p>
@@ -26,7 +29,7 @@
         <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="number" /></div>
         <div><label class="register">Nombre de usuario:</label><input name="userName" id="userName" type="text" /></div>
         <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" /></div>
-        <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword" class="register-error">No concuerda</div></div>
+        <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword" class="register-error">La confirmación de tu contraseña no concuerda</div></div>
         <br />
         <div><p style="margin-left:18%;"><input id="btnEnviar" class="btn btn-primary" href="" type="submit" value="Enviar" /></p></div>
     </form>

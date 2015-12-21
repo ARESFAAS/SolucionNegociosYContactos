@@ -26,6 +26,8 @@ namespace NegociosYContactos
                      "~/Scripts/jQuery.FileUpload/jquery.fileupload-validate.js",
                      "~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js"
                      ));
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                     "~/Scripts/login.js"));
             bundles.Add(new ScriptBundle("~/bundles/account").Include(
                      "~/Scripts/account.js"));
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(

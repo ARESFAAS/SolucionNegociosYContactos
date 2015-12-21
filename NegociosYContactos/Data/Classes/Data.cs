@@ -6,15 +6,13 @@ namespace NegociosYContactos.Data.Classes
 {
     public class Data : IData
     {
-        public BusinessWeb GetBusinessData()
+        public BusinessWeb GetBusinessData(User user)
         {
             try
             {
-                // TODO: get User
-                string idUser = "3cd8f780-2d30-47d7-b597-dc157919b02e";
                 using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
                 {
-                    var products = context.BusinessData_Get(idUser).Select(x => new BusinessProductWeb
+                    var products = context.BusinessData_Get(user.Id).Select(x => new BusinessProductWeb
                     {
                         Id = x.IdBusinessProduct,
                         IdBusiness = x.Id,
@@ -24,7 +22,7 @@ namespace NegociosYContactos.Data.Classes
                         Value = x.ProductValue
                     }).ToList();
 
-                    var data = context.BusinessData_Get(idUser).Select(x => new BusinessWeb
+                    var data = context.BusinessData_Get(user.Id).Select(x => new BusinessWeb
                     {
                         Active = x.Active,
                         Description = x.Description,
@@ -36,7 +34,7 @@ namespace NegociosYContactos.Data.Classes
                         Products = products,
                         Style = x.Style,
                         UrlImage = x.UrlImage,
-                        User = new BusinessUserWeb { IdBusiness = x.Id, IdUser = idUser }
+                        User = new BusinessUserWeb { IdBusiness = x.Id, IdUser = user.Id }
                     }).FirstOrDefault();
                     return data;
                 }
@@ -65,6 +63,34 @@ namespace NegociosYContactos.Data.Classes
                         Phone = x.PhoneNumber,
                         UserName = x.UserName
                     }).Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
+
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public User GetUserForLogin(User user)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    var result = context.AspNetUsers.Select(x => new User
+                    {
+                        Id = x.Id,
+                        AccessFailedCount = x.AccessFailedCount,
+                        Email = x.Email,
+                        IdentificationNumber = x.IdentificationNumber,
+                        IdentificationType = x.IdentificationType,
+                        Locked = x.Locked,
+                        Password = x.PasswordHash,
+                        Phone = x.PhoneNumber,
+                        UserName = x.UserName
+                    }).Where(x => x.UserName.Equals(user.UserName) && x.Password.Equals(user.Password)).FirstOrDefault();
 
                     return result;
                 }
