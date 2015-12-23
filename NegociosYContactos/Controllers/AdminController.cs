@@ -1,4 +1,5 @@
-﻿using NegociosYContactos.Data;
+﻿using NegociosYContactos.CustomAttributes;
+using NegociosYContactos.Data;
 using NegociosYContactos.Models;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace NegociosYContactos.Controllers
 {
+    [BasicAuth]
     public class AdminController : BaseController
     {
         private string _folderTemplate = "~/App_Data/ClientImages/{0}";
@@ -86,9 +88,8 @@ namespace NegociosYContactos.Controllers
             return Content("{\"name\":\"" + fileList[0].Name + "\",\"type\":\"" + fileList[0].Type + "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) + "\"}", "application/json");
         }
 
-        public ActionResult SaveData(string business, string businessProduct)
+        public ActionResult SaveData(string business = null, string businessProduct = null)
         {
-
             ContactosyNegociosEntities db = new ContactosyNegociosEntities();
 
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Business));
