@@ -11,27 +11,29 @@
 <h3>@ViewBag.Message</h3>
 <br />
 <div class="register-container">
-    <form id="frmRegister">
-        <p>Llena el siguiente formulario para registrate en nuestro sitio</p>
-        <br />
-        <div id="divSummaryErrors"><ul class="register-error"></ul></div>
-        <div><label class="register">Email: </label><input name="email" id="email" type="email" /></div>
-        <div>
-            <label class="register">Tipo de Identificación:</label>
-            <select id="cmbIdentificationType">
-                <option value="C">Cédula de Ciudadanía</option>
-                <option value="N">Nit</option>
-                <option value="T">Tarjeta de Identidad</option>
-                <option value="P">Pasaporte</option>
-            </select>
-        </div>
-        <div><label class="register">Número de Identificación:</label><input name="identificationNumber" id="identificationNumber" type="number" /></div>
-        <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="number" /></div>
-        <div><label class="register">Nombre de usuario:</label><input name="userName" id="userName" type="text" /></div>
-        <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" /></div>
-        <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword" class="register-error">La confirmación de tu contraseña no concuerda</div></div>
-        <br />
-        <div><p style="margin-left:18%;"><input id="btnEnviar" class="btn btn-primary" href="" type="submit" value="Enviar" /></p></div>
-    </form>
+    <div style="padding:0.2em 0.2em 0.2em 0.2em;margin:0.2em 0.2em 0.2em 0.2em;border:0.2em inset">
+        <form id="frmRegister">
+            <p>Llena el siguiente formulario para registrate en nuestro sitio</p>
+            <br />
+            <div id="divSummaryErrors"><ul class="register-error"></ul></div>
+            <div><label class="register">Email: </label><input name="email" id="email" type="email" /></div>
+            <div>
+                <label class="register">Tipo de Identificación:</label>
+                <select id="cmbIdentificationType">
+                    <option value="C">Cédula de Ciudadanía</option>
+                    <option value="N">Nit</option>
+                    <option value="T">Tarjeta de Identidad</option>
+                    <option value="P">Pasaporte</option>
+                </select>
+            </div>
+            <div><label class="register">Número de Identificación:</label><input name="identificationNumber" id="identificationNumber" type="number" /></div>
+            <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="number" /></div>
+            <div><label class="register">Nombre de usuario:</label><input name="userName" id="userName" type="text" /></div>
+            <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" /></div>
+            <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword" class="register-error">La confirmación de tu contraseña no concuerda</div></div>
+            <br />
+            <div><p style="margin-left:18%;"><input id="btnEnviar" class="btn btn-primary" href="" type="submit" value="Enviar" /></p></div>
+        </form>
+    </div>
 </div>
 

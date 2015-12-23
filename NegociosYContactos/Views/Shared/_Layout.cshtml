@@ -37,7 +37,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]) != null && ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).IsAuthenticated)
                     {
-                        <li><div id="divUserName"></div><img id="imgUser" src="" /></li>
+                        var imgUserSrc = ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).UserImage;
+                        var userName = ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).UserName;
+                        <li><img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">@userName</div></li>
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Google"))
                         { 
                             <li><a href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>                        
@@ -76,8 +78,7 @@
                 @RenderBody()
                 <hr />
                 <footer style="text-align:center;">
-                    @*<p>&copy; @DateTime.Now.Year - Negocios y Contactos es una marca registrada por FASMAV Software S.A. - First one Analytic Software and Model of Advance</p>*@
-                    <p>&copy; @DateTime.Now.Year - Negocios y Contactos - Marca Registrada - Bogotá, Colombia</p>
+                    <p>&copy; @DateTime.Now.Year - Negocios y Contactos es una marca registrada por <a href="#">AreSoftware SAS.</a> - Bogotá, Colombia</p>
                 </footer>
             </div>
         </div>

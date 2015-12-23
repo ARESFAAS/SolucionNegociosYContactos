@@ -17,7 +17,7 @@ namespace NegociosYContactos.Controllers
             return View("Index");
         }
 
-        public ActionResult SaveUser(Models.User user)
+        public ActionResult SaveUser(User user)
         {
             Data.Classes.IData data = new Data.Classes.Data();
             // El usuario es nuevo          
@@ -50,14 +50,15 @@ namespace NegociosYContactos.Controllers
                 userAuthenticated.IsAuthenticated = true;
                 userAuthenticated.Message = "¡¡¡Correcto, ya estás autenticado, continua navegando nuestro sitio!!!";
                 user.Message = "¡¡¡Correcto, ya estás autenticado, continua navegando nuestro sitio!!!";
-                this.UserAutenticated = userAuthenticated;
+                UserAutenticated = userAuthenticated;
+                UserAutenticated.UserImage = user.UserImage;
             }
             else
             {
-                user.Message = "No pudimos procesar tu solicitud, probablemente aun no estás inscrito";
+                user.Message = "No pudimos procesar tu solicitud, probablemente aun no estás registrado o los datos que ingresaste no son correctos, prueba otra vez !!!";
             }
 
-            return Json(new { Message = user.Message });
+            return Json(new { Message = user.Message, Authenticated = UserAutenticated });
         }
 
         public ActionResult LoginUserExternalProvider(User user)
@@ -70,9 +71,10 @@ namespace NegociosYContactos.Controllers
                 if (userAuthenticated == null)
                 {
                     user.Id = Guid.NewGuid().ToString();
-                    this.UserAutenticated = data.SaveUser(user);
-                    this.UserAutenticated.Message = "¡¡¡Correcto, ya estas registrado y autenticado, continua navegando nuestro sitio!!!";
-                    this.UserAutenticated.IsAuthenticated = true;
+                    UserAutenticated = data.SaveUser(user);
+                    UserAutenticated.Message = "¡¡¡Correcto, ya estas registrado y autenticado, continua navegando nuestro sitio!!!";
+                    UserAutenticated.IsAuthenticated = true;
+                    UserAutenticated.UserImage = user.UserImage;
                     user.Message = "¡¡¡Correcto, ya estas registrado y autenticado, continua navegando nuestro sitio!!!";
 
                 }
@@ -81,7 +83,8 @@ namespace NegociosYContactos.Controllers
                     userAuthenticated.IsAuthenticated = true;
                     userAuthenticated.Message = "¡¡¡Correcto, ya estás autenticado, continua navegando nuestro sitio!!!";
                     user.Message = "¡¡¡Correcto, ya estás autenticado, continua navegando nuestro sitio!!!";
-                    this.UserAutenticated = userAuthenticated;
+                    userAuthenticated.UserImage = user.UserImage;
+                    UserAutenticated = userAuthenticated;
                 }                
             }
             else
@@ -89,7 +92,7 @@ namespace NegociosYContactos.Controllers
                 user.Message = "Lo sentimos... no tenemos sufientes datos para registrate con " + user.LoginProvider + " Intenta con otro proveedor de acceso o registrate directamente en nuestro sitio";
             }            
             
-            return Json(new { Message = user.Message, Authenticated = this.UserAutenticated  });
+            return Json(new { Message = user.Message, Authenticated = UserAutenticated });
         }
 
         public ActionResult Logout() {
