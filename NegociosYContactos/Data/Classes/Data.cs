@@ -61,7 +61,10 @@ namespace NegociosYContactos.Data.Classes
                         Locked = x.Locked,
                         Password = x.PasswordHash,
                         Phone = x.PhoneNumber,
-                        UserName = x.UserName
+                        UserName = x.UserName,
+                        LoginProvider = user.LoginProvider,
+                        IsAuthenticated = false,
+                        Message = string.Empty
                     }).Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
 
                     return result;
@@ -89,8 +92,42 @@ namespace NegociosYContactos.Data.Classes
                         Locked = x.Locked,
                         Password = x.PasswordHash,
                         Phone = x.PhoneNumber,
-                        UserName = x.UserName
+                        UserName = x.UserName,
+                        LoginProvider = user.LoginProvider,
+                        IsAuthenticated = false,
+                        Message = string.Empty
                     }).Where(x => x.UserName.Equals(user.UserName) && x.Password.Equals(user.Password)).FirstOrDefault();
+
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public User GetUserForLoginExternal(User user)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    var result = context.AspNetUsers.Select(x => new User
+                    {
+                        Id = x.Id,
+                        AccessFailedCount = x.AccessFailedCount,
+                        Email = x.Email,
+                        IdentificationNumber = x.IdentificationNumber,
+                        IdentificationType = x.IdentificationType,
+                        Locked = x.Locked,
+                        Password = x.PasswordHash,
+                        Phone = x.PhoneNumber,
+                        UserName = x.UserName,
+                        LoginProvider = user.LoginProvider,
+                        IsAuthenticated = false,
+                        Message = string.Empty
+                    }).Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
 
                     return result;
                 }
@@ -120,7 +157,6 @@ namespace NegociosYContactos.Data.Classes
                         UserName = user.UserName
                     };
                     context.AspNetUsers.Add(userEntity);
-                    context.SaveChanges();
                     return user;
                 }
             }

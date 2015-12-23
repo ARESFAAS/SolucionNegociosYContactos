@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/site")
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <script src="https://apis.google.com/js/api:client.js"></script>
 </head>
 <body>
     <div id="divNavBarTop" style="width:5%;float:right;"><a class="navBarOptions">Opciones</a></div>
@@ -34,8 +35,27 @@
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Únete a nosotros", "Register", "Account")</li>
-                    <li>@Html.ActionLink("Ya eres parte, Ingresa", "Login", "Account")</li>
+                    @if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]) != null && ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).IsAuthenticated)
+                    {
+                        <li><div id="divUserName"></div><img id="imgUser" src="" /></li>
+                        if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Google"))
+                        { 
+                            <li><a href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>                        
+                        }
+                        if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Facebook"))
+                        {
+                            <li><a href="#" onclick="signOutFacebook();">Cerrar Sesión</a></li>
+                        }
+                        if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Local"))
+                        {
+                            <li><a href="#" onclick="signOutLocal();">Cerrar Sesión</a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Únete a nosotros", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Ya eres parte, Ingresa", "Login", "Account")</li>
+                    }                    
                 </ul>
             </div>
         </div>

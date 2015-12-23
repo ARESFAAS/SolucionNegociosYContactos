@@ -11,5 +11,7 @@ namespace NegociosYContactos.Data.Classes
         User GetUser(User user);
 
         User GetUserForLogin(User user);
+
+        User GetUserForLoginExternal(User user);
     }
 }

@@ -10,21 +10,24 @@
 <br />
 <div class="row">
     <div class="col-md-4">
-            <label style="text-align:left;width:15em;">Nombre de Usuario: </label><input id="txtUserName" type="text" /><br />
-            <label style="text-align:left;width:15em;">Contraseña: </label><input id="txtPassword" type="password" /><br /><br />
-            <input id="btnLogin" class="btn btn-primary" href="" type="button" value="Enviar" />
+        <label style="text-align:left;width:15em;">Nombre de Usuario: </label><input id="txtUserName" type="text" /><br />
+        <label style="text-align:left;width:15em;">Contraseña: </label><input id="txtPassword" type="password" /><br /><br />
+        <input id="btnLogin" class="btn btn-primary" href="" type="button" value="Enviar" />
     </div>
     <br />
     <div class="col-md-8">
         <div style="text-align:center;">
-            <label >También puedes ingresar a nuestro sitio con los siguientes proveedores: </label>
+            <label>También puedes ingresar a nuestro sitio con los siguientes proveedores: </label>
             <p>
                 <br />
-                <button style="width:8em;" type="submit" class="btn btn-social btn-google" id="btnLoginGoogle" name="provider" value="Google" title="Inicie sesión con su cuenta Google">Google</button><br /><br />
-                <button style="width:8em;" type="submit" class="btn btn-social btn-facebook" id="btnLoginFacebook" name="provider" value="Facebook" title="Inicie sesión con su cuenta Facebook">Facebook</button>
+                <button style="width:8em;" type="button" class="btn btn-social btn-google" id="btnLoginGoogle" name="provider" value="Google" title="Inicie sesión con su cuenta Google">Google</button><br />
+                <div id="name"></div>
+                <button style="width:8em;margin-top:0.5em;" type="button" class="btn btn-social btn-facebook" id="btnLoginFacebook" name="provider" value="Facebook" title="Inicie sesión con su cuenta Facebook">Facebook</button>
+                <div id="status"></div>
             </p>
         </div>
     </div>
 </div>
+<div id="login-message-logout" title="Información"></div>
+<div id="login-error-logout" title="Información"></div>
 <br /><br />
-

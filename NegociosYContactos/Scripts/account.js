@@ -73,14 +73,14 @@ function configFormValidate() {
 
 function saveUser() {
    $.ajax({
-            url: 'Account/SaveUser',
+            url: 'http://localhost:59927/Account/SaveUser',
             dataType: "json",
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
                 Email: $('#email').val(), IdentificationType: $('#cmbIdentificationType').val(),
                 IdentificationNumber: $('#identificationNumber').val(), Password: $('#txtPassword1').val(),
-                AccessFailedCount: '0', UserName: $('#userName').val(), Phone: $('#phone').val()
+                AccessFailedCount: '0', UserName: $('#userName').val(), Phone: $('#phone').val(), LoginProvider: 'Local'
             }),
             async: true,
             processData: false,

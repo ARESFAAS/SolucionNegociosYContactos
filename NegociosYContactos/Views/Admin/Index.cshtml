@@ -162,11 +162,14 @@
         <label>Imágenes de tus productos o servicios actuales</label>
         <br />
         @{
-            foreach (var item in Model.Products)
+            if (Model.Products != null)
             {
+                foreach (var item in Model.Products)
+                {
                 <div style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;"><img src=@item.UrlImage /></div>
+                    }
+                }
             }
-        }
     </div>
 </div>
 <hr />
@@ -183,16 +186,19 @@
     <div>        
         <br />
         @{
-            foreach (var item in Model.Products)
+            if (Model.Products != null)
             {
+                foreach (var item in Model.Products)
+                {
                 <div style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;">
                     <img src=@item.UrlImage /><br />
                     <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Name" title="Aqui escribe el nombre de tu producto"/><br />
                     <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Description" title="Aqui escribe algun dato o referencia de tu producto"/><br />
                     <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Value" title="Aqui puedes colocar el valor de tu producto"/><br />
                 </div>
+                    }
+                }
             }
-        }
     </div>
  </div>
 <hr />

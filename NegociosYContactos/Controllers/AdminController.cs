@@ -16,7 +16,13 @@ namespace NegociosYContactos.Controllers
         public ActionResult Index()
         {
             Data.Classes.Data data = new Data.Classes.Data();
-            return View(data.GetBusinessData(this.UserAutenticated));
+            BusinessWeb businessWeb = new BusinessWeb();
+            if (this.UserAutenticated != null)
+            {
+                businessWeb = data.GetBusinessData(this.UserAutenticated);
+               
+            }
+            return View(businessWeb);
         }
 
         [HttpPost]
@@ -104,7 +110,12 @@ namespace NegociosYContactos.Controllers
         {
 
             Data.Classes.Data data = new Data.Classes.Data();
-            data.GetBusinessData(this.UserAutenticated);
+            BusinessWeb businessWeb = new BusinessWeb();
+            if (this.UserAutenticated != null)
+            {
+                businessWeb = data.GetBusinessData(this.UserAutenticated);
+
+            }
 
             return View("Index");
         }

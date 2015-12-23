@@ -59,5 +59,42 @@ namespace NegociosYContactos.Controllers
 
             return Json(new { Message = user.Message });
         }
+
+        public ActionResult LoginUserExternalProvider(User user)
+        {
+            Data.Classes.IData data = new Data.Classes.Data();
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                // El usuario es nuevo, se intenta obtener el usuario a partir el email registrado      
+                User userAuthenticated = data.GetUserForLoginExternal(user);
+                if (userAuthenticated == null)
+                {
+                    user.Id = Guid.NewGuid().ToString();
+                    this.UserAutenticated = data.SaveUser(user);
+                    this.UserAutenticated.Message = "¡¡¡Correcto, ya estas registrado y autenticado, continua navegando nuestro sitio!!!";
+                    this.UserAutenticated.IsAuthenticated = true;
+                    user.Message = "¡¡¡Correcto, ya estas registrado y autenticado, continua navegando nuestro sitio!!!";
+
+                }
+                else
+                {
+                    userAuthenticated.IsAuthenticated = true;
+                    userAuthenticated.Message = "¡¡¡Correcto, ya estás autenticado, continua navegando nuestro sitio!!!";
+                    user.Message = "¡¡¡Correcto, ya estás autenticado, continua navegando nuestro sitio!!!";
+                    this.UserAutenticated = userAuthenticated;
+                }                
+            }
+            else
+            {
+                user.Message = "Lo sentimos... no tenemos sufientes datos para registrate con " + user.LoginProvider + " Intenta con otro proveedor de acceso o registrate directamente en nuestro sitio";
+            }            
+            
+            return Json(new { Message = user.Message, Authenticated = this.UserAutenticated  });
+        }
+
+        public ActionResult Logout() {
+            UserAutenticated = null;
+            return Json(new { Message = "Ok" });
+        }
     }
 }

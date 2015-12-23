@@ -18,6 +18,8 @@ namespace NegociosYContactos.Models
         public int AccessFailedCount { get; set; }
         public string UserName { get; set; }
         public bool IsAuthenticated { get; set; }
+        public string LoginProvider { get; set; }
+        public string UserImage { get; set;  }
         public string Message { get; set; }        
     }
 }
