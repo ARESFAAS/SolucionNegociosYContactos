@@ -26,6 +26,7 @@ $(function () {
     startTime();
     makeDate();
     animateTitle();
+    getLocation();
 });
 
 function drawDoor1() {
@@ -163,6 +164,44 @@ function makeDate() {
 
 function animateTitle() {
     $("#divTitle").show("slide", {}, 1500);
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    var latT = position.coords.latitude;
+    var lngT = position.coords.longitude;
+    console.log(latT);
+    console.log(lngT);
+    var geocoder = new google.maps.Geocoder();
+    var latlng = { lat: parseFloat(latT), lng: parseFloat(lngT) };
+    console.log(latlng);
+    //geocoder.geocode({ 'location': latlng, 'componentRestrictions': { 'country': 'CO' } }, function (results, status) {
+    geocoder.geocode({ 'location': latlng}, function (results, status) {
+        var country;
+        if (status === google.maps.GeocoderStatus.OK) {            
+            for (var i = 0; i < results.length; i++) {
+                if (results[i].types[0] == 'country') {
+                    country = results[i];
+                    break;
+                }
+            }
+            if (country) {
+                window.alert(country.formatted_address);
+
+            } else {
+                window.alert('No results found');
+            }
+        } else {
+            window.alert('Geocoder failed due to: ' + status);
+        }
+    });
 }
 
 ////<![CDATA[

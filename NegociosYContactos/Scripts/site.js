@@ -3,11 +3,9 @@
     modalMessage();
     loadApiGoogle();
     loadApiFacebook();
-    getLocation();
 });
 
-function animateTopBar()
-{    
+function animateTopBar() {
     $('#divNavBarTop').click(function (e) {
         if ($('#divNavBar').is(":visible")) {
             $('#divNavBar').hide("fade");
@@ -15,14 +13,13 @@ function animateTopBar()
         else {
             $('#divNavBar').show("fade");
         }
-    });    
+    });
 }
 
-function modalMessage()
-{
+function modalMessage() {
     $("#dialog-message").dialog({
         modal: true,
-        autoOpen:false,
+        autoOpen: false,
         buttons: {
             Ok: function () {
                 $(this).dialog("close");
@@ -122,18 +119,4 @@ function loadApiFacebook() {
         js.src = "//connect.facebook.net/es_ES/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-}
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
-
-}
-
-function showPosition(position) {
-    //alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
-
 }
