@@ -1,33 +1,10 @@
-﻿window.onload = function () {
+﻿$(function () {
     animateTopBar();
     modalMessage();
-
-    gapi.load('auth2', function () {
-        auth2 = gapi.auth2.init({
-            client_id: '575694803506-gku0hudru360d2s5p1rdlesp72pg2msm.apps.googleusercontent.com',
-            cookiepolicy: 'single_host_origin'
-        });
-    });
-
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '878926252226269',
-            cookie: true,  // enable cookies to allow the server to access
-            // the session
-            xfbml: true,  // parse social plugins on this page
-            version: 'v2.5' // use version 2.2
-        });
-    };
-
-    // Load the SDK asynchronously
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/es_ES/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-}
+    loadApiGoogle();
+    loadApiFacebook();
+    getLocation();
+});
 
 function animateTopBar()
 {    
@@ -56,7 +33,7 @@ function modalMessage()
 }
 
 function signOutGoogle() {
-    
+
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User Google signed out.');
@@ -115,4 +92,48 @@ function signOutLocal() {
             alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
         }
     });
+}
+
+function loadApiGoogle() {
+    gapi.load('auth2', function () {
+        auth2 = gapi.auth2.init({
+            client_id: '575694803506-gku0hudru360d2s5p1rdlesp72pg2msm.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin'
+        });
+    });
+}
+
+function loadApiFacebook() {
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '878926252226269',
+            cookie: true,  // enable cookies to allow the server to access
+            // the session
+            xfbml: true,  // parse social plugins on this page
+            version: 'v2.5' // use version 2.2
+        });
+    };
+
+    // Load the SDK asynchronously
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_ES/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+
+}
+
+function showPosition(position) {
+    //alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+
 }

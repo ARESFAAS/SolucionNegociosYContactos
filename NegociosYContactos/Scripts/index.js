@@ -3,7 +3,7 @@ var canvasIntro;
 var context;
 var address;
 var IsDoorOpen = false;
-window.onload = function () {
+$(function () {
     var tamañoAreaDibujo = $('#divIntro').width();
     canvasIntro1 = document.getElementById('canvas-intro2');
     context1 = canvasIntro1.getContext('2d');
@@ -18,7 +18,7 @@ window.onload = function () {
     drawDoor1();
     drawDoor2();
     openDoor();
-    animateTopBar();
+    //animateTopBar();
     animateVideo($('#divVideoIntro1'), $('#frameVideo1'));
     animateVideo($('#divVideoIntro2'), $('#frameVideo2'));
     animateVideo($('#divVideoIntro3'), $('#frameVideo3'));
@@ -26,7 +26,7 @@ window.onload = function () {
     startTime();
     makeDate();
     animateTitle();
-}
+});
 
 function drawDoor1() {
     if (address1 == 0) {
@@ -139,6 +139,7 @@ function startTime() {
     document.getElementById('reloj').innerHTML = h + ":" + m + ":" + s;
     t = setTimeout('startTime()', 500);
 }
+
 function checkTime(i) {
     if (i < 10) { i = "0" + i; }
     return i;

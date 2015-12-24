@@ -106,7 +106,7 @@ window.fbAsyncInit = function () {
 // successful.  See statusChangeCallback() for when this call is made.
 function getFacebookData() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function (response) {
+    FB.api('/me', {fields: 'name,email,picture'}, function (response) {
         console.log(JSON.stringify(response));
 
         $.ajax({
@@ -114,9 +114,10 @@ function getFacebookData() {
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                Email: 'ares.faas@gmail.com', IdentificationType: '',
+                Email: response.email, IdentificationType: '',
                 IdentificationNumber: '', Password: '',
-                AccessFailedCount: '0', UserName: response.name, Phone: '', LoginProvider: 'Facebook'
+                AccessFailedCount: '0', UserName: response.name, Phone: '', LoginProvider: 'Facebook',
+                UserImage: response.picture.data.url
             }),
             async: true,
             processData: false,
@@ -187,7 +188,8 @@ function loginFacebook() {
 var loginGoogle = function () {
     gapi.load('auth2', function () {
         // Retrieve the singleton for the GoogleAuth library and set up the client.
-        auth2 = gapi.auth2.init({
+        // auth2 = gapi.auth2.init({
+            auth2 = gapi.auth2.getAuthInstance({
             client_id: '575694803506-gku0hudru360d2s5p1rdlesp72pg2msm.apps.googleusercontent.com',
             cookiepolicy: 'single_host_origin',
             // Request scopes in addition to 'profile' and 'email'

@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <script src="https://apis.google.com/js/api:client.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/site")
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-    <script src="https://apis.google.com/js/api:client.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">    
 </head>
 <body>
     <div id="divNavBarTop" style="width:5%;float:right;"><a class="navBarOptions">Opciones</a></div>
@@ -39,17 +39,21 @@
                     {
                         var imgUserSrc = ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).UserImage;
                         var userName = ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).UserName;
-                        <li><img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">@userName</div></li>
+
+
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Google"))
-                        { 
-                            <li><a href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>                        
+                        {
+                            <li><img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">@userName</div></li>
+                            <li><a href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>
                         }
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Facebook"))
                         {
+                            <li><img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">@userName</div></li>
                             <li><a href="#" onclick="signOutFacebook();">Cerrar Sesión</a></li>
                         }
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Local"))
                         {
+                            <li><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">¡¡Hola!! @userName</div></li>
                             <li><a href="#" onclick="signOutLocal();">Cerrar Sesión</a></li>
                         }
                     }
@@ -72,7 +76,7 @@
             <li>@Html.ActionLink("Tu Espacio", "Index", "Admin") </li>
         }
     </ul>
-    <div id="divBody" class="container body-content" style="width:80%;">
+    <div id="divBody" class="container body-content" style="width:80%;">        
         <div style="border-left:0.1em groove cornflowerblue;border-right:0.1em groove cornflowerblue;">
             <div style="margin-left:4em;margin-right:4em;">
                 @RenderBody()
@@ -94,10 +98,11 @@
         NEGOCIOS Y CONTACTOS
         <div id="divDate"></div>
         <div id="reloj" style="font-size:20px;"></div>
-    </div>
+    </div>  
     <div id="dialog-message" title="Información"></div>
     <div id="dialog-error" title="Error"></div>
-    @Scripts.Render("~/bundles/bootstrap")
+    
+    @Scripts.Render("~/bundles/bootstrap")    
     @Scripts.Render("~/bundles/jqueryui")
     @RenderSection("scripts", required: false)
 </body>

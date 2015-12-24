@@ -1,8 +1,8 @@
-﻿window.onload = function () {
+﻿$(function () {
     economicBannerLoad();
     newsBannerLoad();
     itemSearchAnimate();
-}
+});
 
 function economicBannerLoad() {
     $('#divEconomic').cycle({
