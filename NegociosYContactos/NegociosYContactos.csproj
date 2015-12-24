@@ -184,7 +184,9 @@
     <Content Include="Content\images\bootstrap-colorpicker\hue.png" />
     <Content Include="Content\images\bootstrap-colorpicker\saturation.png" />
     <Content Include="Content\images\cartagena.jpg" />
+    <Content Include="Content\images\co.png" />
     <Content Include="Content\images\dubai-uae-buildings-skyscrapers-night.jpg" />
+    <Content Include="Content\images\ec.png" />
     <Content Include="Content\images\icono-menu-movil.png" />
     <Content Include="Content\images\iconos-sociales.png" />
     <Content Include="Content\images\icono_cerrar.png" />

@@ -19,8 +19,8 @@ function fileUploadConfig()
             .test(window.navigator.userAgent),
         maxFileSize: 999000,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        imageMaxWidth: 65,
-        imageMaxHeight: 65,
+        imageMaxWidth: 200,
+        imageMaxHeight: 200,
         imageCrop: false, // Force cropped images
         maxNumberOfFiles: 9,
         done: function (e, data) {

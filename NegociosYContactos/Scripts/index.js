@@ -167,10 +167,13 @@ function animateTitle() {
 }
 
 function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        alert("Geolocation is not supported by this browser.");
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(showPosition);        
+    }
+    else
+    {
+        //alert("Geolocation is not supported by this browser.");
     }
 }
 
@@ -193,13 +196,45 @@ function showPosition(position) {
                 }
             }
             if (country) {
-                window.alert(country.formatted_address);
-
+                $.ajax({
+                    url: 'http://localhost:59927/Account/UpdateUserCountry',
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        country: country.formatted_address
+                    }),
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        if (data.Country == 'COLOMBIA') {
+                            if($('#imgCountry').attr('src') == '')
+                            {
+                                $('#divImgCountry').show();
+                                $('#imgCountry').attr('src', 'http://localhost:59927/Content/images/co.png')
+                            }
+                        }
+                        else {
+                            if (data.Country == 'ECUADOR') {
+                                if ($('#imgCountry').attr('src') == '') {
+                                    $('#divImgCountry').show();
+                                    $('#imgCountry').attr('src', 'http://localhost:59927/Content/images/ec.png')
+                                }
+                            }
+                            else {
+                                $('#divImgCountry').hide();
+                            }
+                        }
+                    },
+                    error: function (xhr, errorText) {
+                    }
+                });
+                //window.alert(country.formatted_address);
             } else {
-                window.alert('No results found');
+                //window.alert('No results found');
             }
         } else {
-            window.alert('Geocoder failed due to: ' + status);
+            //window.alert('Geocoder failed due to: ' + status);
         }
     });
 }

@@ -99,5 +99,15 @@ namespace NegociosYContactos.Controllers
             UserAutenticated = null;
             return Json(new { Message = "Ok" });
         }
+
+        public JsonResult UpdateUserCountry(string country)
+        {
+            if (UserAutenticated != null)
+            {
+                UserAutenticated.UserCountry = country;
+            }
+            Country = country;
+            return Json(new { Country = country.ToUpper() });
+        }
     }
 }

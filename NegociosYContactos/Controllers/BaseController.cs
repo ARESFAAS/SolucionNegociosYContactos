@@ -17,5 +17,18 @@ namespace NegociosYContactos.Controllers
                 Session["UserAuthenticated"] = value;
             }
         }
+
+        public string Country
+        {
+            get
+            {
+                return (string)Session["Country"];
+            }
+
+            set
+            {
+                Session["Country"] = value;
+            }
+        }
     }
 }

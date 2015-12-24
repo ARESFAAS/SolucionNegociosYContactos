@@ -20,6 +20,7 @@ namespace NegociosYContactos.Models
         public bool IsAuthenticated { get; set; }
         public string LoginProvider { get; set; }
         public string UserImage { get; set;  }
-        public string Message { get; set; }        
+        public string Message { get; set; }   
+        public string UserCountry { get; set; }    
     }
 }

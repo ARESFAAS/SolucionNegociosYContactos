@@ -35,6 +35,27 @@
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                        @if (Session["Country"] != null)
+                        {
+                            var countryTemp = ((string)Session["Country"]).ToUpper();
+                            if (countryTemp.Equals("COLOMBIA"))
+                            {
+                                <li><img style="float:left;margin:0.9em 0.5em 0.5em 0.5em;" id="imgCountry" src="~/Content/images/co.png" width="40" height="20" /></li>
+                            }
+                            else if (countryTemp.Equals("ECUADOR"))
+                            {
+                                <li><img style="float:left;margin:0.9em 0.5em 0.5em 0.5em;" id="imgCountry"  src="~/Content/images/ec.png" width="40" height="20" /></li>
+                            }
+                            else
+                            {
+                                <li><img style="float:left;margin:0.9em 0.5em 0.5em 0.5em;" id="imgCountry" src="" width="40" height="20" /></li>
+                            }
+                        }
+                        else
+                        {
+                            <li><div id="divImgCountry" style="display:none;"><img style="float:left;margin:0.9em 0.5em 0.5em 0.5em;" id="imgCountry" src="" width="40" height="20" /></div></li>
+                        }
+
                     @if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]) != null && ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).IsAuthenticated)
                     {
                         var imgUserSrc = ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).UserImage;
