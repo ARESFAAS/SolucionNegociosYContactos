@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Registro";
 }
 @Scripts.Render("~/bundles/account")
@@ -11,6 +10,9 @@
 <h3>@ViewBag.Message</h3>
 <br />
 <div class="register-container">
+    @{
+        Html.RenderPartial("~/Views/Account/_RegisterForm.cshtml");
+     }
     <div style="padding:0.2em 0.2em 0.2em 0.2em;margin:0.2em 0.2em 0.2em 0.2em;border:0.2em inset">
         <form id="frmRegister">
             <p>Llena el siguiente formulario para registrate en nuestro sitio</p>

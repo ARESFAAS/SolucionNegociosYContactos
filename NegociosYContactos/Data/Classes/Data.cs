@@ -6,6 +6,45 @@ namespace NegociosYContactos.Data.Classes
 {
     public class Data : IData
     {
+        public User EditUser(User user)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    var userValidate = GetUser(user);
+                    if (userValidate.Email.Equals(user.Email) && !userValidate.Id.Equals(user.Id))
+                    {
+                        user.Message = "emailExists";
+                        return user;
+                    }
+                    else
+                    {
+                        var actualUser = context.AspNetUsers.FirstOrDefault(x => x.Id.Equals(user.Id));
+                        actualUser.Id = user.Id;
+                        actualUser.AccessFailedCount = user.AccessFailedCount;
+                        actualUser.IdentificationNumber = user.IdentificationNumber;
+                        actualUser.IdentificationType = user.IdentificationType;
+                        actualUser.Locked = user.Locked;
+                        actualUser.Email = user.Email;
+                        actualUser.UserName = user.UserName;
+                        actualUser.PasswordHash = user.Password;
+                        actualUser.PhoneNumber = user.Phone;
+                        user.LoginProvider = string.Empty;
+                        user.IsAuthenticated = false;
+                        user.Message = string.Empty;
+
+                        context.SaveChanges();
+                        return user;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public BusinessWeb GetBusinessData(User user)
         {
             try

@@ -1,4 +1,5 @@
-﻿using NegociosYContactos.Models;
+﻿using NegociosYContactos.CustomAttributes;
+using NegociosYContactos.Models;
 using System;
 using System.Web.Mvc;
 
@@ -108,6 +109,36 @@ namespace NegociosYContactos.Controllers
             }
             Country = country;
             return Json(new { Country = country.ToUpper() });
+        }
+
+        [BasicAuth]
+        public ActionResult Edit()
+        {
+            ViewBag.Message = "Negocios y Contactos - Actualización de Datos";
+            return View(UserAutenticated);
+        }
+
+        [BasicAuth]
+        public ActionResult EditUser(User user)
+        {
+            Data.Classes.IData data = new Data.Classes.Data();
+            user.Id = UserAutenticated.Id;
+            
+            var result = data.EditUser(user);
+            if (result.Message.Equals("emailExists"))
+            {
+                result.Message = "Lo sentimos... ya tenemos un usuario registrado con los mismos datos";
+            }
+            else
+            {
+                UserAutenticated.Email = result.Email;
+                UserAutenticated.Password = result.Password;
+                UserAutenticated.Phone = result.Phone;
+                UserAutenticated.UserName = result.UserName;
+                
+                result.Message = "¡¡¡Correcto, ya completaste tu registro, continua navegando nuestro sitio!!!";
+            }
+            return Json(new { Message = result.Message });
         }
     }
 }

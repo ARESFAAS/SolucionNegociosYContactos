@@ -60,22 +60,34 @@
                     {
                         var imgUserSrc = ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).UserImage;
                         var userName = ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).UserName;
-
-
+                        
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Google"))
                         {
-                            <li><img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">@userName</div></li>
-                            <li><a href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>
+                             <li class="dropdown">
+                                <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
+                                <ul class="dropdown-menu">
+                                    <li><a style="cursor:pointer;" href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>
+                                </ul>
+                            </li>
                         }
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Facebook"))
                         {
-                            <li><img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">@userName</div></li>
-                            <li><a href="#" onclick="signOutFacebook();">Cerrar Sesión</a></li>
+                            <li class="dropdown">
+                                <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
+                                <ul class="dropdown-menu">
+                                    <li><a style="cursor:pointer;" href="#" onclick="signOutFacebook();">Cerrar Sesión</a></li>
+                                </ul>
+                            </li>
                         }
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Local"))
                         {
-                            <li><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName">¡¡Hola!! @userName</div></li>
-                            <li><a href="#" onclick="signOutLocal();">Cerrar Sesión</a></li>
+                            <li class="dropdown">
+                                <div style="float:left;margin:1em 1em 1em 1em;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divUserName2">¡¡Hola!! @userName</div>
+                                <ul class="dropdown-menu">
+                                    <li><a style="cursor:pointer;" href="#" onclick="signOutLocal();">Cerrar Sesión</a></li>
+                                    <li>@Html.ActionLink("Actualizacion de datos", "Edit", "Account")</li>
+                                </ul>                                
+                            </li>                            
                         }
                     }
                     else

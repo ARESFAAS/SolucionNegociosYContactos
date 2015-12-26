@@ -1,0 +1,68 @@
+﻿@model NegociosYContactos.Models.User
+@{
+    ViewBag.Title = "Actualizar Datos";
+}
+@Scripts.Render("~/bundles/account")
+@Scripts.Render("~/bundles/jqueryval")
+<div class="jumbotron" style="float:left;">
+    <h1>NEGOCIOS Y CONTACTOS</h1>
+</div>
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+<br />
+<div class="register-container">
+    <div style="padding:0.2em 0.2em 0.2em 0.2em;margin:0.2em 0.2em 0.2em 0.2em;border:0.2em inset">
+        <form id="frmEditUser">
+            <p>Llena el siguiente formulario para registrate en nuestro sitio</p>
+            <br />
+            <div id="divSummaryErrors"><ul class="register-error"></ul></div>
+            <div>
+                <label class="register">Tipo de Identificación:</label>
+                <select id="cmbIdentificationType" disabled>
+                    @{
+                        if (Model.IdentificationType.Equals("C"))
+                        {
+                            <option value="C" selected="selected">Cédula de Ciudadanía</option>
+                            <option value="N">Nit</option>
+                            <option value="T">Tarjeta de Identidad</option>
+                            <option value="P">Pasaporte</option>
+                        }
+                        else if (Model.IdentificationType.Equals("N"))
+                        {
+                            <option value="C">Cédula de Ciudadanía</option>
+                            <option value="N" selected="selected">Nit</option>
+                            <option value="T">Tarjeta de Identidad</option>
+                            <option value="P">Pasaporte</option>
+                        }
+                        else if (Model.IdentificationType.Equals("T"))
+                        {
+                            <option value="C">Cédula de Ciudadanía</option>
+                            <option value="N">Nit</option>
+                            <option value="T" selected="selected">Tarjeta de Identidad</option>
+                            <option value="P">Pasaporte</option>
+                        }
+                        else
+                        {
+                            <option value="C">Cédula de Ciudadanía</option>
+                            <option value="N">Nit</option>
+                            <option value="T">Tarjeta de Identidad</option>
+                            <option value="P" selected="selected">Pasaporte</option>
+                        }
+                    }
+                    <option value="C">Cédula de Ciudadanía</option>
+                    <option value="N">Nit</option>
+                    <option value="T">Tarjeta de Identidad</option>
+                    <option value="P">Pasaporte</option>
+                </select>
+            </div>
+            <div><label class="register">Número de Identificación:</label><input disabled name="identificationNumber" id="identificationNumber" type="number" value=@Model.IdentificationNumber /></div>
+            <div><label class="register">Email: </label><input name="email" id="email" value="@Model.Email" type="email" /></div>
+            <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="number" value="@Model.Phone" /></div>
+            <div><label class="register">Nombre de usuario:</label><input name="userName" id="userName" type="text" value="@Model.UserName" /></div>
+            <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" value="@Model.Password" /></div>
+            <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" value="@Model.Password"/><div id="divValidarPassword" class="register-error">La confirmación de tu contraseña no concuerda</div></div>
+            <br />
+            <div><p style="margin-left:18%;"><input id="btnEnviar" class="btn btn-primary" href="" type="submit" value="Enviar" /></p></div>
+        </form>
+    </div>
+</div>
