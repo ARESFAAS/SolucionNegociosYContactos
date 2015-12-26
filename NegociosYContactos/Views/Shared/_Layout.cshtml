@@ -67,6 +67,7 @@
                                 <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
                                 <ul class="dropdown-menu">
                                     <li><a style="cursor:pointer;" href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>
+                                    <li>@Html.ActionLink("Actualizacion de datos", "Edit", "Account")</li>
                                 </ul>
                             </li>
                         }
@@ -76,6 +77,7 @@
                                 <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
                                 <ul class="dropdown-menu">
                                     <li><a style="cursor:pointer;" href="#" onclick="signOutFacebook();">Cerrar Sesión</a></li>
+                                    <li>@Html.ActionLink("Actualizacion de datos", "Edit", "Account")</li>
                                 </ul>
                             </li>
                         }

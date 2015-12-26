@@ -41,12 +41,19 @@
                             <option value="T" selected="selected">Tarjeta de Identidad</option>
                             <option value="P">Pasaporte</option>
                         }
-                        else
+                        else if (Model.IdentificationType.Equals("P"))
                         {
                             <option value="C">Cédula de Ciudadanía</option>
                             <option value="N">Nit</option>
                             <option value="T">Tarjeta de Identidad</option>
                             <option value="P" selected="selected">Pasaporte</option>
+                        }
+                        else
+                        {
+                            <option value="C">Cédula de Ciudadanía</option>
+                            <option value="N">Nit</option>
+                            <option value="T">Tarjeta de Identidad</option>
+                            <option value="P">Pasaporte</option>
                         }
                     }
                     <option value="C">Cédula de Ciudadanía</option>

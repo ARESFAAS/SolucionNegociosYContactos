@@ -91,9 +91,23 @@ namespace NegociosYContactos.Controllers
             else
             {
                 user.Message = "Lo sentimos... no tenemos sufientes datos para registrate con " + user.LoginProvider + " Intenta con otro proveedor de acceso o registrate directamente en nuestro sitio";
+            }
+
+            var completeUserData = false;
+            if (UserAutenticated.IsAuthenticated)
+            {
+                if(string.IsNullOrEmpty(UserAutenticated.IdentificationNumber) ||
+                    string.IsNullOrEmpty(UserAutenticated.IdentificationType) ||
+                    string.IsNullOrEmpty(UserAutenticated.Email) ||
+                    string.IsNullOrEmpty(UserAutenticated.Phone) ||
+                    string.IsNullOrEmpty(UserAutenticated.UserName))
+                {
+                    completeUserData = true;
+                }
+                    
             }            
             
-            return Json(new { Message = user.Message, Authenticated = UserAutenticated });
+            return Json(new { Message = user.Message, Authenticated = UserAutenticated, CompleteUserData = completeUserData });
         }
 
         public ActionResult Logout() {

@@ -123,13 +123,17 @@ function getFacebookData() {
             processData: false,
             cache: false,
             success: function (data) {
-                if (!data.Authenticated) {
-                    logout = 'Facebook';
-                    clientProvider = 'Facebook';
-                    $('#login-message-logout').html(data.Message).dialog('open');
-                }
-                else {
-                    $('#dialog-message').html(data.Message).dialog('open');
+                if (data.CompleteUserData && data.Authenticated) {
+                    window.location.href= 'http://localhost:59927/Account/Edit';                   
+                } else {
+                    if (!data.Authenticated) {
+                        logout = 'Facebook';
+                        clientProvider = 'Facebook';
+                        $('#login-message-logout').html(data.Message).dialog('open');
+                    }
+                    else {
+                        $('#dialog-message').html(data.Message).dialog('open');
+                    }
                 }
             },
             error: function (xhr, errorText) {
