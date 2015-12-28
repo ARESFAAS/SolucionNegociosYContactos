@@ -3,6 +3,7 @@
     modalMessage();
     loadApiGoogle();
     loadApiFacebook();
+    showSocial();
 });
 
 function animateTopBar() {
@@ -28,7 +29,7 @@ function modalMessage() {
         }
     });
 }
-
+    
 function signOutGoogle() {
 
     var auth2 = gapi.auth2.getAuthInstance();
@@ -119,4 +120,23 @@ function loadApiFacebook() {
         js.src = "//connect.facebook.net/es_ES/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+}
+
+function showSocial() {
+    if ($(window).width() > 800) {
+        $('body').mousemove(function ()
+        {
+            if (event.pageX <= 70) {
+                $('.social').show(1000);
+            }
+            else
+            {
+                $('.social').hide(1000);
+            }
+        });
+    }
+    else
+    {
+        $('.social').show(1000);
+    }
 }

@@ -94,7 +94,8 @@ namespace NegociosYContactos.Controllers
             }
 
             var completeUserData = false;
-            if (UserAutenticated.IsAuthenticated)
+            
+            if (UserAutenticated != null && UserAutenticated.IsAuthenticated)
             {
                 if(string.IsNullOrEmpty(UserAutenticated.IdentificationNumber) ||
                     string.IsNullOrEmpty(UserAutenticated.IdentificationType) ||

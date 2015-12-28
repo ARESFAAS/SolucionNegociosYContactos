@@ -44,5 +44,25 @@ namespace NegociosYContactos.Controllers
                 return View("Contact");
             }
         }
+
+        public ActionResult Terms()
+        {
+            return View();
+        }
+
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+
+        public ActionResult PartialTerms()
+        {
+            return PartialView("_Terms");
+        }
+
+        public ActionResult PartialPrivacyPolicy()
+        {
+            return PartialView("_PrivacyPolicy");
+        }
     }
 }

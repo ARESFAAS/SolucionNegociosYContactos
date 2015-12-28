@@ -314,7 +314,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #333333;
+  /*color: #333333;*/
   background-color: #ffffff;
 }
 
@@ -4083,7 +4083,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-collapse {
-  max-height: 340px;
+  /*max-height: 340px;*/
   padding-right: 15px;
   padding-left: 15px;
   overflow-x: visible;
@@ -4590,7 +4590,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     border-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-    color: #999999;
+    /*color: #999999;*/
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {

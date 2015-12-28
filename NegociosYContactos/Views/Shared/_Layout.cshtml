@@ -27,7 +27,14 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home", new { Class = "homeLink", href = Url.Action("Index", "Home") })</li>
                     <li>@Html.ActionLink("Buscar", "Index", "Search") </li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                    <li class="dropdown">
+                        <div style="padding:14px 15px;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divUserName2">Conócenos</div>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                            <li>@Html.ActionLink("Términos y Condiciones", "Terms", "Home")</li>
+                            <li>@Html.ActionLink("Política de Privacidad", "PrivacyPolicy", "Home")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
                     @if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]) != null && ((NegociosYContactos.Models.User)Session["UserAuthenticated"]).IsAuthenticated)
                     {

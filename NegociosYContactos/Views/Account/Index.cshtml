@@ -10,9 +10,9 @@
 <h3>@ViewBag.Message</h3>
 <br />
 <div class="register-container">
-    @{
+    @*@{
         Html.RenderPartial("~/Views/Account/_RegisterForm.cshtml");
-     }
+     }*@
     <div style="padding:0.2em 0.2em 0.2em 0.2em;margin:0.2em 0.2em 0.2em 0.2em;border:0.2em inset">
         <form id="frmRegister">
             <p>Llena el siguiente formulario para registrate en nuestro sitio</p>
@@ -34,8 +34,12 @@
             <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" /></div>
             <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" /><div id="divValidarPassword" class="register-error">La confirmación de tu contraseña no concuerda</div></div>
             <br />
+            <div><label class="register">Acepta nuestros <a id="lnkTerm" href="">Terminos y Condiciones</a></label><input style="text-align:left;" id="chkTerms" type="checkbox" /></div>
+            <br />
             <div><p style="margin-left:18%;"><input id="btnEnviar" class="btn btn-primary" href="" type="submit" value="Enviar" /></p></div>
         </form>
     </div>
 </div>
+<div id="divTerms"></div>
+<div id="divPrivacy"></div>
 

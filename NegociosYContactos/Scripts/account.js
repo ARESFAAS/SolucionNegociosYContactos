@@ -4,6 +4,7 @@ $(function () {
     configFormValidate();
     configFormUpdateUserValidate();
     validatePassword();
+    getPartialTerms();
 });
 
 function configFormValidate() {
@@ -218,5 +219,84 @@ function EditUser() {
         error: function (xhr, errorText) {
             alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
         }
+    });
+}
+
+function getPartialTerms()
+{
+    var divWidth = 0;
+    var divHeight = 0;
+
+    if ($(window).width() <= 760)
+    {
+        divWidth = 400;
+        divHeight = 400;
+    }
+    else {
+        divWidth = 600;
+        divHeight = 600;
+    }
+    $('#divTerms').dialog({
+        autoOpen: false,
+        height: divHeight,
+        width: divWidth,        
+        modal: true,
+        buttons: {
+            Ok: function() {
+                $('#divTerms').dialog('close');
+                $('#chkTerms').attr('checked', true);
+            }
+        },
+        close: function() {
+            $('#divTerms').dialog('close');
+        }
+    });
+    $('#lnkTerm').on('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        var url = 'http://localhost:59927/Home/PartialTerms';
+        $.get(url, function (data) {
+            $('#divTerms').html(data);
+            $('#divTerms').dialog('open');
+            $('#lnkPrivacy').attr('href', '#');
+            getPartialPrivacyPolicy();
+        });
+    });
+}
+
+function getPartialPrivacyPolicy() {
+    var divWidth = 0;
+    var divHeight = 0;
+
+    if ($(window).width() <= 760) {
+        divWidth = 400;
+        divHeight = 400;
+    }
+    else {
+        divWidth = 600;
+        divHeight = 600;
+    }
+    $('#divPrivacy').dialog({
+        autoOpen: false,
+        height: divHeight,
+        width: divWidth,
+        modal: true,
+        buttons: {
+            Ok: function () {
+                $('#divPrivacy').dialog('close');
+            }
+        },
+        close: function () {
+            $('#divPrivacy').dialog('close');
+        }
+    });
+    $('#lnkPrivacy').on('click', function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        var url = 'http://localhost:59927/Home/PartialPrivacyPolicy';
+        $.get(url, function (data) {
+            $('#divPrivacy').html(data);
+            $('#divPrivacy').dialog('open');
+        });
     });
 }

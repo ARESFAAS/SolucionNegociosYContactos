@@ -71,8 +71,9 @@ textarea {
 .social {
 	position: fixed; /* Hacemos que la posición en pantalla sea fija para que siempre se muestre en pantalla*/
 	left: 0; /* Establecemos la barra en la izquierda */
-	top: 400px; /* Bajamos la barra 200px de arriba a abajo */
+	top: 450px; /* Bajamos la barra 200px de arriba a abajo */
 	z-index: 2000; /* Utilizamos la propiedad z-index para que no se superponga algún otro elemento como sliders, galerías, etc */
+    display:none;
 } 
 .social ul {
     list-style: none;
