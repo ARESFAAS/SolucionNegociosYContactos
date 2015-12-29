@@ -21,6 +21,7 @@ namespace NegociosYContactos.Models
         public string LoginProvider { get; set; }
         public string UserImage { get; set;  }
         public string Message { get; set; }   
-        public string UserCountry { get; set; }    
+        public string UserCountry { get; set; }  
+        public bool IsTermsAccepted { get; set;}
     }
 }

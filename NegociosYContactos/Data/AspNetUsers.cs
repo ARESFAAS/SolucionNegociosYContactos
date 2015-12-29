@@ -28,6 +28,7 @@ namespace NegociosYContactos.Data
         public string IdentificationType { get; set; }
         public string IdentificationNumber { get; set; }
         public bool Locked { get; set; }
+        public Nullable<bool> AcceptTerms { get; set; }
     
         public virtual ICollection<Business> Business { get; set; }
     }

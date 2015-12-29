@@ -18,6 +18,7 @@
           <Property Name="Locked" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AcceptTerms" Type="bit" />
         </EntityType>
         <EntityType Name="Business">
           <Key>
@@ -134,6 +135,7 @@ FROM [dbo].[BusinessUser] AS [BusinessUser]</DefiningQuery>
           <Property Name="IdentificationType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="IdentificationNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Locked" Type="Boolean" Nullable="false" />
+          <Property Name="AcceptTerms" Type="Boolean" />
         </EntityType>
         <EntityType Name="Business">
           <Key>
@@ -220,6 +222,7 @@ FROM [dbo].[BusinessUser] AS [BusinessUser]</DefiningQuery>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="ContactosyNegociosModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="AcceptTerms" ColumnName="AcceptTerms" />
                 <ScalarProperty Name="Locked" ColumnName="Locked" />
                 <ScalarProperty Name="IdentificationNumber" ColumnName="IdentificationNumber" />
                 <ScalarProperty Name="IdentificationType" ColumnName="IdentificationType" />

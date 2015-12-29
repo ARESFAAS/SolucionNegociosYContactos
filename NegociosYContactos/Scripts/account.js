@@ -25,6 +25,9 @@ function configFormValidate() {
             email: {
                 required: true,
                 email: true
+            },
+            terms: {
+                required: true
             }
         },
         messages: {
@@ -43,6 +46,9 @@ function configFormValidate() {
             email: {
                 required: "Necesitamos tu correo electrónico para contactarnos contigo",
                 email: "Tu correo electrónico debe tener el formato nombre@dominio.com"
+            },
+            terms: {
+                required: "Debes aceptar nuestros términos y condiciones"
             }
         }
         ,
@@ -82,7 +88,8 @@ function saveUser() {
             data: JSON.stringify({
                 Email: $('#email').val(), IdentificationType: $('#cmbIdentificationType').val(),
                 IdentificationNumber: $('#identificationNumber').val(), Password: $('#txtPassword1').val(),
-                AccessFailedCount: '0', UserName: $('#userName').val(), Phone: $('#phone').val(), LoginProvider: 'Local'
+                AccessFailedCount: '0', UserName: $('#userName').val(), Phone: $('#phone').val(), LoginProvider: 'Local',
+                IsTermsAccepted: $('#chkTerms').is(':checked')
             }),
             async: true,
             processData: false,
@@ -244,9 +251,10 @@ function getPartialTerms()
         buttons: {
             Ok: function() {
                 $('#divTerms').dialog('close');
-                $('#chkTerms').attr('checked', true);
+                $('#chkTerms').prop('checked', true);
             }
         },
+        open: function () { $(this).scrollTop(0);},
         close: function() {
             $('#divTerms').dialog('close');
         }

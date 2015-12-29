@@ -28,7 +28,7 @@
                     <li>@Html.ActionLink("Inicio", "Index", "Home", new { Class = "homeLink", href = Url.Action("Index", "Home") })</li>
                     <li>@Html.ActionLink("Buscar", "Index", "Search") </li>
                     <li class="dropdown">
-                        <div style="padding:14px 15px;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divUserName2">Conócenos</div>
+                        <div style="padding:14px 15px;cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divAbout">Conócenos</div>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                             <li>@Html.ActionLink("Términos y Condiciones", "Terms", "Home")</li>
@@ -71,7 +71,7 @@
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Google"))
                         {
                              <li class="dropdown">
-                                <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
+                                <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em 1em 1em 1em;cursor:pointer;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
                                 <ul class="dropdown-menu">
                                     <li><a style="cursor:pointer;" href="#" onclick="signOutGoogle();">Cerrar Sesión</a></li>
                                     <li>@Html.ActionLink("Actualizacion de datos", "Edit", "Account")</li>
@@ -81,7 +81,7 @@
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Facebook"))
                         {
                             <li class="dropdown">
-                                <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em  1em 1em 1em;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
+                                <img style="float:left;margin:0.5em 0.5em 0.5em 0.5em;" id="imgUser" src="@imgUserSrc" width="40" height="40" /><div style="float:left;margin:1em 1em 1em 1em;cursor:pointer;" id="divUserName" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">@userName</div>
                                 <ul class="dropdown-menu">
                                     <li><a style="cursor:pointer;" href="#" onclick="signOutFacebook();">Cerrar Sesión</a></li>
                                     <li>@Html.ActionLink("Actualizacion de datos", "Edit", "Account")</li>
@@ -91,7 +91,7 @@
                         if (((NegociosYContactos.Models.User)Session["UserAuthenticated"]).LoginProvider.Equals("Local"))
                         {
                             <li class="dropdown">
-                                <div style="float:left;margin:1em 1em 1em 1em;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divUserName2">¡¡Hola!! @userName</div>
+                                <div style="float:left;margin:1em 1em 1em 1em;cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divUserName">¡¡Hola!! @userName</div>
                                 <ul class="dropdown-menu">
                                     <li><a style="cursor:pointer;" href="#" onclick="signOutLocal();">Cerrar Sesión</a></li>
                                     <li>@Html.ActionLink("Actualizacion de datos", "Edit", "Account")</li>

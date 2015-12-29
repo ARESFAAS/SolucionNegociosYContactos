@@ -30,6 +30,7 @@ namespace NegociosYContactos.Data.Classes
                         actualUser.UserName = user.UserName;
                         actualUser.PasswordHash = user.Password;
                         actualUser.PhoneNumber = user.Phone;
+                        actualUser.AcceptTerms = user.IsTermsAccepted;
                         user.LoginProvider = string.Empty;
                         user.IsAuthenticated = false;
                         user.Message = string.Empty;
@@ -103,7 +104,8 @@ namespace NegociosYContactos.Data.Classes
                         UserName = x.UserName,
                         LoginProvider = user.LoginProvider,
                         IsAuthenticated = false,
-                        Message = string.Empty
+                        Message = string.Empty,
+                        IsTermsAccepted = x.AcceptTerms != null ? x.AcceptTerms.Value : false                        
                     }).Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
 
                     return result;
@@ -134,7 +136,8 @@ namespace NegociosYContactos.Data.Classes
                         UserName = x.UserName,
                         LoginProvider = user.LoginProvider,
                         IsAuthenticated = false,
-                        Message = string.Empty
+                        Message = string.Empty,
+                        IsTermsAccepted = x.AcceptTerms != null ? x.AcceptTerms.Value : false
                     }).Where(x => x.UserName.Equals(user.UserName) && x.Password.Equals(user.Password)).FirstOrDefault();
 
                     return result;
@@ -163,6 +166,7 @@ namespace NegociosYContactos.Data.Classes
                         Password = x.PasswordHash,
                         Phone = x.PhoneNumber,
                         UserName = x.UserName,
+                        IsTermsAccepted = x.AcceptTerms != null ? x.AcceptTerms.Value : false,
                         LoginProvider = user.LoginProvider,
                         IsAuthenticated = false,
                         Message = string.Empty
@@ -193,9 +197,11 @@ namespace NegociosYContactos.Data.Classes
                         Locked = user.Locked,
                         PasswordHash = user.Password,
                         PhoneNumber = user.Phone,
-                        UserName = user.UserName
+                        UserName = user.UserName,
+                        AcceptTerms = user.IsTermsAccepted
                     };
                     context.AspNetUsers.Add(userEntity);
+                    context.SaveChanges();
                     return user;
                 }
             }
