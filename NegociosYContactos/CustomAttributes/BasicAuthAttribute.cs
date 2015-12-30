@@ -13,7 +13,18 @@ namespace NegociosYContactos.CustomAttributes
     {
         public void OnAuthentication(AuthenticationContext filterContext)
         {
-           
+            if (filterContext.HttpContext.Session["UserAuthenticated"] != null)
+            {
+                var user = (User)filterContext.HttpContext.Session["UserAuthenticated"];
+                if (!user.IsAuthenticated)
+                {
+                    filterContext.Result = new HttpUnauthorizedResult();
+                }
+            }
+            else
+            {
+                filterContext.Result = new HttpUnauthorizedResult();
+            }
         }
 
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)

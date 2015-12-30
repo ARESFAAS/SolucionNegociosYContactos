@@ -112,6 +112,7 @@ namespace NegociosYContactos.Controllers
             return Json(new { Message = user.Message, Authenticated = UserAutenticated, CompleteUserData = completeUserData });
         }
 
+        [BasicAuth]
         public ActionResult Logout() {
             UserAutenticated = null;
             return Json(new { Message = "Ok" });
