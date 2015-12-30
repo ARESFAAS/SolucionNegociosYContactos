@@ -1,4 +1,6 @@
 ﻿using NegociosYContactos.Models;
+using System;
+using System.Net.Mail;
 using System.Web.Mvc;
 
 namespace NegociosYContactos.Controllers
@@ -11,7 +13,6 @@ namespace NegociosYContactos.Controllers
             {
                 return (User)Session["UserAuthenticated"];
             }
-
             set
             {
                 Session["UserAuthenticated"] = value;
@@ -24,10 +25,30 @@ namespace NegociosYContactos.Controllers
             {
                 return (string)Session["Country"];
             }
-
             set
             {
                 Session["Country"] = value;
+            }
+        }
+
+        public void SendMailBase(string subject, string email, string textMessage)
+        {
+            var body = "<p>Email Desde: {0} ({1})</p><p>Mensaje:</p><p>{2}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(System.Configuration.ConfigurationManager.AppSettings["contactEmail"])); //replace with valid value
+            message.Subject = subject;
+            message.Body = string.Format(body, subject, email, textMessage);
+            message.IsBodyHtml = true;
+            using (var smtp = new SmtpClient())
+            {
+                try
+                {
+                    smtp.Send(message);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }                
             }
         }
     }

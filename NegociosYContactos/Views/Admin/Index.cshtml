@@ -88,11 +88,11 @@
     <h3>1. Crea o actualiza el nombre de tu negocio:</h3>
 </div>
 <hr />
-<div id="divCargaNombre" style="display:none;background-color:moccasin;border-color:black;border:outset;"><label>Nuevo nombre:</label><input id="txtNombre" type="text" style="width:100%;" /><br /><br /><label>Nombre actual:</label><div>@Model.Name</div></div>
+<div id="divCargaNombre" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nuevo nombre:</label><input id="txtNombre" type="text" style="width:100%;" /><br /><br /><label>Nombre actual:</label><div>@Model.Name</div></div>
 <div id="divPaso1" class="configSpaceStep">
     <h3>2. Crea o actualiza tu logo o foto de portada:</h3>
 </div>
-<div id="divCargaLogo" style="display:none;background-color:moccasin;border-color:black;border:outset;">
+<div id="divCargaLogo" style="display:none;background-color:lightblue;border-color:black;border:outset;">
     <span class="btn btn-default btn-file">
         <i class="glyphicon glyphicon-plus"></i>
         <span>Agregar Archivo</span>
@@ -114,7 +114,7 @@
 <div id="divPaso2" class="configSpaceStep">
     <h3>3. Crea o cambia las fotos de tus productos o servicios:</h3>
 </div>
-<div id="divCargaFotos" style="display:none;background-color:moccasin;border-color:black;border:outset;">
+<div id="divCargaFotos" style="display:none;background-color:lightblue;border-color:black;border:outset;">
     <form id="fileupload" action="@Url.Action("UploadFiles", "Admin")" method="POST" enctype="multipart/form-data">
         <!-- Redirect browsers with JavaScript disabled to the origin page -->
         <noscript>&lt;input type="hidden" name="redirect" value="/Home/Index"&gt;</noscript>
@@ -181,7 +181,7 @@
 <div id="divPaso4" class="configSpaceStep">
     <h3>5. Crea o cambia la información asociada a las fotos de tus productos o servicios: </h3>
 </div>
-<div id="divAgregaInformacion" style="display:none;background-color:moccasin;border-color:black;border:outset;">
+<div id="divAgregaInformacion" style="display:none;background-color:lightblue;border-color:black;border:outset;">
     <label>Imágenes de tus productos o servicios</label>
     <div>        
         <br />
@@ -202,6 +202,10 @@
     </div>
  </div>
 <hr />
+<div id="divPaso5" class="configSpaceStep">
+    <h3>6. Agrega o cambia la dirección física de tu negocio</h3>
+</div>
+<div id="divDireccion" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nueva Dirección:</label><input id="txtDireccion" type="text" style="width:100%;" /><br /><br /><label>Dirección actual:</label><div>@*@Model.Name*@</div></div>
 <br /><br />
 <p style="text-align:right;"><a href="@Url.Action("GetData","Admin")" class="btn btn-success">Crea tu espacio o actualizalo ahora</a></p>
 <br /><br /><br />

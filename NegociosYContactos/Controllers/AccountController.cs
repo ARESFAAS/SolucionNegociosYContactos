@@ -1,4 +1,5 @@
 ﻿using NegociosYContactos.CustomAttributes;
+using NegociosYContactos.Data.Classes;
 using NegociosYContactos.Models;
 using System;
 using System.Web.Mvc;
@@ -154,6 +155,55 @@ namespace NegociosYContactos.Controllers
                 result.Message = "¡¡¡Correcto, ya completaste tu registro, continua navegando nuestro sitio!!!";
             }
             return Json(new { Message = result.Message });
+        }
+
+        public JsonResult SendPassword(string email)
+        {
+            string message = string.Empty;
+            string name = string.Empty;
+            string textMessage = string.Empty;
+            try
+            {
+                if (UserAutenticated != null)
+                {
+                    if (!UserAutenticated.Email.Equals(email))
+                    {
+                        message = "Lo sentimos, los datos de correo electrónico que ingresaste no concuerdan con nuestros registros," +
+                            " intenta nuevamente o comúnicate con nosotros a través de nuestro formulario de contacto";
+                    }
+                    else
+                    {
+                        message = "Por favor revisa tu correo electrónico, hemos enviado un recordatorio de tu contraseña";
+                        name = "Apreciado " + UserAutenticated.UserName;
+                        textMessage = "su contraseña es: " + UserAutenticated.Password;
+                        SendMailBase(name, email, textMessage);
+                    }
+                }
+                else
+                {
+                    User user = new Models.User();
+                    user.Email = email;
+                    IData data = new Data.Classes.Data();
+                    user = data.GetUser(user);
+                    if (user != null)
+                    {
+                        message = "Por favor revisa tu correo electrónico, hemos enviado un recordatorio de tu contraseña";
+                        name = "Apreciado " + user.UserName;
+                        textMessage = "su contraseña es: " + user.Password;
+                        SendMailBase(name, email, textMessage);
+                    }
+                    else
+                    {
+                        message = "Lo sentimos, los datos de correo electrónico que ingresaste no concuerdan con nuestros registros," +
+                            " intenta nuevamente o comúnicate con nosotros a través de nuestro formulario de contacto";
+                    }
+                }
+                return Json(new { Message = message });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

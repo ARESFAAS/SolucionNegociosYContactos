@@ -86,6 +86,17 @@ function dialogConfig()
         position: { my: "center bottom", at: "center bottom", of: '#divNavBar' }
     });
 
+    $('#divDireccion').dialog({
+        width: 'auto', // overcomes width:'auto' and maxWidth bug
+        maxWidth: 800,
+        height: 'auto',
+        modal: true,
+        fluid: true, //new option
+        resizable: false,
+        autoOpen: false,
+        position: { my: "center bottom", at: "center bottom", of: '#divNavBar' }
+    });
+
     $('#divPaso0').click(function () {
         $('#divCargaNombre').dialog('open');
     });
@@ -104,6 +115,10 @@ function dialogConfig()
 
     $('#divPaso4').click(function () {
         $('#divAgregaInformacion').dialog('open');
+    });
+
+    $('#divPaso5').click(function () {
+        $('#divDireccion').dialog('open');
     });
 
     // on window resize run function

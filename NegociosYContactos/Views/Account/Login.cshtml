@@ -2,6 +2,7 @@
     ViewBag.Title = "Ingreso";
 }
 @Scripts.Render("~/bundles/login")
+@Scripts.Render("~/bundles/jqueryval")
 <div class="jumbotron" style="float:left;">
     <h1>NEGOCIOS Y CONTACTOS</h1>
 </div>
@@ -12,7 +13,8 @@
     <div class="col-md-4">
         <label style="text-align:left;width:15em;">Nombre de Usuario: </label><input id="txtUserName" type="text" /><br />
         <label style="text-align:left;width:15em;">Contraseña: </label><input id="txtPassword" type="password" /><br /><br />
-        <input id="btnLogin" class="btn btn-primary" href="" type="button" value="Enviar" />
+        <input id="btnLogin" class="btn btn-primary" href="" type="button" value="Enviar" /><br /><br />
+        <a id="lnkForgotPassword">¿Olvidó su contraseña?</a>
     </div>
     <br />
     <div class="col-md-8">
@@ -30,4 +32,12 @@
 </div>
 <div id="login-message-logout" title="Información"></div>
 <div id="login-error-logout" title="Información"></div>
+<div id="divForgotPassword" title="Olvidó su contraseña" style="display:none;">
+    <form id="frmForgotPassword">   
+        <div id="divSummaryForgotPasswordErrors"><ul class="register-error"></ul></div><br />     
+        <label>Ingrese la dirección de correo <br />electrónico que tiene registrada:</label><br />
+        <input type="email" id="txtForgotPassword" name="txtForgotEmail" /><br /><br />
+        <input type="submit" class="btn btn-primary" id="btnForgotPassword" value="Enviar" /><br />
+    </form>
+    </div>
 <br /><br />

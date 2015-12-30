@@ -4,6 +4,7 @@
     loadApiGoogle();
     loadApiFacebook();
     showSocial();
+    //showNavBar();
 });
 
 function animateTopBar() {
@@ -138,5 +139,21 @@ function showSocial() {
     else
     {
         $('.social').show(1000);
+    }
+}
+
+function showNavBar() {
+    if ($(window).width() > 800) {
+        $('body').mousemove(function () {
+            if (event.pageY <= 70) {
+                $('#divNavBar').show('blind',2000);
+            }
+            else {
+                $('#divNavBar').hide('blind',2000);
+            }
+        });
+    }
+    else {
+        $('#divNavBar').show('blind',2000);
     }
 }

@@ -6,6 +6,7 @@ $(function () {
     loginFacebook();
     loginGoogle();
     loginMessage();
+    forgotPassword();
 });
 
 function loginUser() {
@@ -245,4 +246,76 @@ function attachSignin(element) {
         function (error) {
             alert(JSON.stringify(error, undefined, 2));
         });
+}
+
+function forgotPassword()
+{
+    $('#frmForgotPassword').validate({ // initialize plugin
+        rules: {
+            txtForgotEmail: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            txtForgotEmail: {
+                required: "Necesitamos tu correo <br/> electrónico para contactarnos <br/> contigo",
+                email: "Tu correo electrónico <br/> debe tener el formato <br> nombre@dominio.com"
+            }
+        },
+        // your rules & options,
+        submitHandler: function (form) {
+            // your ajax would go here
+            sendPassword();
+            return false;  // blocks regular submit since you have ajax
+        },
+        showErrors: function (errorMap, errorList) {
+            this.defaultShowErrors();
+        },
+        errorContainer: "#divSummaryForgotPasswordErrors",
+        errorLabelContainer: "#divSummaryForgotPasswordErrors ul",
+        wrapper: "li",
+        errorClass: "authError",
+        highlight: function (element, required) {
+            $(element).fadeOut(function () {
+                $(element).fadeIn();
+                $(element).css('border', '2px solid #FDADAF');
+            });
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).css('border', '1px solid #CCC');
+        }
+    });
+    $('#divForgotPassword').dialog({
+        width: 'auto', // overcomes width:'auto' and maxWidth bug
+        maxWidth: 800,
+        height: 'auto',
+        modal: true,
+        fluid: true, //new option
+        resizable: false,
+        autoOpen: false,
+    });
+    $('#lnkForgotPassword').click(function () {
+        $('#divForgotPassword').dialog('open');
+    });
+}
+
+function sendPassword() {
+    $.ajax({
+        url: 'SendPassword',
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({
+            email: $('#txtForgotPassword').val()
+        }),
+        async: true,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $('#login-message-logout').html(data.Message).dialog('open');
+        },
+        error: function (xhr, errorText) {
+            alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+        }
+    });
 }
