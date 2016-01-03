@@ -185,6 +185,8 @@
     <Content Include="Content\images\bootstrap-colorpicker\saturation.png" />
     <Content Include="Content\images\cartagena.jpg" />
     <Content Include="Content\images\co.png" />
+    <Content Include="Content\images\cut.png" />
+    <Content Include="Content\images\door.png" />
     <Content Include="Content\images\dubai-uae-buildings-skyscrapers-night.jpg" />
     <Content Include="Content\images\ec.png" />
     <Content Include="Content\images\icono-menu-movil.png" />
@@ -194,6 +196,11 @@
     <Content Include="Content\images\LogoContactosYNegocios_index.png" />
     <Content Include="Content\images\LogoContactosYNegocios_min.png" />
     <Content Include="Content\images\lupa.png" />
+    <Content Include="Content\images\page_white_add.png" />
+    <Content Include="Content\images\page_white_copy.png" />
+    <Content Include="Content\images\page_white_delete.png" />
+    <Content Include="Content\images\page_white_edit.png" />
+    <Content Include="Content\images\page_white_paste.png" />
     <Content Include="Content\images\ui-bg_glass_75_d0e5f5_1x400.png" />
     <Content Include="Content\images\ui-bg_glass_85_dfeffc_1x400.png" />
     <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
@@ -211,6 +218,7 @@
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\jquery-ui.structure.min.css" />
     <Content Include="Content\jquery-ui.theme.min.css" />
+    <Content Include="Content\jquery.contextMenu.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
     <Content Include="Content\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
@@ -255,6 +263,7 @@
     <Content Include="Scripts\jquery-ui-1.9.0.js" />
     <Content Include="Scripts\jquery-ui-1.9.0.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.contextMenu.js" />
     <Content Include="Scripts\jquery.cycle.js" />
     <Content Include="Scripts\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jQuery.FileUpload\cors\jquery.xdr-transport.js" />
@@ -269,6 +278,7 @@
     <Content Include="Scripts\jQuery.FileUpload\jquery.fileupload.js" />
     <Content Include="Scripts\jQuery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jQuery.FileUpload\vendor\jquery.ui.widget.js" />
+    <Content Include="Scripts\jquery.ui.position.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

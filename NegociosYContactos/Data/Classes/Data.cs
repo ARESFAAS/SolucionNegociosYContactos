@@ -46,45 +46,6 @@ namespace NegociosYContactos.Data.Classes
             }
         }
 
-        public BusinessWeb GetBusinessData(User user)
-        {
-            try
-            {
-                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
-                {
-                    var products = context.BusinessData_Get(user.Id).Select(x => new BusinessProductWeb
-                    {
-                        Id = x.IdBusinessProduct,
-                        IdBusiness = x.Id,
-                        Description = x.ProductDescription,
-                        Name = x.ProductName,
-                        UrlImage = x.ProductUrlImage,
-                        Value = x.ProductValue
-                    }).ToList();
-
-                    var data = context.BusinessData_Get(user.Id).Select(x => new BusinessWeb
-                    {
-                        Active = x.Active,
-                        Description = x.Description,
-                        EndDate = x.EndDate,
-                        Id = x.Id,
-                        InitDate = x.InitDate,
-                        Name = x.Name,
-                        Premium = x.Premium,
-                        Products = products,
-                        Style = x.Style,
-                        UrlImage = x.UrlImage,
-                        User = new BusinessUserWeb { IdBusiness = x.Id, IdUser = user.Id }
-                    }).FirstOrDefault();
-                    return data;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public User GetUser(User user)
         {
             try
@@ -105,10 +66,40 @@ namespace NegociosYContactos.Data.Classes
                         LoginProvider = user.LoginProvider,
                         IsAuthenticated = false,
                         Message = string.Empty,
-                        IsTermsAccepted = x.AcceptTerms != null ? x.AcceptTerms.Value : false                        
+                        IsTermsAccepted = x.AcceptTerms != null ? x.AcceptTerms.Value : false
                     }).Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
 
                     return result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public User SaveUser(User user)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    AspNetUsers userEntity = new AspNetUsers
+                    {
+                        Id = user.Id,
+                        AccessFailedCount = user.AccessFailedCount,
+                        Email = user.Email,
+                        IdentificationNumber = user.IdentificationNumber,
+                        IdentificationType = user.IdentificationType,
+                        Locked = user.Locked,
+                        PasswordHash = user.Password,
+                        PhoneNumber = user.Phone,
+                        UserName = user.UserName,
+                        AcceptTerms = user.IsTermsAccepted
+                    };
+                    context.AspNetUsers.Add(userEntity);
+                    context.SaveChanges();
+                    return user;
                 }
             }
             catch (Exception)
@@ -181,29 +172,110 @@ namespace NegociosYContactos.Data.Classes
             }
         }
 
-        public User SaveUser(User user)
+        public BusinessWeb GetBusinessData(User user)
         {
             try
             {
                 using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
                 {
-                    AspNetUsers userEntity = new AspNetUsers
+                    var products = context.BusinessData_Get(user.Id).Select(x => new BusinessProductWeb
                     {
-                        Id = user.Id,
-                        AccessFailedCount = user.AccessFailedCount,
-                        Email = user.Email,
-                        IdentificationNumber = user.IdentificationNumber,
-                        IdentificationType = user.IdentificationType,
-                        Locked = user.Locked,
-                        PasswordHash = user.Password,
-                        PhoneNumber = user.Phone,
-                        UserName = user.UserName,
-                        AcceptTerms = user.IsTermsAccepted
-                    };
-                    context.AspNetUsers.Add(userEntity);
-                    context.SaveChanges();
-                    return user;
+                        Id = x.IdBusinessProduct,
+                        IdBusiness = x.Id,
+                        Description = x.ProductDescription,
+                        Name = x.ProductName,
+                        UrlImage = x.ProductUrlImage,
+                        Value = x.ProductValue
+                    }).ToList();
+
+                    var data = context.BusinessData_Get(user.Id).Select(x => new BusinessWeb
+                    {
+                        Active = x.Active,
+                        Description = x.Description,
+                        EndDate = x.EndDate,
+                        Id = x.Id,
+                        InitDate = x.InitDate,
+                        Name = x.Name,
+                        Premium = x.Premium,
+                        Products = products,
+                        Style = x.Style,
+                        UrlImage = x.UrlImage,
+                        User = new BusinessUserWeb { IdBusiness = x.Id, IdUser = user.Id }
+                    }).FirstOrDefault();
+                    return data;
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public BusinessWeb SaveBusinessWeb(BusinessWeb businesWeb)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    int idBusinessTemp = 0;
+                    if (businesWeb.Id == 0)
+                    {
+                        var actualBusiness = context.Business.Add(new Business
+                        {
+                            Name = businesWeb.Name,
+                            Description = businesWeb.Description,
+                            UrlImage = businesWeb.UrlImage,
+                            Style = businesWeb.Style,
+                            InitDate = businesWeb.InitDate,
+                            EndDate = businesWeb.EndDate,
+                            Premium = businesWeb.Premium,
+                            Active = businesWeb.Active
+                        });
+
+                        context.AspNetUsers.FirstOrDefault(x => x.Id.Equals(businesWeb.User.IdUser)).Business.Add(actualBusiness);
+
+                        idBusinessTemp = actualBusiness.Id;
+
+                        foreach (var item in businesWeb.Products)
+                        {
+                            context.BusinessProduct.Add(new BusinessProduct
+                            {
+                                Name = item.Name,
+                                Description = item.Description,
+                                UrlImage = item.UrlImage,
+                                Value = item.Value,
+                                IdBusiness = idBusinessTemp
+                            });
+                        }
+                    }
+                    else
+                    {
+                        idBusinessTemp = businesWeb.Id;
+                        var actualBusiness = context.Business.FirstOrDefault(x => x.Id == businesWeb.Id);
+                        actualBusiness.Name = businesWeb.Name;
+                        actualBusiness.Description = businesWeb.Description;
+                        actualBusiness.UrlImage = businesWeb.UrlImage;
+                        actualBusiness.Style = businesWeb.Style;
+
+                        foreach (var item in context.BusinessProduct)
+                        {
+                            context.BusinessProduct.Remove(item);
+                        }
+
+                        foreach (var item in businesWeb.Products)
+                        {
+                            context.BusinessProduct.Add(new BusinessProduct {
+                                Name = item.Name,
+                                Description = item.Description,
+                                IdBusiness = idBusinessTemp,
+                                UrlImage = item.UrlImage,
+                                Value = item.Value
+                            });                            
+                        }
+                    }
+                    context.SaveChanges();
+                }
+                return businesWeb;
             }
             catch (Exception)
             {

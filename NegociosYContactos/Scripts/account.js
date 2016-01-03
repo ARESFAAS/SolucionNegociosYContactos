@@ -81,7 +81,7 @@ function configFormValidate() {
 
 function saveUser() {
    $.ajax({
-            url: 'http://localhost:59927/Account/SaveUser',
+            url: getHost() + 'Account/SaveUser',
             dataType: "json",
             type: "POST",
             contentType: 'application/json; charset=utf-8',
@@ -208,7 +208,7 @@ function configFormUpdateUserValidate() {
 
 function EditUser() {
     $.ajax({
-        url: 'http://localhost:59927/Account/EditUser',
+        url: getHost() + 'Account/EditUser',
         dataType: "json",
         type: "POST",
         contentType: 'application/json; charset=utf-8',
@@ -262,7 +262,7 @@ function getPartialTerms()
     $('#lnkTerm').on('click', function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        var url = 'http://localhost:59927/Home/PartialTerms';
+        var url = getHost() +  'Home/PartialTerms';
         $.get(url, function (data) {
             $('#divTerms').html(data);
             $('#divTerms').dialog('open');
@@ -301,7 +301,7 @@ function getPartialPrivacyPolicy() {
     $('#lnkPrivacy').on('click', function (evt) {
         evt.preventDefault();
         evt.stopPropagation();
-        var url = 'http://localhost:59927/Home/PartialPrivacyPolicy';
+        var url = getHost() + 'Home/PartialPrivacyPolicy';
         $.get(url, function (data) {
             $('#divPrivacy').html(data);
             $('#divPrivacy').dialog('open');

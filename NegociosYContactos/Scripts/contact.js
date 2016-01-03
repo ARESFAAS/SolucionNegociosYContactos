@@ -68,7 +68,7 @@
 function sendMail() {
     $.ajax({
         method: "POST",
-        url: "SendMail",
+        url: getHost() + "Home/SendMail",
         data: { name: $('#name').val(), email: $('#email').val(), textMessage: $('#message').val() },
         success: function (msg) {
             alert("Tu mensaje ha sido enviado");

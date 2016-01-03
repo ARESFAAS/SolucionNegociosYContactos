@@ -5,6 +5,7 @@
 @Scripts.Render("~/bundles/jqueryupload")
 @Scripts.Render("~/bundles/colorpicker")
 @Scripts.Render("~/bundles/admin")
+@Scripts.Render("~/bundles/contextmenu")
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -82,13 +83,16 @@
 </script>
 
 <h2 style="margin-top:4em;">@ViewBag.Title</h2>
-<p>Con solo cinco pasos ya tienes tus productos publicados en tu propio espacio en internet:</p>
+<p>Con solo seis pasos ya tienes tus productos publicados en tu propio espacio en internet:</p>
 <hr />
 <div id="divPaso0" class="configSpaceStep">
     <h3>1. Crea o actualiza el nombre de tu negocio:</h3>
 </div>
 <hr />
-<div id="divCargaNombre" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nuevo nombre:</label><input id="txtNombre" type="text" style="width:100%;" /><br /><br /><label>Nombre actual:</label><div>@Model.Name</div></div>
+<div id="divCargaNombre" style="display:none;background-color:lightblue;border-color:black;border:outset;">
+    <label>Nuevo nombre:</label><input id="txtNombre" type="text" style="width:100%;" /><br /><br /><label>Nombre actual:</label>
+    <div>@Model.Name</div><br />
+</div>
 <div id="divPaso1" class="configSpaceStep">
     <h3>2. Crea o actualiza tu logo o foto de portada:</h3>
 </div>
@@ -158,7 +162,7 @@
     </form>
     <br /><br />
     <hr />
-    <div>
+    <div id="divActualPhotos">
         <label>Imágenes de tus productos o servicios actuales</label>
         <br />
         @{
@@ -166,46 +170,41 @@
             {
                 foreach (var item in Model.Products)
                 {
-                <div style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;"><img src=@item.UrlImage /></div>
-                    }
+                    <div style="float:left;margin: 4em 4em 4em 4em;text-align:center;"><img id=@item.Id class="context-menu-one" src="@item.UrlImage" /></div>
                 }
             }
+        }
     </div>
 </div>
 <hr />
 <div id="divPaso3" class="configSpaceStep">
-    <h3>4. Escoge o cambia el color de tu espacio de contacto: </h3>
+    <h3>4. Escoge o cambia el estilo de tu espacio de contacto: </h3>
 </div>
-<div id="divCambiaColor" style="@Model.Style">Color de tu Espacio:</div>
+<div id="divCambiaColor" style="@Model.Style">
+    <div>Color de tu Espacio:</div>
+    <br /><br /><br /><br /><br />
+    <div style="text-align:center">
+        <div id="btnChangeColor" style="background-color:#5c9ccc;border:0.2em inset #4297d7;">Haz click para escoger el color de los muros</div><br />
+        <div id="btnChangeColorText" style="background-color:#5c9ccc;border:0.2em inset #4297d7;">Haz click para escoger el color de texto</div>
+    </div>
+</div>
 <hr />
 <div id="divPaso4" class="configSpaceStep">
     <h3>5. Crea o cambia la información asociada a las fotos de tus productos o servicios: </h3>
 </div>
 <div id="divAgregaInformacion" style="display:none;background-color:lightblue;border-color:black;border:outset;">
     <label>Imágenes de tus productos o servicios</label>
-    <div>        
-        <br />
-        @{
-            if (Model.Products != null)
-            {
-                foreach (var item in Model.Products)
-                {
-                <div style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;">
-                    <img src=@item.UrlImage /><br />
-                    <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Name" title="Aqui escribe el nombre de tu producto"/><br />
-                    <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Description" title="Aqui escribe algun dato o referencia de tu producto"/><br />
-                    <input class="txtTooltip" type="text" data-toggle="tooltip" value="@item.Value" title="Aqui puedes colocar el valor de tu producto"/><br />
-                </div>
-                    }
-                }
-            }
+    <div>
+        <br />        
+        <div id="divImgContent" style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;">            
+        </div>
     </div>
- </div>
+</div>
 <hr />
 <div id="divPaso5" class="configSpaceStep">
     <h3>6. Agrega o cambia la dirección física de tu negocio</h3>
 </div>
-<div id="divDireccion" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nueva Dirección:</label><input id="txtDireccion" type="text" style="width:100%;" /><br /><br /><label>Dirección actual:</label><div>@*@Model.Name*@</div></div>
+<div id="divDireccion" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nueva Dirección:</label><input id="txtDireccion" type="text" style="width:100%;" /><br /><br /><label>Dirección actual:</label><div>@Model.Name</div></div>
 <br /><br />
-<p style="text-align:right;"><a href="@Url.Action("GetData","Admin")" class="btn btn-success">Crea tu espacio o actualizalo ahora</a></p>
+<p style="text-align:right;"><a href="@Url.Action("SaveData","Admin")" class="btn btn-success">Crea tu espacio o actualizalo ahora</a></p>
 <br /><br /><br />

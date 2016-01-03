@@ -19,6 +19,24 @@ namespace NegociosYContactos.Controllers
             }
         }
 
+        public BusinessWeb BusinessWeb
+        {
+            get
+            {
+                if(Session["BusinessWeb"] == null)
+                {
+                    Session["BusinessWeb"] = new BusinessWeb();
+                    ((BusinessWeb)Session["BusinessWeb"]).User = new BusinessUserWeb();
+                    ((BusinessWeb)Session["BusinessWeb"]).Products = new System.Collections.Generic.List<BusinessProductWeb>();
+                }
+                return (BusinessWeb)Session["BusinessWeb"];
+            }
+            set
+            {
+                Session["BusinessWeb"] = value;
+            }
+        }
+
         public string Country
         {
             get

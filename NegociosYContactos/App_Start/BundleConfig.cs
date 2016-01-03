@@ -8,6 +8,10 @@ namespace NegociosYContactos
         // Para obtener más información sobre Bundles, visite http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            
+            bundles.Add(new ScriptBundle("~/bundles/contextmenu").Include(
+                        "~/Scripts/jquery.contextmenu.js",
+                        "~/Scripts/jquery.ui.position.js"));
             bundles.Add(new ScriptBundle("~/bundles/contact").Include(
                         "~/Scripts/contact.js"));
             bundles.Add(new ScriptBundle("~/bundles/colorpicker").Include(
@@ -59,6 +63,7 @@ namespace NegociosYContactos
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/jquery.contextMenu.css",
                       "~/Content/bootstrap-social.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/bootstrap-colorpicker.min.css",

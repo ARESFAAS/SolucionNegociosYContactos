@@ -12,7 +12,7 @@ $(function () {
 function loginUser() {
     $('#btnLogin').click(function () {
         $.ajax({
-            url: 'LoginUser',
+            url: getHost() + 'Account/LoginUser',
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
@@ -111,7 +111,7 @@ function getFacebookData() {
         console.log(JSON.stringify(response));
 
         $.ajax({
-            url: 'LoginUserExternalProvider',
+            url: getHost() + 'Account/LoginUserExternalProvider',
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
@@ -125,7 +125,7 @@ function getFacebookData() {
             cache: false,
             success: function (data) {
                 if (data.CompleteUserData && data.Authenticated) {
-                    window.location.href= 'http://localhost:59927/Account/Edit';                   
+                    window.location.href = getHost() + 'Account/Edit';                   
                 } else {
                     if (!data.Authenticated) {
                         logout = 'Facebook';
@@ -214,7 +214,7 @@ function attachSignin(element) {
             $('#imgUser').attr('src', profile.getImageUrl());
 
             $.ajax({
-                url: 'LoginUserExternalProvider',
+                url: getHost() + 'Account/LoginUserExternalProvider',
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({
@@ -302,7 +302,7 @@ function forgotPassword()
 
 function sendPassword() {
     $.ajax({
-        url: 'SendPassword',
+        url: getHost() + 'Account/SendPassword',
         type: "POST",
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({

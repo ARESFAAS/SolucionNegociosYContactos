@@ -197,7 +197,7 @@ function showPosition(position) {
             }
             if (country) {
                 $.ajax({
-                    url: 'http://localhost:59927/Account/UpdateUserCountry',
+                    url: getHost() + 'Account/UpdateUserCountry',
                     type: "POST",
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify({
@@ -211,14 +211,14 @@ function showPosition(position) {
                             if($('#imgCountry').attr('src') == '')
                             {
                                 $('#divImgCountry').show();
-                                $('#imgCountry').attr('src', 'http://localhost:59927/Content/images/co.png')
+                                $('#imgCountry').attr('src', getHost() + 'Content/images/co.png')
                             }
                         }
                         else {
                             if (data.Country == 'ECUADOR') {
                                 if ($('#imgCountry').attr('src') == '') {
                                     $('#divImgCountry').show();
-                                    $('#imgCountry').attr('src', 'http://localhost:59927/Content/images/ec.png')
+                                    $('#imgCountry').attr('src', getHost() + 'Content/images/ec.png')
                                 }
                             }
                             else {

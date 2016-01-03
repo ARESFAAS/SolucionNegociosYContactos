@@ -115,6 +115,7 @@ namespace NegociosYContactos.Controllers
         [BasicAuth]
         public ActionResult Logout() {
             UserAutenticated = null;
+            BusinessWeb = null;
             return Json(new { Message = "Ok" });
         }
 

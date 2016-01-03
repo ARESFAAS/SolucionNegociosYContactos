@@ -37,14 +37,14 @@ function signOutGoogle() {
     auth2.signOut().then(function () {
         console.log('User Google signed out.');
         $.ajax({
-            url: 'http://localhost:59927/Account/Logout',
+            url: getHost() + 'Account/Logout',
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             async: true,
             processData: false,
             cache: false,
             success: function (data) {
-                document.location.href = 'http://localhost:59927/Home/Index';
+                document.location.href = getHost() + 'Home/Index';
             },
             error: function (xhr, errorText) {
                 location.reload();
@@ -58,14 +58,14 @@ function signOutFacebook() {
     FB.logout(function (response) {
         console.log('User Facebook signed out.');
         $.ajax({
-            url: 'http://localhost:59927/Account/Logout',
+            url: getHost() + 'Account/Logout',
             type: "POST",
             contentType: 'application/json; charset=utf-8',
             async: true,
             processData: false,
             cache: false,
             success: function (data) {
-                document.location.href = 'http://localhost:59927/Home/Index';
+                document.location.href = getHost() + 'Home/Index';
             },
             error: function (xhr, errorText) {
                 location.reload();
@@ -77,14 +77,14 @@ function signOutFacebook() {
 
 function signOutLocal() {
     $.ajax({
-        url: 'http://localhost:59927/Account/Logout',
+        url: getHost() + 'Account/Logout',
         type: "POST",
         contentType: 'application/json; charset=utf-8',
         async: true,
         processData: false,
         cache: false,
         success: function (data) {
-            document.location.href = 'http://localhost:59927/Home/Index';
+            document.location.href = getHost() + 'Home/Index';
         },
         error: function (xhr, errorText) {
             location.reload();
@@ -156,4 +156,8 @@ function showNavBar() {
     else {
         $('#divNavBar').show('blind',2000);
     }
+}
+
+function getHost() {
+    return window.location.protocol + "\\\\" + window.location.host + "\\";
 }
