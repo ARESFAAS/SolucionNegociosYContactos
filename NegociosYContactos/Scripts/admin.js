@@ -31,7 +31,7 @@ function fileUploadConfig() {
             else {
                 var template = '<div style="float:left;margin: 4em 4em 4em 4em;text-align:center;"><img id={0} class="context-menu-one" src="{1}" /></div>';
                 var html = '';
-                html = template.format(data.result.files[0].thumbnailUrl, data.result.files[0].url);
+                html = template.format(data.result.files[0].id, data.result.files[0].url);
                 $('#divActualPhotos').append(html);
                 $("table tbody.files").empty();
                 $('#divCargaFotos').parent().position({
@@ -342,9 +342,11 @@ function uploadLogo() {
         imageCrop: false, // Force cropped images
         maxNumberOfFiles: 1,
         done: function (e, data) {
-            $('.file_name').html(data.result.name);
-            $('.file_type').html(data.result.type);
-            $('.file_size').html(data.result.size);
+            //$('.file_name').html(data.result.name);
+            //$('.file_type').html(data.result.type);
+            //$('.file_size').html(data.result.size);
+            $('#divNewPhoto').html('');
+            $('#divNewPhoto').append('<label>Nueva foto o nuevo logo: </label><br/><img src="' + data.result.savedFileImage + '">');
             $('#divPaso1').css('background-color', 'yellowgreen');
         }
     }).on('fileuploadprogressall', function (e, data) {

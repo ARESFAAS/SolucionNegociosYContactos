@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NegociosYContactos.Models;
+using System.Collections.Generic;
 
 namespace NegociosYContactos.Data.Classes
 {
@@ -220,21 +221,22 @@ namespace NegociosYContactos.Data.Classes
                     int idBusinessTemp = 0;
                     if (businesWeb.Id == 0)
                     {
-                        var actualBusiness = context.Business.Add(new Business
+                        var endDateTemp = DateTime.Now.AddYears(1);
+                        var actualBusiness = new Business
                         {
                             Name = businesWeb.Name,
-                            Description = businesWeb.Description,
+                            Description = businesWeb.Name,
                             UrlImage = businesWeb.UrlImage,
                             Style = businesWeb.Style,
-                            InitDate = businesWeb.InitDate,
-                            EndDate = businesWeb.EndDate,
+                            InitDate = DateTime.Now,
+                            EndDate = endDateTemp,
                             Premium = businesWeb.Premium,
-                            Active = businesWeb.Active
-                        });
+                            Active = true
+                        };
 
                         context.AspNetUsers.FirstOrDefault(x => x.Id.Equals(businesWeb.User.IdUser)).Business.Add(actualBusiness);
-
-                        idBusinessTemp = actualBusiness.Id;
+                        context.SaveChanges();                      
+                        idBusinessTemp = context.Business.Where(x => x.AspNetUsers.Any(y => y.Id.Equals(businesWeb.User.IdUser))).FirstOrDefault().Id;
 
                         foreach (var item in businesWeb.Products)
                         {

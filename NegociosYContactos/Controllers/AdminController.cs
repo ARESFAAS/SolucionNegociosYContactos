@@ -23,6 +23,7 @@ namespace NegociosYContactos.Controllers
                 {
                     // data Base
                     BusinessWeb = data.GetBusinessData(UserAutenticated);
+                    BusinessWeb.User.IdUser = UserAutenticated.Id;
                 }
             }
 
@@ -92,16 +93,28 @@ namespace NegociosYContactos.Controllers
                 }
 
                 // Returns json
-                return Content("{\"files\": [{\"name\":\"" + fileList[0].Name + "\",\"type\":\"" + fileList[0].Type + "\",\"url\":\"" + fileList[0].Url 
-                     + "\",\"thumbnailUrl\":\"" + fileList[0].Id + "\",\"deleteUrl\":\"" +  fileList[0].DeleteUrl + 
-                     "\",\"deleteType\":\"" + "DELETE" + "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) + "\"}]}", "application/json");
+                return Content(
+                    "{\"files\": [{\"name\":\"" + fileList[0].Name + 
+                    "\",\"type\":\"" + fileList[0].Type + 
+                    "\",\"url\":\"" + fileList[0].Url + 
+                     "\",\"thumbnailUrl\":\"" + fileList[0].ThumbnailUrl + 
+                     "\",\"deleteUrl\":\"" +  fileList[0].DeleteUrl + 
+                     "\",\"deleteType\":\"" + "DELETE" + 
+                     "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) +
+                     "\",\"id\":\"" + fileList[0].Id +
+                     "\"}]}", "application/json");
             }
             else
             {
-                return Content("{\"files\": [{\"name\":\"" + "limitSize" + "\",\"type\":\"" + "limitSize" + "\",\"url\":\"" + "limitSize" +
-                    "\",\"thumbnailUrl\":\"" + "limitSize" + "\",\"deleteUrl\":\"" + "limitSize" + "\",\"deleteType\":\"" +
-                    "DELETE" + "\",\"size\":\"" + string.Format("{0} bytes", "0") + "\"}]}",
-                    "application/json");
+                return Content(
+                    "{\"files\": [{\"name\":\"" + "limitSize" + 
+                    "\",\"type\":\"" + "limitSize" + 
+                    "\",\"url\":\"" + "limitSize" +
+                    "\",\"thumbnailUrl\":\"" + "limitSize" + 
+                    "\",\"deleteUrl\":\"" + "limitSize" + 
+                    "\",\"deleteType\":\"" + "DELETE" + 
+                    "\",\"size\":\"" + string.Format("{0} bytes", "0") + 
+                    "\"}]}", "application/json");
             }
         }
 
@@ -111,6 +124,7 @@ namespace NegociosYContactos.Controllers
             var fileList = new List<UploadFile>();
             var pathFolder = string.Format(Server.MapPath(_folderTemplate), UserAutenticated.Id);
             var pathImage = string.Format(_folderTemplate, UserAutenticated.Id);
+            string savedFileImage = string.Empty;
 
             foreach (string file in Request.Files)
             {
@@ -121,7 +135,7 @@ namespace NegociosYContactos.Controllers
                 Directory.CreateDirectory(pathFolder);
 
                 string savedFileName = Path.Combine(pathFolder, string.Concat("_Portada_", Path.GetFileName(hpf.FileName)));
-                string savedFileImage = Path.Combine(pathImage, string.Concat("_Portada_", Path.GetFileName(hpf.FileName)));
+                savedFileImage = string.Concat(pathImage, "/", Path.GetFileName(hpf.FileName));
 
                 hpf.SaveAs(savedFileName); // Save the file
 
@@ -137,14 +151,18 @@ namespace NegociosYContactos.Controllers
             }
 
             // Returns json
-            return Content("{\"name\":\"" + fileList[0].Name + "\",\"type\":\"" + fileList[0].Type + "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) + "\"}", "application/json");
+            return Content("{\"name\":\"" + fileList[0].Name + 
+                "\",\"type\":\"" + fileList[0].Type + 
+                "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) +
+                "\",\"savedFileImage\":\"" + savedFileImage +
+                "\"}", "application/json");
         }
 
         public ActionResult SaveData()
         {
             IData data = new Data.Classes.Data();
             data.SaveBusinessWeb(BusinessWeb);
-            return View("Index",BusinessWeb);
+            return View("Index", BusinessWeb);
         }
 
         public ActionResult GetData()

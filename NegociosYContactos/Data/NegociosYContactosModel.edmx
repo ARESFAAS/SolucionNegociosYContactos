@@ -45,8 +45,6 @@
           <Property Name="UrlImage" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="IdBusiness" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'ContactosyNegocios.dbo.BusinessUser' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="BusinessUser">
           <Key>
             <PropertyRef Name="IdUser" />
@@ -98,12 +96,7 @@ advertencia 6002: La tabla o vista 'ContactosyNegocios.dbo.BusinessUser' no tien
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusinessProduct" EntityType="Self.BusinessProduct" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BusinessUser" EntityType="Self.BusinessUser" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[BusinessUser].[IdUser] AS [IdUser], 
-[BusinessUser].[IdBusiness] AS [IdBusiness]
-FROM [dbo].[BusinessUser] AS [BusinessUser]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="BusinessUser" EntityType="Self.BusinessUser" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BusinessProduct_Business" Association="Self.FK_BusinessProduct_Business">
             <End Role="Business" EntitySet="Business" />
             <End Role="BusinessProduct" EntitySet="BusinessProduct" />

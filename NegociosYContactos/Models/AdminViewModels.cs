@@ -34,7 +34,8 @@ namespace NegociosYContactos.Models
         public int IdBusiness { get; set; }
     }
 
-    public class BusinessWeb{
+    public class BusinessWeb
+    {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
