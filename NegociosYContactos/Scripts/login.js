@@ -30,7 +30,8 @@ function loginUser() {
                     $('#login-message-logout').html(data.Message).dialog('open');
                 }
                 else {
-                    $('#dialog-message').html(data.Message).dialog('open');
+                    urlToRedirect = getHost() + 'Admin/Index';
+                    $("#dialog-message-redirect").html(data.Message).dialog('open');
                 }
             },
             error: function (xhr, errorText) {
@@ -133,7 +134,8 @@ function getFacebookData() {
                         $('#login-message-logout').html(data.Message).dialog('open');
                     }
                     else {
-                        $('#dialog-message').html(data.Message).dialog('open');
+                        urlToRedirect = getHost() + 'Admin/Index';
+                        $("#dialog-message-redirect").html(data.Message).dialog('open');
                     }
                 }
             },
@@ -227,15 +229,19 @@ function attachSignin(element) {
                 processData: false,
                 cache: false,
                 success: function (data) {
-                    if (!data.Authenticated) {
-                        logout = 'Google';
-                        clientProvider = 'Google';
-                        $('#login-message-logout').html(data.Message).dialog('open');
+                    if (data.CompleteUserData && data.Authenticated) {
+                        window.location.href = getHost() + 'Account/Edit';
+                    } else {
+                        if (!data.Authenticated) {
+                            logout = 'Google';
+                            clientProvider = 'Google';
+                            $('#login-message-logout').html(data.Message).dialog('open');
+                        }
+                        else {
+                            urlToRedirect = getHost() + 'Admin/Index';
+                            $("#dialog-message-redirect").html(data.Message).dialog('open');
+                        }
                     }
-                    else {
-                        $('#dialog-message').html(data.Message).dialog('open');
-                    }
-
                 },
                 error: function (xhr, errorText) {
                     alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');

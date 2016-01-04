@@ -18,12 +18,12 @@ namespace NegociosYContactos.CustomAttributes
                 var user = (User)filterContext.HttpContext.Session["UserAuthenticated"];
                 if (!user.IsAuthenticated)
                 {
-                    filterContext.Result = new HttpUnauthorizedResult();
+                    filterContext.Result = new RedirectResult("~/Home/Index");
                 }
             }
             else
             {
-                filterContext.Result = new HttpUnauthorizedResult();
+                filterContext.Result = new RedirectResult("~/Home/Index");
             }
         }
 
@@ -34,12 +34,12 @@ namespace NegociosYContactos.CustomAttributes
                 var user = (User)filterContext.HttpContext.Session["UserAuthenticated"];
                 if (!user.IsAuthenticated)
                 {
-                    filterContext.Result = new HttpUnauthorizedResult();
+                    filterContext.Result = new RedirectResult("~/Home/Index");
                 }
             }
             else
             {
-                filterContext.Result = new HttpUnauthorizedResult();
+                filterContext.Result = new RedirectResult("~/Home/Index");
             }
         }
     }

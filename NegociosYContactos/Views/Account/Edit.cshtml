@@ -18,35 +18,45 @@
             <div id="divSummaryErrors"><ul class="register-error"></ul></div>
             <div>
                 <label class="register">Tipo de Identificación:</label>
-                <select id="cmbIdentificationType" disabled>
+                <select id="cmbIdentificationType">
                     @{
-                        if (Model.IdentificationType.Equals("C"))
+                        if (Model.IdentificationType != null)
                         {
-                            <option value="C" selected="selected">Cédula de Ciudadanía</option>
-                            <option value="N">Nit</option>
-                            <option value="T">Tarjeta de Identidad</option>
-                            <option value="P">Pasaporte</option>
-                        }
-                        else if (Model.IdentificationType.Equals("N"))
-                        {
-                            <option value="C">Cédula de Ciudadanía</option>
-                            <option value="N" selected="selected">Nit</option>
-                            <option value="T">Tarjeta de Identidad</option>
-                            <option value="P">Pasaporte</option>
-                        }
-                        else if (Model.IdentificationType.Equals("T"))
-                        {
-                            <option value="C">Cédula de Ciudadanía</option>
-                            <option value="N">Nit</option>
-                            <option value="T" selected="selected">Tarjeta de Identidad</option>
-                            <option value="P">Pasaporte</option>
-                        }
-                        else if (Model.IdentificationType.Equals("P"))
-                        {
-                            <option value="C">Cédula de Ciudadanía</option>
-                            <option value="N">Nit</option>
-                            <option value="T">Tarjeta de Identidad</option>
-                            <option value="P" selected="selected">Pasaporte</option>
+                            if (Model.IdentificationType.Equals("C"))
+                            {
+                                <option value="C" selected="selected">Cédula de Ciudadanía</option>
+                                <option value="N">Nit</option>
+                                <option value="T">Tarjeta de Identidad</option>
+                                <option value="P">Pasaporte</option>
+                            }
+                            else if (Model.IdentificationType.Equals("N"))
+                            {
+                                <option value="C">Cédula de Ciudadanía</option>
+                                <option value="N" selected="selected">Nit</option>
+                                <option value="T">Tarjeta de Identidad</option>
+                                <option value="P">Pasaporte</option>
+                            }
+                            else if (Model.IdentificationType.Equals("T"))
+                            {
+                                <option value="C">Cédula de Ciudadanía</option>
+                                <option value="N">Nit</option>
+                                <option value="T" selected="selected">Tarjeta de Identidad</option>
+                                <option value="P">Pasaporte</option>
+                            }
+                            else if (Model.IdentificationType.Equals("P"))
+                            {
+                                <option value="C">Cédula de Ciudadanía</option>
+                                <option value="N">Nit</option>
+                                <option value="T">Tarjeta de Identidad</option>
+                                <option value="P" selected="selected">Pasaporte</option>
+                            }
+                            else
+                            {
+                                <option value="C">Cédula de Ciudadanía</option>
+                                <option value="N">Nit</option>
+                                <option value="T">Tarjeta de Identidad</option>
+                                <option value="P">Pasaporte</option>
+                            }
                         }
                         else
                         {
@@ -62,12 +72,12 @@
                     <option value="P">Pasaporte</option>
                 </select>
             </div>
-            <div><label class="register">Número de Identificación:</label><input disabled name="identificationNumber" id="identificationNumber" type="number" value=@Model.IdentificationNumber /></div>
+            <div><label class="register">Número de Identificación:</label><input name="identificationNumber" id="identificationNumber" type="number" value=@Model.IdentificationNumber /></div>
             <div><label class="register">Email: </label><input name="email" id="email" value="@Model.Email" type="email" /></div>
             <div><label class="register">Teléfono: </label><input name="phone" id="phone" type="number" value="@Model.Phone" /></div>
             <div><label class="register">Nombre de usuario:</label><input name="userName" id="userName" type="text" value="@Model.UserName" /></div>
             <div><label class="register">Contraseña: </label><input name="password" id="txtPassword1" type="password" value="@Model.Password" /></div>
-            <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" value="@Model.Password"/><div id="divValidarPassword" class="register-error">La confirmación de tu contraseña no concuerda</div></div>
+            <div><label class="register">Confirma tu contraseña: </label><input id="txtPassword2" type="password" value="@Model.Password" /><div id="divValidarPassword" class="register-error">La confirmación de tu contraseña no concuerda</div></div>
             <br />
             <div><p style="margin-left:18%;"><input id="btnEnviar" class="btn btn-primary" href="" type="submit" value="Enviar" /></p></div>
         </form>

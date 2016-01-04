@@ -1,6 +1,8 @@
-﻿$(function () {
+﻿var urlToRedirect = '';
+$(function () {
     animateTopBar();
     modalMessage();
+    modalMessageRedirect();
     loadApiGoogle();
     loadApiFacebook();
     showSocial();
@@ -26,6 +28,19 @@ function modalMessage() {
             Ok: function () {
                 $(this).dialog("close");
                 location.reload();
+            }
+        }
+    });
+}
+
+function modalMessageRedirect() {
+    $("#dialog-message-redirect").dialog({
+        modal: true,
+        autoOpen: false,
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+                window.location.href = urlToRedirect;
             }
         }
     });

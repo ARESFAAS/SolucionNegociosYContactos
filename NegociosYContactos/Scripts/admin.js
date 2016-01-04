@@ -79,6 +79,7 @@ function dialogConfig() {
                         alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
                     }
                 });
+                $('#divPaso0').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }
         }
@@ -100,6 +101,7 @@ function dialogConfig() {
         },
         buttons: {
             "Aceptar": function () {
+                $('#divPaso1').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }
         }
@@ -122,6 +124,7 @@ function dialogConfig() {
         },
         buttons: {
             "Aceptar": function () {
+                $('#divPaso2').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }
         }
@@ -158,6 +161,7 @@ function dialogConfig() {
                         alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
                     }
                 });
+                $('#divPaso3').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }
         }
@@ -209,6 +213,7 @@ function dialogConfig() {
                         alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
                     }
                 });
+                $('#divPaso4').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }
         }
@@ -230,28 +235,34 @@ function dialogConfig() {
         },
         buttons: {
             "Aceptar": function () {
+                $('#divPaso5').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }
         }
     });
 
     $('#divPaso0').click(function () {
+        $(this).css('background-color', 'gainsboro');
         $('#divCargaNombre').dialog('open');
     });
 
     $('#divPaso1').click(function () {
+        $(this).css('background-color', 'gainsboro');
         $('#divCargaLogo').dialog('open');
     });
 
     $('#divPaso2').click(function () {
+        $(this).css('background-color', 'gainsboro');
         $('#divCargaFotos').dialog('open');
     });
 
     $('#divPaso3').click(function () {
+        $(this).css('background-color', 'gainsboro');
         $('#divCambiaColor').dialog('open');
     });
 
     $('#divPaso4').click(function () {
+        $(this).css('background-color', 'gainsboro');
         $.ajax({
             url: getHost() + 'Admin/GetProductTemp',
             type: "POST",
@@ -287,6 +298,7 @@ function dialogConfig() {
     });
 
     $('#divPaso5').click(function () {
+        $(this).css('background-color', 'gainsboro');
         $('#divDireccion').dialog('open');
     });
 

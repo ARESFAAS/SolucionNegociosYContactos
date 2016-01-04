@@ -94,8 +94,15 @@ function saveUser() {
             async: true,
             processData: false,
             cache: false,
-            success: function (data) {
-                $("#dialog-message").html(data.Message).dialog('open');
+            success: function (json) {
+                if (json.RedirectLogin) {
+                    urlToRedirect = getHost() + 'Account/Login';
+                    $("#dialog-message-redirect").html(json.Message).dialog('open');
+                }
+                else
+                {
+                    $("#dialog-message").html(json.Message).dialog('open');
+                }
             },
             error: function (xhr, errorText) {
                 alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');

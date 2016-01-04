@@ -22,18 +22,20 @@ namespace NegociosYContactos.Controllers
         public ActionResult SaveUser(User user)
         {
             Data.Classes.IData data = new Data.Classes.Data();
+            var redirect = false;
             // El usuario es nuevo          
             if (data.GetUser(user) == null)
             {
                 user.Id = Guid.NewGuid().ToString();
-                data.SaveUser(user);
+                var result = data.SaveUser(user);
                 user.Message = "¡¡¡Correcto, ya estas registrado, continua navegando nuestro sitio!!!";
+                redirect = true;              
             }
             else
             {
                 user.Message = "Lo sentimos... ya tenemos un usuario registrado con los mismos datos";
             }
-            return Json(new { Message = user.Message });
+            return Json(new { Message = user.Message, RedirectLogin = redirect });
         }
 
         public ActionResult Login()
@@ -153,6 +155,8 @@ namespace NegociosYContactos.Controllers
                 UserAutenticated.Password = result.Password;
                 UserAutenticated.Phone = result.Phone;
                 UserAutenticated.UserName = result.UserName;
+                UserAutenticated.IdentificationType = result.IdentificationType;
+                UserAutenticated.IdentificationNumber = result.IdentificationNumber;
                 
                 result.Message = "¡¡¡Correcto, ya completaste tu registro, continua navegando nuestro sitio!!!";
             }
