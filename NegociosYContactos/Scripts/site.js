@@ -6,7 +6,6 @@ $(function () {
     loadApiGoogle();
     loadApiFacebook();
     showSocial();
-    //showNavBar();
 });
 
 function animateTopBar() {
@@ -175,4 +174,21 @@ function showNavBar() {
 
 function getHost() {
     return window.location.protocol + "\\\\" + window.location.host + "\\";
+}
+
+function disableRefresh() {
+    document.onkeydown = function () {
+        switch (event.keyCode) {
+            case 116: //F5 button
+                event.returnValue = false;
+                event.keyCode = 0;
+                return false;
+            case 82: //R button
+                if (event.ctrlKey) {
+                    event.returnValue = false;
+                    event.keyCode = 0;
+                    return false;
+                }
+        }
+    }
 }

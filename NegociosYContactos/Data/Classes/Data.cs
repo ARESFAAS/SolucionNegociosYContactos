@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using NegociosYContactos.Models;
-using System.Collections.Generic;
 
 namespace NegociosYContactos.Data.Classes
 {

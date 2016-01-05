@@ -5,6 +5,7 @@ $(function () {
     configFormUpdateUserValidate();
     validatePassword();
     getPartialTerms();
+    disableRefresh();
 });
 
 function configFormValidate() {

@@ -6,6 +6,7 @@
     colorPickerConfig();
     enableStep();
     enableContextMenu();
+    disableRefresh();
 });
 
 function fileUploadConfig() {

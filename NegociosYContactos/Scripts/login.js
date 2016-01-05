@@ -7,6 +7,7 @@ $(function () {
     loginGoogle();
     loginMessage();
     forgotPassword();
+    disableRefresh();
 });
 
 function loginUser() {
