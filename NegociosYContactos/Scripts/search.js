@@ -2,6 +2,7 @@
     economicBannerLoad();
     newsBannerLoad();
     itemSearchAnimate();
+    loadAutoComplete();
 });
 
 function economicBannerLoad() {
@@ -53,4 +54,26 @@ function goRoom(url) {
     //        alert('error');
     //    }
     //})
+}
+
+function loadAutoComplete() {
+    //var dataAutoComplete = JSON.parse('@Html.Raw(ViewBag.DataAutoComplete)');
+
+    $.ajax({
+        url: getHost() + 'Search/GetAutoComplete',
+        type: "POST",
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        processData: false,
+        cache: false,
+        success: function (data) {
+            $("#txtSearch").catcomplete({
+                delay: 0,
+                source: data.DataAutoComplete
+            });
+        },
+        error: function (xhr) {
+            
+        }
+    });
 }

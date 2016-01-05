@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using NegociosYContactos.Models;
+using System.Collections.Generic;
 
 namespace NegociosYContactos.Data.Classes
 {
@@ -280,6 +281,25 @@ namespace NegociosYContactos.Data.Classes
                     context.SaveChanges();
                 }
                 return businesWeb;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public object GetCategoryAutoComplete()
+        {
+            try
+            {
+                var result = new List<object>();
+                result.Add(new { label = "Restaurantes", category = "Categoria" });
+                result.Add(new { label = "Fiestas", category = "Categoria" });
+                result.Add(new { label = "Detalles", category = "Categoria" });
+                result.Add(new { label = "Muebles", category = "Categoria" });
+                result.Add(new { label = "Librerias", category = "Categoria" });
+                result.Add(new { label = "Hogar", category = "Categoria" });
+                return result;
             }
             catch (Exception)
             {

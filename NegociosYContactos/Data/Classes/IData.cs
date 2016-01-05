@@ -17,5 +17,7 @@ namespace NegociosYContactos.Data.Classes
         User GetUserForLoginExternal(User user);
 
         User EditUser(User user);
+
+        object GetCategoryAutoComplete();
     }
 }

@@ -1,4 +1,6 @@
-﻿using NegociosYContactos.Models;
+﻿using NegociosYContactos.Data.Classes;
+using NegociosYContactos.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -9,8 +11,13 @@ namespace NegociosYContactos.Controllers
         // GET: Search
         public ActionResult Index()
         {
-            // TODO: obtener listado de items mas buscados (6)
+            // TODO: obtener listado de items mas buscados (6)            
             return View();
+        }
+
+        public JsonResult GetAutoComplete() {
+            IData data = new Data.Classes.Data();
+            return Json(new { DataAutoComplete = data.GetCategoryAutoComplete() });
         }
 
         public ActionResult Room(string searchWord)
