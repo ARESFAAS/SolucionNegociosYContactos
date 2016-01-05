@@ -90,7 +90,7 @@
 </div>
 <hr />
 <div id="divCargaNombre" style="display:none;background-color:lightblue;border-color:black;border:outset;">
-    <label>Nuevo nombre:</label><input id="txtNombre" type="text" style="width:100%;" /><br /><br /><label>Nombre actual:</label>
+    <label>Nuevo nombre:</label><input id="txtNombre" type="text" style="width:100%;" value="@Model.Name" /><br /><br /><label>Nombre actual:</label>
     <div>@Model.Name</div><br />
 </div>
 <div id="divPaso1" class="configSpaceStep">
@@ -113,7 +113,7 @@
     <div class="file_size"></div>
     <br /><br />
     <div id="divNewPhoto"><label>Nueva foto o nuevo logo: </label></div><br />
-    <div><label>Foto o logo actual</label><div><img src=@Model.UrlImage /></div></div>
+    <div><label>Foto o logo actual</label><div><img src="@Model.UrlImage" /></div></div>
 </div>
 <hr />
 <div id="divPaso2" class="configSpaceStep">
@@ -164,7 +164,8 @@
     <br /><br />
     <hr />
     <div id="divActualPhotos">
-        <label>Imágenes de tus productos o servicios actuales</label>
+        <label>Imágenes de tus productos o servicios actuales</label><br />
+        <p>Para eliminar una imagen, haz click derecho sobre ella y luego haz click en borrar</p>
         <br />
         @{
             if (Model.Products != null)
@@ -205,7 +206,8 @@
 <div id="divPaso5" class="configSpaceStep">
     <h3>6. Agrega o cambia la dirección física de tu negocio</h3>
 </div>
-<div id="divDireccion" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nueva Dirección:</label><input id="txtDireccion" type="text" style="width:100%;" /><br /><br /><label>Dirección actual:</label><div>@Model.Name</div></div>
+<div id="divDireccion" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nueva Dirección:</label><input id="txtDireccion" type="text" style="width:100%;" value="@Model.Address" /><br /><br /><label>Dirección actual:</label><div>@Model.Address</div></div>
 <br /><br />
-<p style="text-align:right;"><a href="@Url.Action("SaveData","Admin")" class="btn btn-success">Crea tu espacio o actualizalo ahora</a></p>
+<p style="text-align:right;"><a href="@Url.Action("SaveData","Admin")" class="btn btn-primary">Crea tu espacio o actualizalo ahora</a></p>
+<p style="text-align:right;"><a href="@Url.Action("CancelChange","Admin")" class="btn btn-primary">Cancelar</a></p>
 <br /><br /><br />

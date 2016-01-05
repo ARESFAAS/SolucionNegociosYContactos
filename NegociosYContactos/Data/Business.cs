@@ -29,6 +29,7 @@ namespace NegociosYContactos.Data
         public System.DateTime EndDate { get; set; }
         public bool Premium { get; set; }
         public bool Active { get; set; }
+        public string Address { get; set; }
     
         public virtual ICollection<BusinessProduct> BusinessProduct { get; set; }
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }

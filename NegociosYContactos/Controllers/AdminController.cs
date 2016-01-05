@@ -12,6 +12,7 @@ namespace NegociosYContactos.Controllers
     public class AdminController : BaseController
     {
         private string _folderTemplate = "../ClientImages/{0}";
+        private string _folderLogoTemplate = "../ClientImages/{0}/Portada";
         // GET: Admin
         public ActionResult Index()
         {
@@ -48,7 +49,8 @@ namespace NegociosYContactos.Controllers
             {
                 foreach (var item in BusinessWeb.Products)
                 {
-                    if (item.Id >= idImageTmp) {
+                    if (item.Id >= idImageTmp)
+                    {
                         idImageTmp = item.Id;
                     }
                 }
@@ -67,10 +69,10 @@ namespace NegociosYContactos.Controllers
                     Directory.CreateDirectory(pathFolder);
 
                     string savedFileName = Path.Combine(pathFolder, Path.GetFileName(hpf.FileName));
-                    string savedFileImage = string.Concat(pathImage, "/" ,Path.GetFileName(hpf.FileName));
+                    string savedFileImage = string.Concat(pathImage, "/", Path.GetFileName(hpf.FileName));
 
                     hpf.SaveAs(savedFileName); // Save the file
-                    
+
                     // save temporal images                
                     BusinessWeb.Products.Add(new BusinessProductWeb
                     {
@@ -94,12 +96,12 @@ namespace NegociosYContactos.Controllers
 
                 // Returns json
                 return Content(
-                    "{\"files\": [{\"name\":\"" + fileList[0].Name + 
-                    "\",\"type\":\"" + fileList[0].Type + 
-                    "\",\"url\":\"" + fileList[0].Url + 
-                     "\",\"thumbnailUrl\":\"" + fileList[0].ThumbnailUrl + 
-                     "\",\"deleteUrl\":\"" +  fileList[0].DeleteUrl + 
-                     "\",\"deleteType\":\"" + "DELETE" + 
+                    "{\"files\": [{\"name\":\"" + fileList[0].Name +
+                    "\",\"type\":\"" + fileList[0].Type +
+                    "\",\"url\":\"" + fileList[0].Url +
+                     "\",\"thumbnailUrl\":\"" + fileList[0].ThumbnailUrl +
+                     "\",\"deleteUrl\":\"" + fileList[0].DeleteUrl +
+                     "\",\"deleteType\":\"" + "DELETE" +
                      "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) +
                      "\",\"id\":\"" + fileList[0].Id +
                      "\"}]}", "application/json");
@@ -107,13 +109,13 @@ namespace NegociosYContactos.Controllers
             else
             {
                 return Content(
-                    "{\"files\": [{\"name\":\"" + "limitSize" + 
-                    "\",\"type\":\"" + "limitSize" + 
+                    "{\"files\": [{\"name\":\"" + "limitSize" +
+                    "\",\"type\":\"" + "limitSize" +
                     "\",\"url\":\"" + "limitSize" +
-                    "\",\"thumbnailUrl\":\"" + "limitSize" + 
-                    "\",\"deleteUrl\":\"" + "limitSize" + 
-                    "\",\"deleteType\":\"" + "DELETE" + 
-                    "\",\"size\":\"" + string.Format("{0} bytes", "0") + 
+                    "\",\"thumbnailUrl\":\"" + "limitSize" +
+                    "\",\"deleteUrl\":\"" + "limitSize" +
+                    "\",\"deleteType\":\"" + "DELETE" +
+                    "\",\"size\":\"" + string.Format("{0} bytes", "0") +
                     "\"}]}", "application/json");
             }
         }
@@ -122,8 +124,8 @@ namespace NegociosYContactos.Controllers
         public ContentResult UploadLogo()
         {
             var fileList = new List<UploadFile>();
-            var pathFolder = string.Format(Server.MapPath(_folderTemplate), UserAutenticated.Id);
-            var pathImage = string.Format(_folderTemplate, UserAutenticated.Id);
+            var pathFolder = string.Format(Server.MapPath(_folderLogoTemplate), UserAutenticated.Id);
+            var pathImage = string.Format(_folderLogoTemplate, UserAutenticated.Id);
             string savedFileImage = string.Empty;
 
             foreach (string file in Request.Files)
@@ -135,7 +137,7 @@ namespace NegociosYContactos.Controllers
                 Directory.CreateDirectory(pathFolder);
 
                 string savedFileName = Path.Combine(pathFolder, string.Concat("_Portada_", Path.GetFileName(hpf.FileName)));
-                savedFileImage = string.Concat(pathImage, "/", Path.GetFileName(hpf.FileName));
+                savedFileImage = string.Concat(pathImage, "/", "_Portada_", Path.GetFileName(hpf.FileName));
 
                 hpf.SaveAs(savedFileName); // Save the file
 
@@ -151,8 +153,8 @@ namespace NegociosYContactos.Controllers
             }
 
             // Returns json
-            return Content("{\"name\":\"" + fileList[0].Name + 
-                "\",\"type\":\"" + fileList[0].Type + 
+            return Content("{\"name\":\"" + fileList[0].Name +
+                "\",\"type\":\"" + fileList[0].Type +
                 "\",\"size\":\"" + string.Format("{0} bytes", fileList[0].Size) +
                 "\",\"savedFileImage\":\"" + savedFileImage +
                 "\"}", "application/json");
@@ -160,6 +162,10 @@ namespace NegociosYContactos.Controllers
 
         public ActionResult SaveData()
         {
+            // maintenance functions
+            DeleteFiles();
+            DeleteLogo();
+
             IData data = new Data.Classes.Data();
             data.SaveBusinessWeb(BusinessWeb);
             return View("Index", BusinessWeb);
@@ -206,6 +212,74 @@ namespace NegociosYContactos.Controllers
             BusinessProductWeb productTemp = BusinessWeb.Products.Find(x => x.Id.ToString().Equals(id));
             BusinessWeb.Products.Remove(productTemp);
             return Json(new { Message = "ok" });
+        }
+
+        public JsonResult UpdateAddressTemp(string newAddress)
+        {
+            BusinessWeb.Address = newAddress;
+            return Json(new { Message = "ok" });
+        }
+
+        public ActionResult CancelChange()
+        {
+
+            Data.Classes.Data data = new Data.Classes.Data();
+            BusinessWeb = data.GetBusinessData(UserAutenticated);
+            BusinessWeb.User.IdUser = UserAutenticated.Id;
+
+            // maintenance functions
+            DeleteFiles();
+            DeleteLogo();
+
+            return View("Index", BusinessWeb);
+        }
+
+        private void DeleteFiles()
+        {
+            var pathFolder = string.Format(Server.MapPath(_folderTemplate), UserAutenticated.Id);
+            string[] fileList = Directory.GetFiles(pathFolder, "*.*");
+            foreach (var file in fileList)
+            {
+                var fileNameTemp = Path.GetFileName(file);
+                var deleteFile = true;
+                foreach (var product in BusinessWeb.Products)
+                {
+                    var productImageTemp = Path.GetFileName(product.UrlImage);
+                    if (productImageTemp.Equals(fileNameTemp))
+                    {
+                        deleteFile = false;
+                        break;
+                    }
+                }
+                if (deleteFile)
+                {
+                    System.IO.File.Delete(file);
+                }
+            }
+
+        }
+
+        private void DeleteLogo()
+        {
+            var pathFolder = string.Format(Server.MapPath(_folderLogoTemplate), UserAutenticated.Id);
+            string[] fileList = Directory.GetFiles(pathFolder, "*.*");
+            foreach (var file in fileList)
+            {
+                var fileNameTemp = Path.GetFileName(file);
+                var deleteFile = true;
+                var logoImageTemp = Path.GetFileName(BusinessWeb.UrlImage);
+
+                if (logoImageTemp.Equals(fileNameTemp))
+                {
+                    deleteFile = false;
+                }
+
+                if (deleteFile)
+                {
+                    System.IO.File.Delete(file);
+                }
+            }
+
         }
     }
 }

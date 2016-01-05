@@ -33,6 +33,7 @@
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="Premium" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="BusinessProduct">
           <Key>
@@ -145,6 +146,7 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BusinessProduct" Relationship="Self.FK_BusinessProduct_Business" FromRole="Business" ToRole="BusinessProduct" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.BusinessUser" FromRole="Business" ToRole="AspNetUsers" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BusinessProduct">
           <Key>
@@ -187,7 +189,7 @@
             <End Role="Business" EntitySet="Business" />
           </AssociationSet>
           <FunctionImport Name="BusinessData_Get" ReturnType="Collection(ContactosyNegociosModel.BusinessData_Get_Result)">
-          <Parameter Name="IdUser" Mode="In" Type="String" />
+            <Parameter Name="IdUser" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BusinessData_Get_Result">
@@ -205,6 +207,7 @@
           <Property Type="String" Name="ProductDescription" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="ProductValue" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="ProductUrlImage" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -231,6 +234,7 @@
           <EntitySetMapping Name="Business">
             <EntityTypeMapping TypeName="ContactosyNegociosModel.Business">
               <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -280,6 +284,7 @@
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
                 <ScalarProperty Name="ProductValue" ColumnName="ProductValue" />
                 <ScalarProperty Name="ProductUrlImage" ColumnName="ProductUrlImage" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

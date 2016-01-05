@@ -45,6 +45,7 @@ namespace NegociosYContactos.Models
         public DateTime EndDate { get; set; }
         public bool Premium { get; set; }
         public bool Active { get; set; }
+        public string Address { get; set; }
         public BusinessUserWeb User { get; set; }
         public List<BusinessProductWeb> Products { get; set; }
     }    

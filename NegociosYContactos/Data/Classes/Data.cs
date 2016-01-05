@@ -201,7 +201,8 @@ namespace NegociosYContactos.Data.Classes
                         Products = products,
                         Style = x.Style,
                         UrlImage = x.UrlImage,
-                        User = new BusinessUserWeb { IdBusiness = x.Id, IdUser = user.Id }
+                        User = new BusinessUserWeb { IdBusiness = x.Id, IdUser = user.Id },
+                        Address = x.Address
                     }).FirstOrDefault();
                     return data;
                 }
@@ -231,7 +232,8 @@ namespace NegociosYContactos.Data.Classes
                             InitDate = DateTime.Now,
                             EndDate = endDateTemp,
                             Premium = businesWeb.Premium,
-                            Active = true
+                            Active = true,
+                            Address = businesWeb.Address
                         };
 
                         context.AspNetUsers.FirstOrDefault(x => x.Id.Equals(businesWeb.User.IdUser)).Business.Add(actualBusiness);
@@ -258,6 +260,7 @@ namespace NegociosYContactos.Data.Classes
                         actualBusiness.Description = businesWeb.Description;
                         actualBusiness.UrlImage = businesWeb.UrlImage;
                         actualBusiness.Style = businesWeb.Style;
+                        actualBusiness.Address = businesWeb.Address;
 
                         foreach (var item in context.BusinessProduct)
                         {

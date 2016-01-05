@@ -87,8 +87,9 @@ function dialogConfig() {
 
     $("#divCargaLogo").dialog({
         width: 'auto', // overcomes width:'auto' and maxWidth bug
-        maxWidth: 800,
+        maxWidth: 1000,
         height: 'auto',
+        maxHeight: 600,
         modal: true,
         fluid: true, //new option
         resizable: false,
@@ -111,7 +112,7 @@ function dialogConfig() {
         width: 'auto', // overcomes width:'auto' and maxWidth bug
         maxWidth: 900,
         height: 'auto',
-        maxHeight: 900,
+        maxHeight: 600,
         modal: true,
         fluid: true, //new option
         resizable: false,
@@ -235,6 +236,19 @@ function dialogConfig() {
         },
         buttons: {
             "Aceptar": function () {
+                $.ajax({
+                    url: getHost() + 'Admin/UpdateAddressTemp',
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ newAddress: $('#txtDireccion').val() }),
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (json) { },
+                    error: function (xhr, errorText) {
+                        alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                    }
+                });
                 $('#divPaso5').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }
