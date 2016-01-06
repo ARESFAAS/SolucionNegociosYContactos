@@ -1,14 +1,68 @@
 ﻿@model NegociosYContactos.Models.SearchListViewModel
 <h2 style="margin-top:4em;">@ViewBag.Title</h2>
 <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
+<div id="divPaginationTop">
+    <div style="width:50%;text-align:left;float:left;">
+        @Html.ActionLink(
+        "<< Anterior",                                                  
+        "RoomResults",                                    
+        "Search",                                                   
+        new
+        {                                                     
+            next = false
+        },
+        null                                                      
+        )
+        </div>
+        <div style="width:50%;text-align:right;float:right;">
+            @Html.ActionLink(
+        "Siguiente >>",                                                  
+        "RoomResults",                                    
+        "Search",                                                   
+        new
+        {                                                     
+            next = true
+        },
+        null                                                      
+        )
+    </div>
+</div>
+<div style="clear:both; border-top : 40px solid #5ebdb2"></div>
 <div style="text-align:center;">
     @foreach (var item in Model.SearchList)
     {
-        <div style="width:33%;float:right;">
-            <div>@item.Item</div>
-            <img src=@item.UrlImage />
+        <div style="width:33%;float:left;margin-top:2em;">
+            <div><p>@item.Name</p></div>
+            <img style="max-width:80%;height:auto;" src=@item.UrlImage />
         </div>
     }
+</div>
+<div style="clear:both; border-top : 40px solid #5ebdb2"></div>
+<div id="divPaginationBottom">
+    <div style="width:50%;text-align:left;float:left;">
+        @Html.ActionLink(
+        "<< Anterior",                                                  
+        "RoomResults",                                    
+        "Search",                                                   
+        new
+        {                                                     
+            next = false
+        },
+        null                                                      
+        )
+    </div>
+    <div style="width:50%;text-align:right;float:right;">
+        @Html.ActionLink(
+        "Siguiente >>",                                                  
+        "RoomResults",                                    
+        "Search",                                                   
+        new
+        {                                                     
+            next = true
+        },
+        null                                                      
+        )
+    </div>
 </div>
 <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
 <br /><br /><br />

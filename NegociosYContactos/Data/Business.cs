@@ -30,8 +30,10 @@ namespace NegociosYContactos.Data
         public bool Premium { get; set; }
         public bool Active { get; set; }
         public string Address { get; set; }
+        public Nullable<int> IdCategory { get; set; }
     
         public virtual ICollection<BusinessProduct> BusinessProduct { get; set; }
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

@@ -31,6 +31,7 @@ namespace NegociosYContactos.Data
         public DbSet<AspNetUsers> AspNetUsers { get; set; }
         public DbSet<Business> Business { get; set; }
         public DbSet<BusinessProduct> BusinessProduct { get; set; }
+        public DbSet<Category> Category { get; set; }
     
         public virtual ObjectResult<BusinessData_Get_Result> BusinessData_Get(string idUser)
         {
@@ -39,6 +40,15 @@ namespace NegociosYContactos.Data
                 new ObjectParameter("IdUser", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BusinessData_Get_Result>("BusinessData_Get", idUserParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> TypeTerm_Get(string term)
+        {
+            var termParameter = term != null ?
+                new ObjectParameter("term", term) :
+                new ObjectParameter("term", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("TypeTerm_Get", termParameter);
         }
     }
 }

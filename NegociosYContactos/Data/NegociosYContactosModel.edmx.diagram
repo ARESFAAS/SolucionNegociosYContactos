@@ -10,6 +10,8 @@
         <EntityTypeShape EntityType="ContactosyNegociosModel.BusinessProduct" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
         <AssociationConnector Association="ContactosyNegociosModel.FK_BusinessProduct_Business" ManuallyRouted="false" />
         <AssociationConnector Association="ContactosyNegociosModel.BusinessUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ContactosyNegociosModel.Category" Width="1.5" PointX="0.75" PointY="5.875" />
+        <AssociationConnector Association="ContactosyNegociosModel.FK_Business_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

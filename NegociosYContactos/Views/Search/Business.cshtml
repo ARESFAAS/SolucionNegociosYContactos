@@ -1,0 +1,30 @@
+﻿@model NegociosYContactos.Models.BusinessWeb
+@{
+    ViewBag.Title = "Negocio";
+}
+
+<h2 style="text-align:center;">@Model.Name</h2>
+
+<div id="divBusinessContent">
+    <div id="divBusinessSocial"></div>
+    <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
+    <div id="divBusinessLogo" style="text-align:center;">
+        <img style="max-width:80%;height:auto;" src="@Model.UrlImage" />
+    </div>
+    <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
+    <div id="divBusinessProducts" sstyle="text-align:center;">
+        @{
+            foreach (var item in Model.Products)
+            {
+                <div style="width:33%;float:left;margin-top:2em;text-align:center;">
+                <img style="max-width:80%;height:auto;" src="@item.UrlImage" /><br />
+                <label>Nombre: </label><label id="imgName" >@item.Name</label><br />
+                <label>Descripción: </label><label id="imgDescription">@item.Description</label><br />
+                <label>Valor: </label><label id="imgValue">@item.Value</label><br />
+                </div>
+            }
+        }
+    </div>
+</div>
+<div style="clear:both; border-top : 40px solid #5ebdb2"></div>
+

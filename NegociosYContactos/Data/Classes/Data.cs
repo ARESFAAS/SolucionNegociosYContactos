@@ -237,7 +237,7 @@ namespace NegociosYContactos.Data.Classes
                         };
 
                         context.AspNetUsers.FirstOrDefault(x => x.Id.Equals(businesWeb.User.IdUser)).Business.Add(actualBusiness);
-                        context.SaveChanges();                      
+                        context.SaveChanges();
                         idBusinessTemp = context.Business.Where(x => x.AspNetUsers.Any(y => y.Id.Equals(businesWeb.User.IdUser))).FirstOrDefault().Id;
 
                         foreach (var item in businesWeb.Products)
@@ -269,13 +269,14 @@ namespace NegociosYContactos.Data.Classes
 
                         foreach (var item in businesWeb.Products)
                         {
-                            context.BusinessProduct.Add(new BusinessProduct {
+                            context.BusinessProduct.Add(new BusinessProduct
+                            {
                                 Name = item.Name,
                                 Description = item.Description,
                                 IdBusiness = idBusinessTemp,
                                 UrlImage = item.UrlImage,
                                 Value = item.Value
-                            });                            
+                            });
                         }
                     }
                     context.SaveChanges();
@@ -292,14 +293,166 @@ namespace NegociosYContactos.Data.Classes
         {
             try
             {
-                var result = new List<object>();
-                result.Add(new { label = "Restaurantes", category = "Categoria" });
-                result.Add(new { label = "Fiestas", category = "Categoria" });
-                result.Add(new { label = "Detalles", category = "Categoria" });
-                result.Add(new { label = "Muebles", category = "Categoria" });
-                result.Add(new { label = "Librerias", category = "Categoria" });
-                result.Add(new { label = "Hogar", category = "Categoria" });
-                return result;
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    return context.Category.Select(x => new
+                    {
+                        label = x.Description,
+                        category = "Categoria"
+                    }).ToList();
+                }
+
+                //var result = new List<object>();
+                //result.Add(new { label = "Restaurantes", category = "Categoria" });
+                //result.Add(new { label = "Fiestas", category = "Categoria" });
+                //result.Add(new { label = "Detalles", category = "Categoria" });
+                //result.Add(new { label = "Muebles", category = "Categoria" });
+                //result.Add(new { label = "Librerias", category = "Categoria" });
+                //result.Add(new { label = "Hogar", category = "Categoria" });
+                //return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public int TypeTerm_Get(string term)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    var result = context.TypeTerm_Get(term);
+                    return result.FirstOrDefault().Value;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public SearchListViewModel BusinessList_Get(int idCategory, int tamPage, int page)
+        {
+            try
+            {
+                SearchListViewModel result = new SearchListViewModel();
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    result.SearchList = context.Business
+                        .Where(x => x.IdCategory == idCategory)
+                        .Select(x => new SearchViewModel
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            Description = x.Description,
+                            UrlImage = string.Concat("../", x.UrlImage),
+                            Address = x.Address,
+                            Active = x.Active,
+                            InitDate = x.InitDate,
+                            EndDate = x.EndDate,
+                            Premium = x.Premium,
+                            Style = x.Style,
+                            IdCategory = x.IdCategory != null ? x.IdCategory.Value : 0
+                        }).OrderBy(x => x.Id).Skip(tamPage * page).Take(tamPage).ToList();
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public BusinessWeb Business_Get(int id, string name)
+        {
+            try
+            {
+                
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    List<BusinessProductWeb> products = new List<BusinessProductWeb>();
+                    BusinessWeb data = new BusinessWeb();
+                    data.Products = products;
+
+                    if (id == 0)
+                    {
+                        id = context.Business.Where(x => x.Name.ToLower().Equals(name.ToLower())).FirstOrDefault().Id;
+                        if (id == 0)
+                        {
+                            return data;
+                        }
+                        else
+                        {
+                            products = context.BusinessProduct
+                                .Where(x => x.IdBusiness.Value == id)
+                                .Select(x => new BusinessProductWeb
+                                {
+                                    Id = x.Id,
+                                    IdBusiness = x.IdBusiness != null ? x.IdBusiness.Value : 0,
+                                    Description = x.Description,
+                                    Name = x.Name,
+                                    UrlImage = string.Concat("../", x.UrlImage),
+                                    Value = x.Value
+                                }).ToList();
+
+                            data = context.Business
+                                .Where(x => x.Id == id)
+                                .Select(x => new BusinessWeb
+                                {
+                                    Active = x.Active,
+                                    Description = x.Description,
+                                    EndDate = x.EndDate,
+                                    Id = x.Id,
+                                    InitDate = x.InitDate,
+                                    Name = x.Name,
+                                    Premium = x.Premium,
+                                    Style = x.Style,
+                                    UrlImage = string.Concat("../", x.UrlImage),
+                                    Address = x.Address
+                                }).FirstOrDefault();
+
+                            data.Products = products;
+
+                            return data;
+                        }
+                    }
+                    else
+                    {
+                        products = context.BusinessProduct
+                            .Where(y => y.IdBusiness.Value == id)
+                            .Select(x => new BusinessProductWeb
+                            {
+                                Id = x.Id,
+                                IdBusiness = x.IdBusiness != null ? x.IdBusiness.Value : 0,
+                                Description = x.Description,
+                                Name = x.Name,
+                                UrlImage = string.Concat("../", x.UrlImage),
+                                Value = x.Value
+                            }).ToList();
+
+                        data = context.Business
+                                .Where(x => x.Id == id)
+                                .Select(x => new BusinessWeb
+                                {
+                                    Active = x.Active,
+                                    Description = x.Description,
+                                    EndDate = x.EndDate,
+                                    Id = x.Id,
+                                    InitDate = x.InitDate,
+                                    Name = x.Name,
+                                    Premium = x.Premium,
+                                    Style = x.Style,
+                                    UrlImage = string.Concat("../", x.UrlImage),
+                                    Address = x.Address
+                                }).FirstOrDefault();
+
+                        data.Products = products;
+
+                        return data;
+                    }
+                }
             }
             catch (Exception)
             {

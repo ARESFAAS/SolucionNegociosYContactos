@@ -8,6 +8,22 @@ namespace NegociosYContactos.Controllers
 {
     public class SearchController : BaseController
     {
+        public SearchListPaginationModel SearchListPagination
+        {
+            get
+            {
+                if (Session["SearchListPagination"] == null)
+                {
+                    Session["SearchListPagination"] = new SearchListPaginationModel();
+                }
+                return (SearchListPaginationModel)Session["SearchListPagination"];
+            }
+            set
+            {
+                Session["SearchListPagination"] = value;
+            }
+        }
+
         // GET: Search
         public ActionResult Index()
         {
@@ -23,27 +39,48 @@ namespace NegociosYContactos.Controllers
         public ActionResult Room(string searchWord)
         {
             ViewBag.Title = searchWord;
-            // TODO: identificar si searchWord es categoria, negocio o producto
-            // TODO: dependiendo del tipo searchWord, redireccionar a las vistas de categoria, negocio o producto
-            // TODO: Obtener lista de negocios paginada y con filtro por tipo, producto o categoria
-            SearchListViewModel result = new SearchListViewModel();
-            result.SearchList = new List<SearchViewModel>();
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio1" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio2" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio3" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio4" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio5" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio6" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio7" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio8" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio9" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio10" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio11" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio12" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio13" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio14" });
-            result.SearchList.Add(new SearchViewModel { Item = "Negocio15" });
-            return View(result);
+
+            IData data = new Data.Classes.Data();
+            int termType = data.TypeTerm_Get(searchWord);
+
+            if (termType == 0) // Business
+            {
+                return View("Business",data.Business_Get(termType, searchWord));
+            }
+            else // Category
+            {
+                SearchListPagination.SearchWord = searchWord;
+                SearchListPagination.IdCategory = termType;
+                SearchListPagination.Page = 0;
+                SearchListPagination.TamPage = 9;
+                return View(data.BusinessList_Get(SearchListPagination.IdCategory, SearchListPagination.TamPage, SearchListPagination.Page));
+            }
+        }
+
+        public ActionResult RoomResults(bool next)
+        {
+            if (next)
+            {
+                SearchListPagination.Page += 1;
+            }
+            else
+            {
+                SearchListPagination.Page -= 1;
+            }
+            if (SearchListPagination.Page < 0)
+            {
+                SearchListPagination.Page = 0;
+            }
+
+            ViewBag.Title = SearchListPagination.SearchWord;
+            IData data = new Data.Classes.Data();
+            return View("Room", data.BusinessList_Get(SearchListPagination.IdCategory, SearchListPagination.TamPage, SearchListPagination.Page));
+        }
+
+        public ActionResult Business(int id, string name)
+        {
+            IData data = new Data.Classes.Data();         
+            return View(data.Business_Get(id, name));
         }
     }
 }

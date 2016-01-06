@@ -4,9 +4,15 @@ namespace NegociosYContactos.Data.Classes
 {
     public interface IData
     {
+        #region #businessData
+
         BusinessWeb GetBusinessData(User user);
 
         BusinessWeb SaveBusinessWeb(BusinessWeb businesWeb);
+
+        #endregion
+
+        #region userData
 
         User SaveUser(User user);
 
@@ -18,6 +24,18 @@ namespace NegociosYContactos.Data.Classes
 
         User EditUser(User user);
 
+        #endregion
+
+        #region search
+
         object GetCategoryAutoComplete();
+
+        int TypeTerm_Get(string term);
+
+        SearchListViewModel BusinessList_Get(int idCategory, int tamPage, int page);
+
+        BusinessWeb Business_Get(int id, string name);
+
+        #endregion
     }
 }

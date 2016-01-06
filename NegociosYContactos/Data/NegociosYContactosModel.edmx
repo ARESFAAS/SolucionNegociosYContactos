@@ -34,6 +34,7 @@
           <Property Name="Premium" Type="bit" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="IdCategory" Type="int" />
         </EntityType>
         <EntityType Name="BusinessProduct">
           <Key>
@@ -54,6 +55,25 @@
           <Property Name="IdUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdBusiness" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Business_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Business" Type="Self.Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BusinessProduct_Business">
           <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
           <End Role="BusinessProduct" Type="Self.BusinessProduct" Multiplicity="*" />
@@ -93,11 +113,19 @@
         <Function Name="BusinessData_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUser" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="TypeTerm_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ContactosyNegociosModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusinessProduct" EntityType="Self.BusinessProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusinessUser" EntityType="Self.BusinessUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Business_Category" Association="Self.FK_Business_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
           <AssociationSet Name="FK_BusinessProduct_Business" Association="Self.FK_BusinessProduct_Business">
             <End Role="Business" EntitySet="Business" />
             <End Role="BusinessProduct" EntitySet="BusinessProduct" />
@@ -147,6 +175,8 @@
           <NavigationProperty Name="BusinessProduct" Relationship="Self.FK_BusinessProduct_Business" FromRole="Business" ToRole="BusinessProduct" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.BusinessUser" FromRole="Business" ToRole="AspNetUsers" />
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IdCategory" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="ContactosyNegociosModel.FK_Business_Category" FromRole="Business" ToRole="Category" />
         </EntityType>
         <EntityType Name="BusinessProduct">
           <Key>
@@ -189,8 +219,16 @@
             <End Role="Business" EntitySet="Business" />
           </AssociationSet>
           <FunctionImport Name="BusinessData_Get" ReturnType="Collection(ContactosyNegociosModel.BusinessData_Get_Result)">
-            <Parameter Name="IdUser" Mode="In" Type="String" />
+          <Parameter Name="IdUser" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="TypeTerm_Get" ReturnType="Collection(Int32)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Category" EntityType="ContactosyNegociosModel.Category" />
+          <AssociationSet Name="FK_Business_Category" Association="ContactosyNegociosModel.FK_Business_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Business" EntitySet="Business" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="BusinessData_Get_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -209,6 +247,26 @@
           <Property Type="String" Name="ProductUrlImage" Nullable="false" MaxLength="256" />
           <Property Type="String" Name="Address" Nullable="true" MaxLength="255" />
         </ComplexType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Business" Relationship="ContactosyNegociosModel.FK_Business_Category" FromRole="Category" ToRole="Business" />
+        </EntityType>
+        <Association Name="FK_Business_Category">
+          <End Type="ContactosyNegociosModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="ContactosyNegociosModel.Business" Role="Business" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Business">
+              <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -234,6 +292,7 @@
           <EntitySetMapping Name="Business">
             <EntityTypeMapping TypeName="ContactosyNegociosModel.Business">
               <MappingFragment StoreEntitySet="Business">
+                <ScalarProperty Name="IdCategory" ColumnName="IdCategory" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -288,6 +347,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TypeTerm_Get" FunctionName="ContactosyNegociosModel.Store.TypeTerm_Get" />
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="ContactosyNegociosModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

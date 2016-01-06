@@ -145,6 +145,9 @@
     <Compile Include="Data\BusinessProduct.cs">
       <DependentUpon>NegociosYContactosModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Category.cs">
+      <DependentUpon>NegociosYContactosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Classes\Data.cs" />
     <Compile Include="Data\Classes\IData.cs" />
     <Compile Include="Data\NegociosYContactosModel.Context.cs">
@@ -314,6 +317,7 @@
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\_Terms.cshtml" />
     <Content Include="Views\Home\_PrivacyPolicy.cshtml" />
+    <Content Include="Views\Search\Business.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
