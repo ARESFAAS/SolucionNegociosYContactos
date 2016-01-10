@@ -459,5 +459,21 @@ namespace NegociosYContactos.Data.Classes
                 throw;
             }
         }
+
+        public bool ValidateUserName(string userName)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    var result = context.AspNetUsers.Any(x => x.UserName.ToLower().Trim().Equals(userName.Trim()));
+                    return result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

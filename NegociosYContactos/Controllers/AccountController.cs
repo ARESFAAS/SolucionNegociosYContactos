@@ -211,5 +211,18 @@ namespace NegociosYContactos.Controllers
                 throw;
             }
         }
+
+        public JsonResult ValidateUserName(string userName)
+        {
+            var result = false;
+            var message = string.Empty;
+            IData data = new Data.Classes.Data();
+            result = data.ValidateUserName(userName);
+            if (result)
+            {
+                message = "¡¡¡Lo sentimos, el nombre de usuario que intentas guardar ya alguien más lo tiene, prueba con otro!!!";
+            }
+            return Json(new { Result = result, Message = message });
+        }
     }
 }

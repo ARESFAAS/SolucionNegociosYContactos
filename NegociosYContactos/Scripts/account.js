@@ -6,6 +6,7 @@ $(function () {
     validatePassword();
     getPartialTerms();
     disableRefresh();
+    validateUserName();
 });
 
 function configFormValidate() {
@@ -313,6 +314,33 @@ function getPartialPrivacyPolicy() {
         $.get(url, function (data) {
             $('#divPrivacy').html(data);
             $('#divPrivacy').dialog('open');
+        });
+    });
+}
+
+function validateUserName() {
+    $('#userName').blur(function () {
+        $.ajax({
+            url: getHost() + 'Account/ValidateUserName',
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                UserName: $('#userName').val()
+            }),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (json) {
+                if (json.Result) {                   
+                    $("#dialog-message").html(json.Message).dialog('open');
+                    $('#userName').val('');
+                }                
+            },
+            error: function (xhr, errorText) {
+                $('#userName').val('');
+                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+            }
         });
     });
 }

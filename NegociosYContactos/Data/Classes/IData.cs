@@ -24,6 +24,8 @@ namespace NegociosYContactos.Data.Classes
 
         User EditUser(User user);
 
+        bool ValidateUserName(string userName);
+
         #endregion
 
         #region search
