@@ -36,7 +36,8 @@ function loginUser() {
                 }
             },
             error: function (xhr, errorText) {
-                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                    .dialog('open');
             }
         });
     });
@@ -141,7 +142,6 @@ function getFacebookData() {
                 }
             },
             error: function (xhr, errorText) {
-                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
                 signOutFacebook();
             }
         });
@@ -245,13 +245,13 @@ function attachSignin(element) {
                     }
                 },
                 error: function (xhr, errorText) {
-                    alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
                     signOutGoogle();
                 }
             });
         },
         function (error) {
-            alert(JSON.stringify(error, undefined, 2));
+            $("#dialog-message").html(JSON.stringify(error, undefined, 2))
+                .dialog('open');
         });
 }
 
@@ -322,7 +322,8 @@ function sendPassword() {
             $('#login-message-logout').html(data.Message).dialog('open');
         },
         error: function (xhr, errorText) {
-            alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+            $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                .dialog('open');
         }
     });
 }

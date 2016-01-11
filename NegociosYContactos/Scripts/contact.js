@@ -71,12 +71,13 @@ function sendMail() {
         url: getHost() + "Home/SendMail",
         data: { name: $('#name').val(), email: $('#email').val(), textMessage: $('#message').val() },
         success: function (msg) {
-            alert("Tu mensaje ha sido enviado");
+            $("#dialog-message").html('Tu mensaje ha sido enviado.')
+                .dialog('open');
         },
         //Manejo del ERROR
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            alert("Lo sentimos, tu mensaje no pudo ser enviado, por favor intenta mas tarde.");
-            //Se puede obtener informacion útil inspecionando el Objeto XMLHttpRequest
+            $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                .dialog('open');
             console.log(XMLHttpRequest);
         }
     })

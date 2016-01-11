@@ -27,7 +27,8 @@ function fileUploadConfig() {
         done: function (e, data) {
             if (data.result.files[0].name == 'limitSize') {
                 $("table tbody.files").empty();
-                alert('¡¡Has excedido el numero de imágenes permitidas en tu cuenta, para poder agregar otra, debes primero borrar una de las que ya tienes');
+                $("#dialog-message").html('¡¡Has excedido el numero de imágenes permitidas en tu cuenta, para poder agregar otra, debes primero borrar una de las que ya tienes')
+                    .dialog('open');
             }
             else {
                 var template = '<div style="float:left;margin: 4em 4em 4em 4em;text-align:center;"><img id={0} class="context-menu-one" src="{1}" /></div>';
@@ -77,7 +78,8 @@ function dialogConfig() {
                     success: function (data) {
                     },
                     error: function (xhr, errorText) {
-                        alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                        $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                            .dialog('open');
                     }
                 });
                 $('#divPaso0').css('background-color', 'yellowgreen');
@@ -160,7 +162,8 @@ function dialogConfig() {
                     cache: false,
                     success: function (data) { },
                     error: function (xhr, errorText) {
-                        alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                        $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                            .dialog('open');
                     }
                 });
                 $('#divPaso3').css('background-color', 'yellowgreen');
@@ -212,7 +215,8 @@ function dialogConfig() {
                     cache: false,
                     success: function (json) { },
                     error: function (xhr, errorText) {
-                        alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                        $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                            .dialog('open');
                     }
                 });
                 $('#divPaso4').css('background-color', 'yellowgreen');
@@ -247,7 +251,8 @@ function dialogConfig() {
                     cache: false,
                     success: function (json) { },
                     error: function (xhr, errorText) {
-                        alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                        $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                            .dialog('open');
                     }
                 });
                 $('#divPaso5').css('background-color', 'yellowgreen');
@@ -306,7 +311,8 @@ function dialogConfig() {
                 }
             },
             error: function (xhr, errorText) {
-                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                    .dialog('open');
             }
         });
         $('#divAgregaInformacion').dialog('open');
@@ -457,7 +463,8 @@ function enableContextMenu() {
                     $('#' + idTemp).parent().remove();
                 },
                 error: function (xhr, errorText) {
-                    alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                    $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                        .dialog('open');
                 }
             });
         },

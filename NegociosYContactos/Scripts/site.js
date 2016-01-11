@@ -61,8 +61,7 @@ function signOutGoogle() {
                 document.location.href = getHost() + 'Home/Index';
             },
             error: function (xhr, errorText) {
-                location.reload();
-                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                location.reload();                
             }
         });
     });
@@ -83,7 +82,6 @@ function signOutFacebook() {
             },
             error: function (xhr, errorText) {
                 location.reload();
-                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
             }
         });
     });
@@ -102,7 +100,6 @@ function signOutLocal() {
         },
         error: function (xhr, errorText) {
             location.reload();
-            alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
         }
     });
 }

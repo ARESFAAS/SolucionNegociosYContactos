@@ -107,7 +107,8 @@ function saveUser() {
                 }
             },
             error: function (xhr, errorText) {
-                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                    .dialog('open');
             }
         });
 }
@@ -233,7 +234,8 @@ function EditUser() {
             $("#dialog-message").html(data.Message).dialog('open');
         },
         error: function (xhr, errorText) {
-            alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+            $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                .dialog('open');
         }
     });
 }
@@ -339,7 +341,8 @@ function validateUserName() {
             },
             error: function (xhr, errorText) {
                 $('#userName').val('');
-                alert('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.');
+                $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                    .dialog('open');
             }
         });
     });

@@ -170,11 +170,7 @@ function getLocation() {
     if (navigator.geolocation)
     {
         navigator.geolocation.getCurrentPosition(showPosition);        
-    }
-    else
-    {
-        //alert("Geolocation is not supported by this browser.");
-    }
+    }    
 }
 
 function showPosition(position) {
@@ -228,13 +224,10 @@ function showPosition(position) {
                     },
                     error: function (xhr, errorText) {
                     }
-                });
-                //window.alert(country.formatted_address);
-            } else {
-                //window.alert('No results found');
+                });                
+            } else {                
             }
-        } else {
-            //window.alert('Geocoder failed due to: ' + status);
+        } else {            
         }
     });
 }
