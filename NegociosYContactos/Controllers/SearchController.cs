@@ -38,6 +38,11 @@ namespace NegociosYContactos.Controllers
 
         public ActionResult Room(string searchWord)
         {
+            if (string.IsNullOrEmpty(searchWord)) {
+                searchWord = string.Empty;
+            }
+            searchWord = searchWord.Replace('+', ' ');
+
             ViewBag.Title = searchWord;
 
             IData data = new Data.Classes.Data();

@@ -368,8 +368,7 @@ namespace NegociosYContactos.Data.Classes
         public BusinessWeb Business_Get(int id, string name)
         {
             try
-            {
-                
+            {                
                 using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
                 {
                     List<BusinessProductWeb> products = new List<BusinessProductWeb>();
@@ -378,7 +377,14 @@ namespace NegociosYContactos.Data.Classes
 
                     if (id == 0)
                     {
-                        id = context.Business.Where(x => x.Name.ToLower().Equals(name.ToLower())).FirstOrDefault().Id;
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            var businessTemp = context.Business.Where(x => x.Name.ToLower().Equals(name.ToLower())).FirstOrDefault();
+                            if (businessTemp != null)
+                            {
+                                id = businessTemp.Id;
+                            }                            
+                        }
                         if (id == 0)
                         {
                             return data;

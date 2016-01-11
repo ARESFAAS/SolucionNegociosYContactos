@@ -14,25 +14,22 @@ namespace NegociosYContactos
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-             name: "Room",
-             url: "{controller}/{action}/{searchWord}",
-             defaults: new { controller = "Search", action = "Room" }
-         );
+               name: "Room",
+               url: "{controller}/{action}/{searchWord}",
+               defaults: new { controller = "Search", action = "Room", searchWord = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
-               name: "Search",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Search", action = "Index", id = UrlParameter.Optional }
-           );
-            routes.MapRoute(
-             name: "Admin",
-             url: "{controller}/{action}/{id}",
-             defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
-         );
+                name: "Search",
+                url: "{controller}/{action}",
+                defaults: new { controller = "Search", action = "Index" }
+            );
+
             routes.MapRoute(
              name: "Default",
              url: "{controller}/{action}/{id}",
              defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-         );
+             );
         }
     }
 }

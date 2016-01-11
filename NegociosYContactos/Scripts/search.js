@@ -36,29 +36,11 @@ function itemSearchAnimate()
 }
 
 function goRoom(url) {
-    var param = $('#txtSearch').val();
-    window.location.href = url.replace('[*]', encodeURIComponent(param));
-    //$.ajax({
-    //    url: url,
-    //    dataType: "json",
-    //    type: "POST",
-    //    contentType: 'application/json; charset=utf-8',
-    //    data: JSON.stringify({ searchWord: param}),
-    //    async: true,
-    //    processData: false,
-    //    cache: false,
-    //    success: function (data) {
-    //        alert(data);
-    //    },
-    //    error: function (xhr) {
-    //        alert('error');
-    //    }
-    //})
+    var param = $('#txtSearch').val().trim().replace(/\s/g, "+");
+    window.location.href = url.replace('[*]', param);
 }
 
 function loadAutoComplete() {
-    //var dataAutoComplete = JSON.parse('@Html.Raw(ViewBag.DataAutoComplete)');
-
     $.ajax({
         url: getHost() + 'Search/GetAutoComplete',
         type: "POST",
