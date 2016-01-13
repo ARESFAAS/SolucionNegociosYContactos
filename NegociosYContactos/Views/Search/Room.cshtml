@@ -33,7 +33,13 @@
     {
         <div style="width:33%;float:left;margin-top:2em;">
             <div><p>@item.Name</p></div>
-            <img style="max-width:80%;height:auto;" src=@item.UrlImage />
+            @{ 
+                var urlTemp = Url.Action("Room", "Search", new RouteValueDictionary(new { searchWord = item.Name }));
+                urlTemp = urlTemp.Replace("%20", "+");
+            }
+            <a href="@urlTemp">
+                <img style="max-width:80%;height:auto;" src=@item.UrlImage />
+            </a>
         </div>
     }
 </div>

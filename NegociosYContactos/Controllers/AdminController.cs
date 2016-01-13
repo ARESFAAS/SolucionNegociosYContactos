@@ -269,14 +269,17 @@ namespace NegociosYContactos.Controllers
                 var deleteFile = true;
                 var logoImageTemp = Path.GetFileName(BusinessWeb.UrlImage);
 
-                if (logoImageTemp.Equals(fileNameTemp))
+                if (logoImageTemp != null)
                 {
-                    deleteFile = false;
-                }
+                    if (logoImageTemp.Equals(fileNameTemp))
+                    {
+                        deleteFile = false;
+                    }
 
-                if (deleteFile)
-                {
-                    System.IO.File.Delete(file);
+                    if (deleteFile)
+                    {
+                        System.IO.File.Delete(file);
+                    }
                 }
             }
 

@@ -192,7 +192,6 @@ namespace NegociosYContactos.Data.Classes
                     var data = context.BusinessData_Get(user.Id).Select(x => new BusinessWeb
                     {
                         Active = x.Active,
-                        Description = x.Description,
                         EndDate = x.EndDate,
                         Id = x.Id,
                         InitDate = x.InitDate,
@@ -226,7 +225,6 @@ namespace NegociosYContactos.Data.Classes
                         var actualBusiness = new Business
                         {
                             Name = businesWeb.Name,
-                            Description = businesWeb.Name,
                             UrlImage = businesWeb.UrlImage,
                             Style = businesWeb.Style,
                             InitDate = DateTime.Now,
@@ -257,7 +255,6 @@ namespace NegociosYContactos.Data.Classes
                         idBusinessTemp = businesWeb.Id;
                         var actualBusiness = context.Business.FirstOrDefault(x => x.Id == businesWeb.Id);
                         actualBusiness.Name = businesWeb.Name;
-                        actualBusiness.Description = businesWeb.Description;
                         actualBusiness.UrlImage = businesWeb.UrlImage;
                         actualBusiness.Style = businesWeb.Style;
                         actualBusiness.Address = businesWeb.Address;
@@ -341,12 +338,11 @@ namespace NegociosYContactos.Data.Classes
                 using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
                 {
                     result.SearchList = context.Business
-                        .Where(x => x.IdCategory == idCategory)
+                        .Where(x => x.IdCategory == idCategory && x.Active == true)
                         .Select(x => new SearchViewModel
                         {
                             Id = x.Id,
                             Name = x.Name,
-                            Description = x.Description,
                             UrlImage = string.Concat("../", x.UrlImage),
                             Address = x.Address,
                             Active = x.Active,
@@ -379,7 +375,9 @@ namespace NegociosYContactos.Data.Classes
                     {
                         if (!string.IsNullOrEmpty(name))
                         {
-                            var businessTemp = context.Business.Where(x => x.Name.ToLower().Equals(name.ToLower())).FirstOrDefault();
+                            var businessTemp = context.Business
+                                .Where(x => x.Name.ToLower().Equals(name.ToLower()) && x.Active == true)
+                                .FirstOrDefault();
                             if (businessTemp != null)
                             {
                                 id = businessTemp.Id;
@@ -408,7 +406,6 @@ namespace NegociosYContactos.Data.Classes
                                 .Select(x => new BusinessWeb
                                 {
                                     Active = x.Active,
-                                    Description = x.Description,
                                     EndDate = x.EndDate,
                                     Id = x.Id,
                                     InitDate = x.InitDate,
@@ -443,7 +440,6 @@ namespace NegociosYContactos.Data.Classes
                                 .Select(x => new BusinessWeb
                                 {
                                     Active = x.Active,
-                                    Description = x.Description,
                                     EndDate = x.EndDate,
                                     Id = x.Id,
                                     InitDate = x.InitDate,

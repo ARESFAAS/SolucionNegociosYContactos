@@ -82,10 +82,5 @@ namespace NegociosYContactos.Controllers
             return View("Room", data.BusinessList_Get(SearchListPagination.IdCategory, SearchListPagination.TamPage, SearchListPagination.Page));
         }
 
-        public ActionResult Business(int id, string name)
-        {
-            IData data = new Data.Classes.Data();         
-            return View(data.Business_Get(id, name));
-        }
     }
 }
