@@ -284,5 +284,10 @@ namespace NegociosYContactos.Controllers
             }
 
         }
+
+        public JsonResult GetCategories() {
+            IData data = new Data.Classes.Data();
+            return Json(new { Categories = data.GetCategory() });
+        }
     }
 }

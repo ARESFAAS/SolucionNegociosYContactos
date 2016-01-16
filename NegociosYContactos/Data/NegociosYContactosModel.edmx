@@ -243,6 +243,8 @@
           <Property Type="String" Name="ProductValue" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="ProductUrlImage" Nullable="false" MaxLength="256" />
           <Property Type="String" Name="Address" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="DescriptionCategory" Nullable="false" />
+          <Property Type="Int32" Name="IdCategory" Nullable="false" />
         </ComplexType>
         <EntityType Name="Category">
           <Key>

@@ -2,10 +2,53 @@
 @{
     ViewBag.Title = "Configuración de tu Espacio de Contacto:";
 }
+
+<style>
+    .ui-autocomplete-category {
+        font-weight: bold;
+        padding: .2em .4em;
+        margin: .8em 0 .2em;
+        line-height: 1.5;
+    }
+</style>
+<script>
+    $.widget( "custom.catcomplete", $.ui.autocomplete, {
+        _create: function() {
+            this._super();
+            this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+        },
+        _renderMenu: function( ul, items ) {
+            var that = this,
+              currentCategory = "";
+            $.each( items, function( index, item ) {
+                var li;
+                if ( item.category != currentCategory ) {
+                    ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                    currentCategory = item.category;
+                }
+                li = that._renderItemData( ul, item );
+                if ( item.category ) {
+                    li.attr( "aria-label", item.category + " : " + item.label );
+                }
+            });
+        }
+    });
+</script>
+
+
 @Scripts.Render("~/bundles/jqueryupload")
 @Scripts.Render("~/bundles/colorpicker")
 @Scripts.Render("~/bundles/admin")
 @Scripts.Render("~/bundles/contextmenu")
+<style>
+    #lstCategorySelect .ui-selecting {
+        background: #FECA40;
+    }
+    #lstCategorySelect .ui-selected {
+        background: #F39814;
+        color: white;
+    }
+</style>
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}
@@ -197,8 +240,8 @@
 <div id="divAgregaInformacion" style="display:none;background-color:lightblue;border-color:black;border:outset;">
     <label>Imágenes de tus productos o servicios</label>
     <div>
-        <br />        
-        <div id="divImgContent" style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;">            
+        <br />
+        <div id="divImgContent" style="float:left;display:inline;padding:0.5em 0.5em 0.5em 0.5em; margin: 0.5em 0.5em 0.5em 0.5em;text-align:center;">
         </div>
     </div>
 </div>
@@ -207,6 +250,15 @@
     <h3>6. Agrega o cambia la dirección física de tu negocio</h3>
 </div>
 <div id="divDireccion" style="display:none;background-color:lightblue;border-color:black;border:outset;"><label>Nueva Dirección:</label><input id="txtDireccion" type="text" style="width:100%;" value="@Model.Address" /><br /><br /><label>Dirección actual:</label><div>@Model.Address</div></div>
+<hr />
+<div id="divPaso6" class="configSpaceStep">
+    <h3>7. Escoge una categoría</h3>
+</div>
+<div id="divCategoria" style="display:none;background-color:lightblue;border-color:black;border:outset;">
+    <input id="txtCategoria" idCategory="@Model.Category.Id" value="@Model.Category.Description">
+    <hr />
+    <ol id="lstCategorySelect"></ol>
+</div>
 <br /><br />
 <p style="text-align:right;"><a href="@Url.Action("SaveData","Admin")" class="btn btn-primary">Crea tu espacio o actualizalo ahora</a></p>
 <p style="text-align:right;"><a href="@Url.Action("CancelChange","Admin")" class="btn btn-primary">Cancelar</a></p>

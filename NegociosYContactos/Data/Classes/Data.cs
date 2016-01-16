@@ -201,7 +201,8 @@ namespace NegociosYContactos.Data.Classes
                         Style = x.Style,
                         UrlImage = x.UrlImage,
                         User = new BusinessUserWeb { IdBusiness = x.Id, IdUser = user.Id },
-                        Address = x.Address
+                        Address = x.Address,
+                        Category = new BusinessCategory { Id = x.IdCategory, Description = x.DescriptionCategory }
                     }).FirstOrDefault();
                     return data;
                 }
@@ -231,7 +232,8 @@ namespace NegociosYContactos.Data.Classes
                             EndDate = endDateTemp,
                             Premium = businesWeb.Premium,
                             Active = true,
-                            Address = businesWeb.Address
+                            Address = businesWeb.Address,
+                            IdCategory = businesWeb.Category.Id
                         };
 
                         context.AspNetUsers.FirstOrDefault(x => x.Id.Equals(businesWeb.User.IdUser)).Business.Add(actualBusiness);
@@ -286,27 +288,19 @@ namespace NegociosYContactos.Data.Classes
             }
         }
 
-        public object GetCategoryAutoComplete()
+        public object GetCategory()
         {
             try
             {
                 using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
                 {
                     return context.Category.Select(x => new
-                    {
+                    { 
+                        id = x.Id,
                         label = x.Description,
                         category = "Categoria"
                     }).ToList();
                 }
-
-                //var result = new List<object>();
-                //result.Add(new { label = "Restaurantes", category = "Categoria" });
-                //result.Add(new { label = "Fiestas", category = "Categoria" });
-                //result.Add(new { label = "Detalles", category = "Categoria" });
-                //result.Add(new { label = "Muebles", category = "Categoria" });
-                //result.Add(new { label = "Librerias", category = "Categoria" });
-                //result.Add(new { label = "Hogar", category = "Categoria" });
-                //return result;
             }
             catch (Exception)
             {
@@ -413,7 +407,8 @@ namespace NegociosYContactos.Data.Classes
                                     Premium = x.Premium,
                                     Style = x.Style,
                                     UrlImage = string.Concat("../", x.UrlImage),
-                                    Address = x.Address
+                                    Address = x.Address,
+                                    Category = new BusinessCategory { Id = x.Category.Id, Description = x.Category.Description }
                                 }).FirstOrDefault();
 
                             data.Products = products;
@@ -447,7 +442,8 @@ namespace NegociosYContactos.Data.Classes
                                     Premium = x.Premium,
                                     Style = x.Style,
                                     UrlImage = string.Concat("../", x.UrlImage),
-                                    Address = x.Address
+                                    Address = x.Address,
+                                    Category = new BusinessCategory { Id = x.Category.Id, Description = x.Category.Description }
                                 }).FirstOrDefault();
 
                         data.Products = products;

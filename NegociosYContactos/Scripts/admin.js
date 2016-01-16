@@ -7,6 +7,7 @@
     enableStep();
     enableContextMenu();
     disableRefresh();
+    selectableConfig();
 });
 
 function fileUploadConfig() {
@@ -261,6 +262,42 @@ function dialogConfig() {
         }
     });
 
+    $('#divCategoria').dialog({
+        width: 'auto', // overcomes width:'auto' and maxWidth bug
+        maxWidth: 800,
+        height: 'auto',
+        modal: true,
+        fluid: true, //new option
+        resizable: false,
+        autoOpen: false,
+        position: {
+            my: 'center',
+            at: 'center',
+            of: window,
+            collision: 'fit'
+        },
+        buttons: {
+            "Aceptar": function () {
+                //$.ajax({
+                //    url: getHost() + 'Admin/UpdateAddressTemp',
+                //    type: "POST",
+                //    contentType: 'application/json; charset=utf-8',
+                //    data: JSON.stringify({ newAddress: $('#txtDireccion').val() }),
+                //    async: true,
+                //    processData: false,
+                //    cache: false,
+                //    success: function (json) { },
+                //    error: function (xhr, errorText) {
+                //        $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                //            .dialog('open');
+                //    }
+                //});
+                $('#divPaso6').css('background-color', 'yellowgreen');
+                $(this).dialog("close");
+            }
+        }
+    });
+
     $('#divPaso0').click(function () {
         $(this).css('background-color', 'gainsboro');
         $('#divCargaNombre').dialog('open');
@@ -321,6 +358,65 @@ function dialogConfig() {
     $('#divPaso5').click(function () {
         $(this).css('background-color', 'gainsboro');
         $('#divDireccion').dialog('open');
+    });
+
+    $('#divPaso6').click(function () {
+        $(this).css('background-color', 'gainsboro');
+        if ($('#lstCategorySelect').html() == '') {
+            $.ajax({
+                url: getHost() + 'Admin/GetCategories',
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (json) {
+                    var template2 = '<li style="cursor:pointer" class="ui-widget-content" id="{0}">{1}</li>';
+                    var html2 = '';
+                    if (json != null) {
+                        $('#txtCategoria').catcomplete({
+                            delay: 0,
+                            source: json.Categories,
+                            select: function (event, ui) {
+                                $('#txtCategoria').attr('idCategory', ui.item.id);
+                                return false;
+                            }
+                        });                        
+                        $('#lstCategoriaSelect').html('');
+                        $.each(json.Categories, function (key, data) {
+                            html2 = template2.format(data.id, data.label);
+                            $('#lstCategorySelect').append(html2);
+                        });
+                        $('#txtCategoria').blur(function () {
+                            var validateCategory = false;
+                            $.each($('#lstCategorySelect li'), function (key, data) {
+                                if ($(data).html() == $('#txtCategoria').val())
+                                {
+                                    $('#txtCategoria').attr('idCategory', $(data).attr('id'));
+                                    validateCategory = true;
+                                }
+                            });
+                            if (!validateCategory)
+                            {
+                                $('#txtCategoria').val('');
+                                $('#txtCategoria').attr('idCategory', 0);
+                            }
+                        });
+                        $('#divCategoria').parent().position({
+                            my: 'center',
+                            at: 'center',
+                            of: window,
+                            collision: 'fit'
+                        });
+                    }
+                },
+                error: function (xhr, errorText) {
+                    $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                        .dialog('open');
+                }
+            });
+        }
+        $('#divCategoria').dialog('open');
     });
 
     // on window resize run function
@@ -470,6 +566,17 @@ function enableContextMenu() {
         },
         items: {
             "delete": { name: "Borrar", icon: "delete" }
+        }
+    });
+}
+
+function selectableConfig() {
+    $('#lstCategorySelect').selectable({
+        stop: function () {
+            $(".ui-selected", this).each(function () {
+                $('#txtCategoria').val($(this).html());
+                $('#txtCategoria').attr('idCategory', $(this).attr('id'));
+            });
         }
     });
 }

@@ -33,7 +33,7 @@ namespace NegociosYContactos.Controllers
 
         public JsonResult GetAutoComplete() {
             IData data = new Data.Classes.Data();
-            return Json(new { DataAutoComplete = data.GetCategoryAutoComplete() });
+            return Json(new { DataAutoComplete = data.GetCategory() });
         }
 
         public ActionResult Room(string searchWord)

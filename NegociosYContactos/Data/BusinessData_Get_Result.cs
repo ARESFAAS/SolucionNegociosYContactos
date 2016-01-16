@@ -27,5 +27,7 @@ namespace NegociosYContactos.Data
         public string ProductValue { get; set; }
         public string ProductUrlImage { get; set; }
         public string Address { get; set; }
+        public string DescriptionCategory { get; set; }
+        public int IdCategory { get; set; }
     }
 }

@@ -34,6 +34,11 @@ namespace NegociosYContactos.Models
         public int IdBusiness { get; set; }
     }
 
+    public class BusinessCategory {
+        public int Id { get; set; }
+        public string Description { get; set; }
+    }
+
     public class BusinessWeb
     {
         public int Id { get; set; }
@@ -48,5 +53,6 @@ namespace NegociosYContactos.Models
         public string Address { get; set; }
         public BusinessUserWeb User { get; set; }
         public List<BusinessProductWeb> Products { get; set; }
+        public BusinessCategory Category { get; set; }
     }    
 }

@@ -4,7 +4,7 @@ namespace NegociosYContactos.Data.Classes
 {
     public interface IData
     {
-        #region #businessData
+        #region businessData
 
         BusinessWeb GetBusinessData(User user);
 
@@ -30,7 +30,7 @@ namespace NegociosYContactos.Data.Classes
 
         #region search
 
-        object GetCategoryAutoComplete();
+        object GetCategory();
 
         int TypeTerm_Get(string term);
 
