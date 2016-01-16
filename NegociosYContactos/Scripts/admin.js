@@ -278,20 +278,23 @@ function dialogConfig() {
         },
         buttons: {
             "Aceptar": function () {
-                //$.ajax({
-                //    url: getHost() + 'Admin/UpdateAddressTemp',
-                //    type: "POST",
-                //    contentType: 'application/json; charset=utf-8',
-                //    data: JSON.stringify({ newAddress: $('#txtDireccion').val() }),
-                //    async: true,
-                //    processData: false,
-                //    cache: false,
-                //    success: function (json) { },
-                //    error: function (xhr, errorText) {
-                //        $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
-                //            .dialog('open');
-                //    }
-                //});
+                $.ajax({
+                    url: getHost() + 'Admin/UpdateCategoryTemp',
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        newCategory: $('#txtCategoria').attr('idCategory'),
+                        newCategoryName: $('#txtCategoria').val()
+                    }),
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (json) { },
+                    error: function (xhr, errorText) {
+                        $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                            .dialog('open');
+                    }
+                });
                 $('#divPaso6').css('background-color', 'yellowgreen');
                 $(this).dialog("close");
             }

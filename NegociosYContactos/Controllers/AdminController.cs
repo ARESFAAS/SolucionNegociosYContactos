@@ -167,7 +167,7 @@ namespace NegociosYContactos.Controllers
             DeleteLogo();
 
             IData data = new Data.Classes.Data();
-            data.SaveBusinessWeb(BusinessWeb);
+            BusinessWeb = data.SaveBusinessWeb(BusinessWeb);
             return View("Index", BusinessWeb);
         }
 
@@ -288,6 +288,13 @@ namespace NegociosYContactos.Controllers
         public JsonResult GetCategories() {
             IData data = new Data.Classes.Data();
             return Json(new { Categories = data.GetCategory() });
+        }
+
+        public JsonResult UpdateCategoryTemp(string newCategory, string newCategoryName)
+        {
+            BusinessWeb.Category.Id = int.Parse(newCategory);
+            BusinessWeb.Category.Description = newCategoryName;
+            return Json(new { Message = "ok" });
         }
     }
 }

@@ -260,6 +260,7 @@ namespace NegociosYContactos.Data.Classes
                         actualBusiness.UrlImage = businesWeb.UrlImage;
                         actualBusiness.Style = businesWeb.Style;
                         actualBusiness.Address = businesWeb.Address;
+                        actualBusiness.IdCategory = businesWeb.Category.Id;
 
                         foreach (var item in context.BusinessProduct)
                         {
