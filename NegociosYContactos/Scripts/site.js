@@ -44,7 +44,7 @@ function modalMessageRedirect() {
         }
     });
 }
-    
+
 function signOutGoogle() {
 
     var auth2 = gapi.auth2.getAuthInstance();
@@ -61,13 +61,39 @@ function signOutGoogle() {
                 document.location.href = getHost() + 'Home/Index';
             },
             error: function (xhr, errorText) {
-                location.reload();                
+                location.reload();
             }
         });
     });
 }
 
 function signOutFacebook() {
+    FB.getLoginStatus(function (response)
+    {
+        if (response && response.status === 'connected')
+        {
+            FB.logout(function (response) {
+                console.log('User Facebook signed out.');
+                $.ajax({
+                    url: getHost() + 'Account/Logout',
+                    type: "POST",
+                    contentType: 'application/json; charset=utf-8',
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        document.location.href = getHost() + 'Home/Index';
+                    },
+                    error: function (xhr, errorText) {
+                        location.reload();
+                    }
+                });
+            });
+        }
+    });
+}
+
+function signOutFacebookWithOutStatus() {
     FB.logout(function (response) {
         console.log('User Facebook signed out.');
         $.ajax({
@@ -86,6 +112,7 @@ function signOutFacebook() {
         });
     });
 }
+
 
 function signOutLocal() {
     $.ajax({
@@ -136,19 +163,16 @@ function loadApiFacebook() {
 
 function showSocial() {
     if ($(window).width() > 800) {
-        $('body').mousemove(function ()
-        {
+        $('body').mousemove(function () {
             if (event.pageX <= 70) {
                 $('.social').show(1000);
             }
-            else
-            {
+            else {
                 $('.social').hide(1000);
             }
         });
     }
-    else
-    {
+    else {
         $('.social').show(1000);
     }
 }
@@ -157,15 +181,15 @@ function showNavBar() {
     if ($(window).width() > 800) {
         $('body').mousemove(function () {
             if (event.pageY <= 70) {
-                $('#divNavBar').show('blind',2000);
+                $('#divNavBar').show('blind', 2000);
             }
             else {
-                $('#divNavBar').hide('blind',2000);
+                $('#divNavBar').hide('blind', 2000);
             }
         });
     }
     else {
-        $('#divNavBar').show('blind',2000);
+        $('#divNavBar').show('blind', 2000);
     }
 }
 

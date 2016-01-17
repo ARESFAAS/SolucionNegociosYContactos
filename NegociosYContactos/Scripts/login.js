@@ -142,7 +142,7 @@ function getFacebookData() {
                 }
             },
             error: function (xhr, errorText) {
-                signOutFacebook();
+                signOutFacebookWithOutStatus();
             }
         });
     });
@@ -161,7 +161,7 @@ function loginMessage() {
                     signOutGoogle();
                 }
                 if (clientProvider == 'Facebook' && logout == 'Facebook') {
-                    signOutFacebook();
+                    signOutFacebookWithOutStatus();
                 }
                 $(this).dialog("close");
                 location.reload();
@@ -175,7 +175,7 @@ function loginMessage() {
                 signOutGoogle();
             }
             if (clientProvider == 'Facebook' && logout == 'Facebook') {
-                signOutFacebook();
+                signOutFacebookWithOutStatus();
             }
             $(this).dialog("close");
             location.reload();

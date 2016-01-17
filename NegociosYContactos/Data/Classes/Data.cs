@@ -204,6 +204,24 @@ namespace NegociosYContactos.Data.Classes
                         Address = x.Address,
                         Category = new BusinessCategory { Id = x.IdCategory, Description = x.DescriptionCategory }
                     }).FirstOrDefault();
+
+                    if (data == null)
+                    {
+                        data = new BusinessWeb {
+                            Active = false,
+                            EndDate = DateTime.MinValue,
+                            Id = 0,
+                            InitDate = DateTime.MinValue,
+                            Name = string.Empty,
+                            Premium = false,
+                            Products = products,
+                            Style = string.Empty,
+                            UrlImage = string.Empty,
+                            User = new BusinessUserWeb { IdBusiness = 0, IdUser = string.Empty },
+                            Address = string.Empty,
+                            Category = new BusinessCategory { Id = 0, Description = string.Empty }
+                        };
+                    }
                     return data;
                 }
             }

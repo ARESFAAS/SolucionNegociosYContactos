@@ -18,7 +18,6 @@ $(function () {
     drawDoor1();
     drawDoor2();
     openDoor();
-    //animateTopBar();
     animateVideo($('#divVideoIntro1'), $('#frameVideo1'));
     animateVideo($('#divVideoIntro2'), $('#frameVideo2'));
     animateVideo($('#divVideoIntro3'), $('#frameVideo3'));

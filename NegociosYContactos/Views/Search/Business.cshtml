@@ -2,29 +2,68 @@
 @{
     ViewBag.Title = "Negocio";
 }
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHZHmVjLBw-2vlBo07AflrM6l_TLD-cEw" async defer></script>
+<script>
+    function createMap(address) {
+        // Llamar al servicio Geocoder:
+        var geocoder = new google.maps.Geocoder();
 
-<h2 style="text-align:center;">@Model.Name</h2>
+        geocoder.geocode({ 'address': address }, function (results, status) {
 
-<div id="divBusinessContent">
+            if (status == google.maps.GeocoderStatus.OK) {
+                // Si la consulta esta OK, entonces se recuperan la longitud y latitud...
+                var latLng = results[0].geometry.location;
+
+                // ...se establecen las opciones...
+                var mapOptions = {
+                    center: latLng,
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                // ...se crea el mapa...
+                var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+                // ...y finalmente se marca el mapa:
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    title: 'Rollover text'
+                });
+            }
+            else {
+                console.log("Ha ocurrido un error: " + status);
+            }
+        });
+    }
+    // Crear el mapa al cargar la ventana
+    $(function () {
+        var addressTemp = "@Model.Address";
+        createMap(addressTemp);
+    });
+</script>
+<div id="divBusinessContent" style="@Model.Style">
+    <h2 style="text-align:center;">@Model.Name</h2>
     <div id="divBusinessSocial"></div>
     <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
     <div id="divBusinessLogo" style="text-align:center;">
         <img style="max-width:80%;height:auto;" src="@Model.UrlImage" />
     </div>
     <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
-    <div id="divBusinessProducts" sstyle="text-align:center;">
+    <div id="divBusinessProducts" style="text-align:center;">
         @{
             foreach (var item in Model.Products)
             {
                 <div style="width:33%;float:left;margin-top:2em;text-align:center;">
-                <img style="max-width:80%;height:auto;" src="@item.UrlImage" /><br />
-                <label>Nombre: </label><label id="imgName" >@item.Name</label><br />
-                <label>Descripción: </label><label id="imgDescription">@item.Description</label><br />
-                <label>Valor: </label><label id="imgValue">@item.Value</label><br />
+                    <img style="max-width:80%;height:auto;" src="@item.UrlImage" /><br />
+                    <label>Nombre: </label><label id="imgName">@item.Name</label><br />
+                    <label>Descripción: </label><label id="imgDescription">@item.Description</label><br />
+                    <label>Valor: </label><label id="imgValue">@item.Value</label><br />
                 </div>
             }
         }
     </div>
+    <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
+    <div style="height:300px;"><div id="map_canvas" style="width:100%; height:100%;"></div></div>
 </div>
 <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
-
