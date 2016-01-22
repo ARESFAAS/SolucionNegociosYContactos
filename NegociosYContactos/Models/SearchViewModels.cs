@@ -48,4 +48,13 @@ namespace NegociosYContactos.Models
         Business = 0,
         Category = 1
     }
+
+    public class ProductOrderWeb {
+        public string BusinessName { get; set; }
+        public BusinessProductWeb Product { get; set; }
+        public int Id { get; set; }
+        public int OrderType { get; set; } // 1. pedirProducto,  2. Ser contactado
+        public string ContactPhone { get; set; }
+        public string ContactEmail { get; set; }
+    }
 }

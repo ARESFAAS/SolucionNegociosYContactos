@@ -82,5 +82,33 @@ namespace NegociosYContactos.Controllers
             return View("Room", data.BusinessList_Get(SearchListPagination.IdCategory, SearchListPagination.TamPage, SearchListPagination.Page));
         }
 
+        public ActionResult PartialProductOrder(string businessName, string businessId, string productId)
+        {
+            IData data = new Data.Classes.Data();
+            var order = data.ProductOrderGet(new ProductOrderWeb
+            {
+                BusinessName = businessName,
+                Id = 0,
+                Product = new BusinessProductWeb { Id = int.Parse(productId) },
+                ContactEmail = string.Empty,
+                ContactPhone = string.Empty,
+                OrderType = 0
+            });            
+            return PartialView("_ProductOrder", order);
+        }
+
+        public JsonResult ProductOrderSave(string productId, string orderType, string contactPhone, string contactEmail)
+        {
+            IData data = new Data.Classes.Data();
+            data.ProductOrderSave(new ProductOrderWeb
+            {
+                Product = new BusinessProductWeb { Id = int.Parse(productId) },
+                OrderType = int.Parse(orderType),
+                ContactEmail = contactEmail,
+                ContactPhone = contactPhone
+            });
+            return Json(new { Result = true, Message = "Su solicitud fue procesada y los datos fueron guardados." });
+        }
+
     }
 }

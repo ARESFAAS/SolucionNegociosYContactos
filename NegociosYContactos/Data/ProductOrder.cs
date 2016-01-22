@@ -12,21 +12,14 @@ namespace NegociosYContactos.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class BusinessProduct
+    public partial class ProductOrder
     {
-        public BusinessProduct()
-        {
-            this.ProductOrder = new HashSet<ProductOrder>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Value { get; set; }
-        public string UrlImage { get; set; }
-        public Nullable<int> IdBusiness { get; set; }
+        public int IdProduct { get; set; }
+        public int OrderType { get; set; }
+        public string ContactPhone { get; set; }
+        public string ContactEmail { get; set; }
     
-        public virtual Business Business { get; set; }
-        public virtual ICollection<ProductOrder> ProductOrder { get; set; }
+        public virtual BusinessProduct BusinessProduct { get; set; }
     }
 }

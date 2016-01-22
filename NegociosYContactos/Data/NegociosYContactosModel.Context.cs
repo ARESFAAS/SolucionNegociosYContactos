@@ -32,6 +32,7 @@ namespace NegociosYContactos.Data
         public DbSet<Business> Business { get; set; }
         public DbSet<BusinessProduct> BusinessProduct { get; set; }
         public DbSet<Category> Category { get; set; }
+        public DbSet<ProductOrder> ProductOrder { get; set; }
     
         public virtual ObjectResult<BusinessData_Get_Result> BusinessData_Get(string idUser)
         {

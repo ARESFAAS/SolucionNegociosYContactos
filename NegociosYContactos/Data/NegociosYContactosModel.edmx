@@ -61,6 +61,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProductOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="OrderType" Type="int" Nullable="false" />
+          <Property Name="ContactPhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactEmail" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <Association Name="FK_Business_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Business" Type="Self.Business" Multiplicity="*" />
@@ -109,6 +119,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductOrder_BusinessProduct">
+          <End Role="BusinessProduct" Type="Self.BusinessProduct" Multiplicity="1" />
+          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessProduct">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="BusinessData_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUser" Type="nvarchar" Mode="In" />
         </Function>
@@ -121,6 +143,7 @@
           <EntitySet Name="BusinessProduct" EntityType="Self.BusinessProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusinessUser" EntityType="Self.BusinessUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductOrder" EntityType="Self.ProductOrder" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Business_Category" Association="Self.FK_Business_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Business" EntitySet="Business" />
@@ -136,6 +159,10 @@
           <AssociationSet Name="FK_BusinessUser_Business" Association="Self.FK_BusinessUser_Business">
             <End Role="Business" EntitySet="Business" />
             <End Role="BusinessUser" EntitySet="BusinessUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductOrder_BusinessProduct" Association="Self.FK_ProductOrder_BusinessProduct">
+            <End Role="BusinessProduct" EntitySet="BusinessProduct" />
+            <End Role="ProductOrder" EntitySet="ProductOrder" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -187,6 +214,7 @@
           <Property Name="UrlImage" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdBusiness" Type="Int32" />
           <NavigationProperty Name="Business" Relationship="Self.FK_BusinessProduct_Business" FromRole="BusinessProduct" ToRole="Business" />
+          <NavigationProperty Name="ProductOrder" Relationship="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct" FromRole="BusinessProduct" ToRole="ProductOrder" />
         </EntityType>
         <Association Name="FK_BusinessProduct_Business">
           <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
@@ -227,6 +255,11 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="Business" EntitySet="Business" />
           </AssociationSet>
+          <EntitySet Name="ProductOrder" EntityType="ContactosyNegociosModel.ProductOrder" />
+          <AssociationSet Name="FK_ProductOrder_BusinessProduct" Association="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct">
+            <End Role="BusinessProduct" EntitySet="BusinessProduct" />
+            <End Role="ProductOrder" EntitySet="ProductOrder" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="BusinessData_Get_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -263,6 +296,29 @@
             </Principal>
             <Dependent Role="Business">
               <PropertyRef Name="IdCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="OrderType" Type="Int32" Nullable="false" />
+          <Property Name="ContactPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BusinessProduct" Relationship="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct" FromRole="ProductOrder" ToRole="BusinessProduct" />
+        </EntityType>
+        <Association Name="FK_ProductOrder_BusinessProduct">
+          <End Type="ContactosyNegociosModel.BusinessProduct" Role="BusinessProduct" Multiplicity="1" />
+          <End Type="ContactosyNegociosModel.ProductOrder" Role="ProductOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessProduct">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductOrder">
+              <PropertyRef Name="IdProduct" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -349,6 +405,17 @@
             <EntityTypeMapping TypeName="ContactosyNegociosModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductOrder">
+            <EntityTypeMapping TypeName="ContactosyNegociosModel.ProductOrder">
+              <MappingFragment StoreEntitySet="ProductOrder">
+                <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="OrderType" ColumnName="OrderType" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -38,6 +38,10 @@ namespace NegociosYContactos.Data.Classes
 
         BusinessWeb Business_Get(int id, string name);
 
+        ProductOrderWeb ProductOrderGet(ProductOrderWeb order);
+
+        ProductOrderWeb ProductOrderSave(ProductOrderWeb order);
+
         #endregion
     }
 }

@@ -207,7 +207,8 @@ namespace NegociosYContactos.Data.Classes
 
                     if (data == null)
                     {
-                        data = new BusinessWeb {
+                        data = new BusinessWeb
+                        {
                             Active = false,
                             EndDate = DateTime.MinValue,
                             Id = 0,
@@ -314,7 +315,7 @@ namespace NegociosYContactos.Data.Classes
                 using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
                 {
                     return context.Category.Select(x => new
-                    { 
+                    {
                         id = x.Id,
                         label = x.Description,
                         category = "Categoria"
@@ -377,7 +378,7 @@ namespace NegociosYContactos.Data.Classes
         public BusinessWeb Business_Get(int id, string name)
         {
             try
-            {                
+            {
                 using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
                 {
                     List<BusinessProductWeb> products = new List<BusinessProductWeb>();
@@ -394,7 +395,7 @@ namespace NegociosYContactos.Data.Classes
                             if (businessTemp != null)
                             {
                                 id = businessTemp.Id;
-                            }                            
+                            }
                         }
                         if (id == 0)
                         {
@@ -485,6 +486,92 @@ namespace NegociosYContactos.Data.Classes
                 {
                     var result = context.AspNetUsers.Any(x => x.UserName.ToLower().Trim().Equals(userName.Trim()));
                     return result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ProductOrderWeb ProductOrderGet(ProductOrderWeb order)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    if (order.Id != 0)
+                    {
+                        return context.ProductOrder
+                            .Where(x => x.Id == order.Id)
+                            .Select(x => new ProductOrderWeb
+                            {
+                                Id = x.Id,
+                                Product = context.BusinessProduct
+                                 .Where(y => y.Id == order.Product.Id)
+                                 .Select(y => new BusinessProductWeb
+                                 {
+                                     Id = y.Id,
+                                     Description = y.Description,
+                                     IdBusiness = y.IdBusiness.Value,
+                                     Name = y.Name,
+                                     UrlImage = string.Concat("../", y.UrlImage),
+                                     Value = y.Value
+                                 }).FirstOrDefault(),
+                                ContactEmail = x.ContactEmail,
+                                ContactPhone = x.ContactPhone,
+                                OrderType = x.OrderType,
+                                BusinessName = order.BusinessName
+                            }).FirstOrDefault();
+
+                    }
+                    else
+                    {
+                        return new ProductOrderWeb
+                        {
+                            Product = context.BusinessProduct
+                                 .Where(y => y.Id == order.Product.Id)
+                                 .Select(y => new BusinessProductWeb
+                                 {
+                                     Id = y.Id,
+                                     Description = y.Description,
+                                     IdBusiness = y.IdBusiness.Value,
+                                     Name = y.Name,
+                                     UrlImage = string.Concat("../", y.UrlImage),
+                                     Value = y.Value
+                                 }).FirstOrDefault(),
+                            ContactEmail = order.ContactEmail,
+                            ContactPhone = order.ContactPhone,
+                            OrderType = order.OrderType,
+                            Id = 0,
+                            BusinessName = order.BusinessName
+                        };
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ProductOrderWeb ProductOrderSave(ProductOrderWeb order)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    ProductOrder productOrder = new ProductOrder
+                    {
+                        IdProduct = order.Product.Id,
+                        OrderType = order.OrderType,
+                        ContactEmail = order.ContactEmail,
+                        ContactPhone = order.ContactPhone
+                    };
+                    context.ProductOrder.Add(productOrder);
+                    context.SaveChanges();
+                    return order;
                 }
             }
             catch (Exception)

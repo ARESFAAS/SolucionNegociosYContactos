@@ -42,8 +42,96 @@
         createMap(addressTemp);
     });
 </script>
+<script>
+    function getProductOrder() {
+        var divWidth = 0;
+        var divHeight = 0;
+
+        if ($(window).width() <= 760) {
+            divWidth = 400;
+            divHeight = 400;
+        }
+        else {
+            divWidth = 600;
+            divHeight = 600;
+        }
+        $('#divProductOrder').dialog({
+            autoOpen: false,
+            height: divHeight,
+            width: divWidth,
+            modal: true,
+            buttons: {
+                Enviar: function () {
+                    $.ajax({
+                        url: getHost() + 'Search/ProductOrderSave',
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify({
+                            ProductId: $('img[name="imgProduct"]').attr('id'), OrderType: $('input[name="rdlProductOrder"]').val(),
+                            ContactPhone: $('#txtOrderPhone').val(), ContactEmail: $('#txtOrderEmail').val()
+                        }),
+                        async: true,
+                        processData: false,
+                        cache: false,
+                        success: function (data) {
+                            if (data.Result)
+                            {
+                                $("#dialog-message").html(data.Message)
+                                .dialog('open');
+                            }
+                        },
+                        error: function (xhr, errorText) {
+                            $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                                .dialog('open');
+                        }
+                    });
+                    $('#divProductOrder').dialog('close');
+                }
+            },
+            open: function ()
+            {
+                $(this).scrollTop(0);
+            },
+            close: function () {
+                $('#divProductOrder').dialog('close');
+            }
+        });
+        $('div[name="divProduct"]').on('click', function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            var url = getHost() + 'Search/PartialProductOrder';
+            var idTemp = $(this).attr('id');
+            var idBusiness = idTemp.split('_')[0];
+            var idProduct = idTemp.split('_')[1];
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    BusinessName: $('#hBusinessName').html(), BusinessId: idBusiness,
+                    ProductId: idProduct
+                }),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    $('#divProductOrder').html(data);
+                    $('#divProductOrder').dialog('open');
+                },
+                error: function (xhr, errorText) {
+                    $("#dialog-message").html('En este momento no podemos procesar tu solicitud, por favor intenta más tarde.')
+                        .dialog('open');
+                }
+            });
+        });
+    }
+    $(function () {
+        getProductOrder();
+    });
+</script>
 <div id="divBusinessContent" style="@Model.Style">
-    <h2 style="text-align:center;">@Model.Name</h2>
+    <h2 id="hBusinessName" style="text-align:center;">@Model.Name</h2>
     <div id="divBusinessSocial"></div>
     <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
     <div id="divBusinessLogo" style="text-align:center;">
@@ -52,9 +140,11 @@
     <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
     <div id="divBusinessProducts" style="text-align:center;">
         @{
+            string idTemplate = "{0}_{1}";
             foreach (var item in Model.Products)
             {
-                <div style="width:33%;float:left;margin-top:2em;text-align:center;">
+                string idTemp = string.Format(idTemplate, Model.Id, item.Id);
+                <div id="@idTemp" name="divProduct" style="width:33%;float:left;margin-top:2em;text-align:center;cursor:pointer;">
                     <img style="max-width:80%;height:auto;" src="@item.UrlImage" /><br />
                     <label>Nombre: </label><label id="imgName">@item.Name</label><br />
                     <label>Descripción: </label><label id="imgDescription">@item.Description</label><br />
@@ -67,3 +157,4 @@
     <div style="height:300px;"><div id="map_canvas" style="width:100%; height:100%;"></div></div>
 </div>
 <div style="clear:both; border-top : 40px solid #5ebdb2"></div>
+<div id="divProductOrder" style="display:none;"></div>
