@@ -1,7 +1,6 @@
 ﻿using NegociosYContactos.Data.Classes;
 using NegociosYContactos.Models;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+using System.Text;
 using System.Web.Mvc;
 
 namespace NegociosYContactos.Controllers
@@ -100,15 +99,58 @@ namespace NegociosYContactos.Controllers
         public JsonResult ProductOrderSave(string productId, string orderType, string contactPhone, string contactEmail)
         {
             IData data = new Data.Classes.Data();
-            data.ProductOrderSave(new ProductOrderWeb
+            var result = data.ProductOrderSave(new ProductOrderWeb
             {
                 Product = new BusinessProductWeb { Id = int.Parse(productId) },
-                OrderType = int.Parse(orderType),
+                OrderType = int.Parse(orderType), // 1. Pedir el producto , 2. - ser contactado
                 ContactEmail = contactEmail,
                 ContactPhone = contactPhone
             });
+
+            var businessUser = data.GetUserForMail(result.Product.Id);
+
+            string name = "Apreciado " + businessUser.UserName + ":";
+            string textMessage = "Hay un cliente que quiere ";
+            if (result.OrderType == 1)
+            {
+                textMessage = textMessage + "pedir un producto o servicio. ";
+            }
+            else
+            {
+                textMessage = textMessage + "ser contactado por usted para hacer negocios. ";
+            }
+            textMessage = textMessage + "Los siguientes son los datos de contacto del cliente: <br />";
+            textMessage = textMessage + string.Format("Email: {0}, Teléfono: {1}", contactEmail, contactPhone);
+            textMessage = textMessage + "<br />Los siguientes son los datos del producto o servicio requerido: <br />";
+            textMessage = textMessage + string.Format("Nombre del producto o servicio: {0}", result.Product.Name);
+            
+            StringBuilder body = new StringBuilder();
+            body.Append("<html>");
+            body.Append("<body>");
+            body.Append("<div>");
+            body.Append("<img src=\"http://localhost:59927/Content/images/LogoContactosYNegocios.png\"/>");
+            body.Append("<br/>");
+            body.Append("<h2>Negocios y Contactos</h2>");
+            body.Append("</div>");
+            body.Append("<br>");
+            body.Append("<div>");
+            body.Append("<p>{0}</p>");
+            body.Append("<p>{1}</p>");
+            body.Append("<p>Cordialmente,</p>");
+            body.Append("<p>Negocios y Contactos</p>");
+            body.Append("</div>");
+            body.Append("<br/>");
+            body.Append("</body>");
+            body.Append("<span style=\"font-size: x-large; font-family: Webdings; color: green;\">");
+            body.Append("<span style=\"font-weight: bold; font-size: 24pt; font-style: italic; font-family: Webdings; color: green;\">P</span>");
+            body.Append("</span>");
+            body.Append("<span style=\"font-size: xx-small; font-family: Verdana; color: #339966;\"><span style=\"font-size: 8pt; font-family: Verdana;\">&nbsp;Por favor considere el medio ambiente antes de imprimir este correo electrónico!</span>");
+            body.Append("</span>");
+            body.Append("</html>");
+
+            SendMailBase(string.Format(body.ToString(), name, textMessage), "Negocios y Contactos - " + "Solicitud de producto o servicio", businessUser.Email);
+
             return Json(new { Result = true, Message = "Su solicitud fue procesada y los datos fueron guardados." });
         }
-
     }
 }

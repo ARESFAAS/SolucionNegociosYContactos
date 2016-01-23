@@ -567,11 +567,49 @@ namespace NegociosYContactos.Data.Classes
                         IdProduct = order.Product.Id,
                         OrderType = order.OrderType,
                         ContactEmail = order.ContactEmail,
-                        ContactPhone = order.ContactPhone
+                        ContactPhone = order.ContactPhone,
+                        DateEvent = DateTime.Now
                     };
                     context.ProductOrder.Add(productOrder);
                     context.SaveChanges();
+                    order.Product.Name = context.BusinessProduct.Where(x => x.Id == order.Product.Id).FirstOrDefault().Name;
                     return order;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public User GetUserForMail(int productId)
+        {
+            try
+            {
+                using (ContactosyNegociosEntities context = new ContactosyNegociosEntities())
+                {
+                    var businessId = context.BusinessProduct.Where(x => x.Id == productId).FirstOrDefault().IdBusiness;                    
+                    var result = context.Business.Where(x => x.Id == businessId)
+                        .FirstOrDefault()
+                        .AspNetUsers
+                        .Select(x => new User
+                    {
+                        Id = x.Id,
+                        AccessFailedCount = x.AccessFailedCount,
+                        Email = x.Email,
+                        IdentificationNumber = x.IdentificationNumber,
+                        IdentificationType = x.IdentificationType,
+                        Locked = x.Locked,
+                        Password = x.PasswordHash,
+                        Phone = x.PhoneNumber,
+                        UserName = x.UserName,
+                        LoginProvider = string.Empty,
+                        IsAuthenticated = false,
+                        Message = string.Empty,
+                        IsTermsAccepted = x.AcceptTerms != null ? x.AcceptTerms.Value : false
+                    }).FirstOrDefault();
+
+                    return result;
                 }
             }
             catch (Exception)

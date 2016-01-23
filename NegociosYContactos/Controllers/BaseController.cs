@@ -49,13 +49,12 @@ namespace NegociosYContactos.Controllers
             }
         }
 
-        public void SendMailBase(string subject, string email, string textMessage)
-        {
-            var body = "<p>Email Desde: {0} ({1})</p><p>Mensaje:</p><p>{2}</p>";
+        public void SendMailBase(string body, string subject, string to)
+        {            
             var message = new MailMessage();
-            message.To.Add(new MailAddress(System.Configuration.ConfigurationManager.AppSettings["contactEmail"])); //replace with valid value
+            message.To.Add(new MailAddress(to));
             message.Subject = subject;
-            message.Body = string.Format(body, subject, email, textMessage);
+            message.Body = body;
             message.IsBodyHtml = true;
             using (var smtp = new SmtpClient())
             {

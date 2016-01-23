@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Web.Mvc;
 
 namespace NegociosYContactos.Controllers
@@ -26,12 +27,30 @@ namespace NegociosYContactos.Controllers
         {
             try
             {
-                SendMailBase("Contacto de cliente: " + name, email, textMessage);
+                StringBuilder body = new StringBuilder();
+                body.Append("<html>");
+                body.Append("<body>");
+                body.Append("<div>");
+                body.Append("<br/>");
+                body.Append("<h2>Negocios y Contactos</h2>");
+                body.Append("</div>");
+                body.Append("<br>");
+                body.Append("<div>");
+                body.Append("<p>{0}</p>");
+                body.Append("<p>{1}</p>");
+                body.Append("<p>Cordialmente,</p>");
+                body.Append("<p>Negocios y Contactos</p>");
+                body.Append("</div>");
+                body.Append("<br/>");
+                body.Append("</body>");
+                body.Append("</html>");
+
+                SendMailBase(string.Format(body.ToString(), email, textMessage), "Negocios y Contactos - " + "Contacto de cliente: " + name, System.Configuration.ConfigurationManager.AppSettings["contactEmail"]);
+
                 return View("Contact");
             }
             catch (Exception)
             {
-
                 throw;
             }            
         }

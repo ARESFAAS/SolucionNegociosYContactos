@@ -19,6 +19,7 @@ namespace NegociosYContactos.Data
         public int OrderType { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
+        public Nullable<System.DateTime> DateEvent { get; set; }
     
         public virtual BusinessProduct BusinessProduct { get; set; }
     }

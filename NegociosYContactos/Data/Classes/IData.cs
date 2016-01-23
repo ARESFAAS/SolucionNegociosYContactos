@@ -42,6 +42,8 @@ namespace NegociosYContactos.Data.Classes
 
         ProductOrderWeb ProductOrderSave(ProductOrderWeb order);
 
+        User GetUserForMail(int productId);
+
         #endregion
     }
 }

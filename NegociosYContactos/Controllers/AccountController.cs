@@ -2,6 +2,7 @@
 using NegociosYContactos.Data.Classes;
 using NegociosYContactos.Models;
 using System;
+using System.Text;
 using System.Web.Mvc;
 
 namespace NegociosYContactos.Controllers
@@ -182,7 +183,32 @@ namespace NegociosYContactos.Controllers
                         message = "Por favor revisa tu correo electrónico, hemos enviado un recordatorio de tu contraseña";
                         name = "Apreciado " + UserAutenticated.UserName;
                         textMessage = "su contraseña es: " + UserAutenticated.Password;
-                        SendMailBase(name, email, textMessage);
+
+                        StringBuilder body = new StringBuilder();
+                        body.Append("<html>");
+                        body.Append("<body>");
+                        body.Append("<div>");
+                        body.Append("<img src=\"http://localhost:59927/Content/images/LogoContactosYNegocios.png\"/>");
+                        body.Append("<br/>");
+                        body.Append("<h2>Negocios y Contactos</h2>");
+                        body.Append("</div>");
+                        body.Append("<br>");
+                        body.Append("<div>");
+                        body.Append("<p>{0}</p>");
+                        body.Append("<p>{1}</p>");
+                        body.Append("<p>Cordialmente,</p>");
+                        body.Append("<p>Negocios y Contactos</p>");
+                        body.Append("</div>");
+                        body.Append("<br/>");
+                        body.Append("</body>");
+                        body.Append("<span style=\"font-size: x-large; font-family: Webdings; color: green;\">");
+                        body.Append("<span style=\"font-weight: bold; font-size: 24pt; font-style: italic; font-family: Webdings; color: green;\">P</span>");
+                        body.Append("</span>");
+                        body.Append("<span style=\"font-size: xx-small; font-family: Verdana; color: #339966;\"><span style=\"font-size: 8pt; font-family: Verdana;\">&nbsp;Por favor considere el medio ambiente antes de imprimir este correo electrónico!</span>");
+                        body.Append("</span>");
+                        body.Append("</html>");
+
+                        SendMailBase(string.Format(body.ToString(),name , textMessage), "Negocios y Contactos - " + "Recordatorio de contraseña", email);
                     }
                 }
                 else
@@ -196,7 +222,32 @@ namespace NegociosYContactos.Controllers
                         message = "Por favor revisa tu correo electrónico, hemos enviado un recordatorio de tu contraseña";
                         name = "Apreciado " + user.UserName;
                         textMessage = "su contraseña es: " + user.Password;
-                        SendMailBase(name, email, textMessage);
+
+                        StringBuilder body = new StringBuilder();
+                        body.Append("<html>");
+                        body.Append("<body>");
+                        body.Append("<div>");
+                        body.Append("<img src=\"http://localhost:59927/Content/images/LogoContactosYNegocios.png\"/>");
+                        body.Append("<br/>");
+                        body.Append("<h2>Negocios y Contactos</h2>");
+                        body.Append("</div>");
+                        body.Append("<br>");
+                        body.Append("<div>");
+                        body.Append("<p>{0}</p>");
+                        body.Append("<p>{1}</p>");
+                        body.Append("<p>Cordialmente,</p>");
+                        body.Append("<p>Negocios y Contactos</p>");
+                        body.Append("</div>");
+                        body.Append("<br/>");
+                        body.Append("</body>");
+                        body.Append("<span style=\"font-size: x-large; font-family: Webdings; color: green;\">");
+                        body.Append("<span style=\"font-weight: bold; font-size: 24pt; font-style: italic; font-family: Webdings; color: green;\">P</span>");
+                        body.Append("</span>");
+                        body.Append("<span style=\"font-size: xx-small; font-family: Verdana; color: #339966;\"><span style=\"font-size: 8pt; font-family: Verdana;\">&nbsp;Por favor considere el medio ambiente antes de imprimir este correo electrónico!</span>");
+                        body.Append("</span>");
+                        body.Append("</html>");
+
+                        SendMailBase(string.Format(body.ToString(), name, textMessage), "Negocios y Contactos - " + "Recordatorio de contraseña", email);
                     }
                     else
                     {

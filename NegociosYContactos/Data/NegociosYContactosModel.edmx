@@ -70,6 +70,7 @@
           <Property Name="OrderType" Type="int" Nullable="false" />
           <Property Name="ContactPhone" Type="nvarchar" MaxLength="100" />
           <Property Name="ContactEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateEvent" Type="date" />
         </EntityType>
         <Association Name="FK_Business_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -309,6 +310,7 @@
           <Property Name="ContactPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ContactEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BusinessProduct" Relationship="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct" FromRole="ProductOrder" ToRole="BusinessProduct" />
+          <Property Name="DateEvent" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK_ProductOrder_BusinessProduct">
           <End Type="ContactosyNegociosModel.BusinessProduct" Role="BusinessProduct" Multiplicity="1" />
@@ -412,6 +414,7 @@
           <EntitySetMapping Name="ProductOrder">
             <EntityTypeMapping TypeName="ContactosyNegociosModel.ProductOrder">
               <MappingFragment StoreEntitySet="ProductOrder">
+                <ScalarProperty Name="DateEvent" ColumnName="DateEvent" />
                 <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
                 <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
                 <ScalarProperty Name="OrderType" ColumnName="OrderType" />
