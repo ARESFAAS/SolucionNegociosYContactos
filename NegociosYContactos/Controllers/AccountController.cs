@@ -188,7 +188,8 @@ namespace NegociosYContactos.Controllers
                         body.Append("<html>");
                         body.Append("<body>");
                         body.Append("<div>");
-                        body.Append("<img src=\"http://localhost:59927/Content/images/LogoContactosYNegocios.png\"/>");
+                        var urlLogo = Request.Url.GetLeftPart(System.UriPartial.Authority) + "/Content/images/LogoContactosYNegocios.png";
+                        body.Append("<img src=\"" + urlLogo + "\"/>");
                         body.Append("<br/>");
                         body.Append("<h2>Negocios y Contactos</h2>");
                         body.Append("</div>");
@@ -227,7 +228,8 @@ namespace NegociosYContactos.Controllers
                         body.Append("<html>");
                         body.Append("<body>");
                         body.Append("<div>");
-                        body.Append("<img src=\"http://localhost:59927/Content/images/LogoContactosYNegocios.png\"/>");
+                        var urlLogo = Request.Url.GetLeftPart(System.UriPartial.Authority) + "/Content/images/LogoContactosYNegocios.png";
+                        body.Append("<img src=\"" + urlLogo + "\"/>");
                         body.Append("<br/>");
                         body.Append("<h2>Negocios y Contactos</h2>");
                         body.Append("</div>");
