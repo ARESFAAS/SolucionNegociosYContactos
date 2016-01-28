@@ -113,7 +113,6 @@ function signOutFacebookWithOutStatus() {
     });
 }
 
-
 function signOutLocal() {
     $.ajax({
         url: getHost() + 'Account/Logout',

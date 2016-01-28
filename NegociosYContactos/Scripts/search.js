@@ -37,7 +37,7 @@ function itemSearchAnimate()
 
 function goRoom(url) {
     var param = $('#txtSearch').val().trim().replace(/\s/g, "+");
-    window.location.href = url.replace('[*]', param);
+    window.location.href = url.replace('termSearch', param);
 }
 
 function loadAutoComplete() {

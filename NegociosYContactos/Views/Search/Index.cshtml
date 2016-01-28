@@ -55,7 +55,7 @@
              <input id="txtSearch" type="text" style="font-size:xx-large;"/>             
          </div>
          <div style="display:inline-block;">         
-             <input id="btnSearch" type="button" value="" onclick="javascript:goRoom('@Url.Action("Room", "Search", new { searchWord = "[*]" })');" />  
+             <input id="btnSearch" type="button" value="" onclick="javascript:goRoom('@Url.Action("Room", "Search", new { searchWord = HttpUtility.HtmlEncode( "termSearch" ) })');" />  
          </div>
      </div>
     </div> 
