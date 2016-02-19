@@ -96,12 +96,12 @@ namespace NegociosYContactos.Controllers
             return PartialView("_ProductOrder", order);
         }
 
-        public JsonResult ProductOrderSave(string productId, string orderType, string contactPhone, string contactEmail)
+        public JsonResult ProductOrderSave(string productId, string productName, string orderType, string contactPhone, string contactEmail)
         {
             IData data = new Data.Classes.Data();
             var result = data.ProductOrderSave(new ProductOrderWeb
             {
-                Product = new BusinessProductWeb { Id = int.Parse(productId) },
+                Product = new BusinessProductWeb { Id = int.Parse(productId), Name = productName },
                 OrderType = int.Parse(orderType), // 1. Pedir el producto , 2. - ser contactado
                 ContactEmail = contactEmail,
                 ContactPhone = contactPhone

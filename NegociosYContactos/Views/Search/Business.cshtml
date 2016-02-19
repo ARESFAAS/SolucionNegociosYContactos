@@ -67,7 +67,7 @@
                         type: "POST",
                         contentType: 'application/json; charset=utf-8',
                         data: JSON.stringify({
-                            ProductId: $('img[name="imgProduct"]').attr('id'), OrderType: $('input[name="rdlProductOrder"]').val(),
+                            ProductId: $('img[name="imgProduct"]').attr('id'), ProductName: $('#imgName').html(), OrderType: $('input[name="rdlProductOrder"]').val(),
                             ContactPhone: $('#txtOrderPhone').val(), ContactEmail: $('#txtOrderEmail').val()
                         }),
                         async: true,

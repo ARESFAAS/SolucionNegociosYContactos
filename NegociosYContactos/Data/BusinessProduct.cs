@@ -14,11 +14,6 @@ namespace NegociosYContactos.Data
     
     public partial class BusinessProduct
     {
-        public BusinessProduct()
-        {
-            this.ProductOrder = new HashSet<ProductOrder>();
-        }
-    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -27,6 +22,5 @@ namespace NegociosYContactos.Data
         public Nullable<int> IdBusiness { get; set; }
     
         public virtual Business Business { get; set; }
-        public virtual ICollection<ProductOrder> ProductOrder { get; set; }
     }
 }

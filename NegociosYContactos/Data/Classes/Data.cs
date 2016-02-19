@@ -564,7 +564,7 @@ namespace NegociosYContactos.Data.Classes
                 {
                     ProductOrder productOrder = new ProductOrder
                     {
-                        IdProduct = order.Product.Id,
+                        ProductName = order.Product.Name,
                         OrderType = order.OrderType,
                         ContactEmail = order.ContactEmail,
                         ContactPhone = order.ContactPhone,

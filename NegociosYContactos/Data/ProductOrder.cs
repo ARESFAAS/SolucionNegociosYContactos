@@ -15,12 +15,10 @@ namespace NegociosYContactos.Data
     public partial class ProductOrder
     {
         public int Id { get; set; }
-        public int IdProduct { get; set; }
         public int OrderType { get; set; }
         public string ContactPhone { get; set; }
         public string ContactEmail { get; set; }
         public Nullable<System.DateTime> DateEvent { get; set; }
-    
-        public virtual BusinessProduct BusinessProduct { get; set; }
+        public string ProductName { get; set; }
     }
 }

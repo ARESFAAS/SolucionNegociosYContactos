@@ -15,14 +15,8 @@ namespace NegociosYContactos
 
             routes.MapRoute(
                name: "Room",
-               url: "{controller}/{action}/{searchWord}",
-               defaults: new { controller = "Search", action = "Room", searchWord = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "Search",
-                url: "{controller}/{action}",
-                defaults: new { controller = "Search", action = "Index" }
+               url: "Catalog/{controller}/{action}/{searchWord}",
+               defaults: new { controller = "Search", action = "Room" }
             );
 
             routes.MapRoute(

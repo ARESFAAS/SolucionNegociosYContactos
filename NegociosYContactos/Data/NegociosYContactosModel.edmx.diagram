@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="ContactosyNegociosModel.Category" Width="1.5" PointX="0.75" PointY="5.875" />
         <AssociationConnector Association="ContactosyNegociosModel.FK_Business_Category" />
         <EntityTypeShape EntityType="ContactosyNegociosModel.ProductOrder" Width="1.5" PointX="7.5" PointY="1.875" />
-        <AssociationConnector Association="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

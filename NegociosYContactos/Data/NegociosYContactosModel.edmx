@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ContactosyNegociosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="ContactosyNegociosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -66,7 +66,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
           <Property Name="OrderType" Type="int" Nullable="false" />
           <Property Name="ContactPhone" Type="nvarchar" MaxLength="100" />
           <Property Name="ContactEmail" Type="nvarchar" MaxLength="255" />
@@ -120,18 +120,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductOrder_BusinessProduct">
-          <End Role="BusinessProduct" Type="Self.BusinessProduct" Multiplicity="1" />
-          <End Role="ProductOrder" Type="Self.ProductOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BusinessProduct">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductOrder">
-              <PropertyRef Name="IdProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="BusinessData_Get" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUser" Type="nvarchar" Mode="In" />
         </Function>
@@ -139,12 +127,12 @@
           <Parameter Name="term" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="ContactosyNegociosModelStoreContainer">
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="BusinessProduct" EntityType="Self.BusinessProduct" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="BusinessUser" EntityType="Self.BusinessUser" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="ProductOrder" EntityType="Self.ProductOrder" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Business" EntityType="Self.Business" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessProduct" EntityType="Self.BusinessProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BusinessUser" EntityType="Self.BusinessUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductOrder" EntityType="Self.ProductOrder" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Business_Category" Association="Self.FK_Business_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Business" EntitySet="Business" />
@@ -160,10 +148,6 @@
           <AssociationSet Name="FK_BusinessUser_Business" Association="Self.FK_BusinessUser_Business">
             <End Role="Business" EntitySet="Business" />
             <End Role="BusinessUser" EntitySet="BusinessUser" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductOrder_BusinessProduct" Association="Self.FK_ProductOrder_BusinessProduct">
-            <End Role="BusinessProduct" EntitySet="BusinessProduct" />
-            <End Role="ProductOrder" EntitySet="ProductOrder" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -215,7 +199,6 @@
           <Property Name="UrlImage" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdBusiness" Type="Int32" />
           <NavigationProperty Name="Business" Relationship="Self.FK_BusinessProduct_Business" FromRole="BusinessProduct" ToRole="Business" />
-          <NavigationProperty Name="ProductOrder" Relationship="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct" FromRole="BusinessProduct" ToRole="ProductOrder" />
         </EntityType>
         <Association Name="FK_BusinessProduct_Business">
           <End Role="Business" Type="Self.Business" Multiplicity="0..1" />
@@ -257,10 +240,6 @@
             <End Role="Business" EntitySet="Business" />
           </AssociationSet>
           <EntitySet Name="ProductOrder" EntityType="ContactosyNegociosModel.ProductOrder" />
-          <AssociationSet Name="FK_ProductOrder_BusinessProduct" Association="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct">
-            <End Role="BusinessProduct" EntitySet="BusinessProduct" />
-            <End Role="ProductOrder" EntitySet="ProductOrder" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="BusinessData_Get_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -305,25 +284,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdProduct" Type="Int32" Nullable="false" />
           <Property Name="OrderType" Type="Int32" Nullable="false" />
           <Property Name="ContactPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ContactEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BusinessProduct" Relationship="ContactosyNegociosModel.FK_ProductOrder_BusinessProduct" FromRole="ProductOrder" ToRole="BusinessProduct" />
           <Property Name="DateEvent" Type="DateTime" Precision="0" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_ProductOrder_BusinessProduct">
-          <End Type="ContactosyNegociosModel.BusinessProduct" Role="BusinessProduct" Multiplicity="1" />
-          <End Type="ContactosyNegociosModel.ProductOrder" Role="ProductOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BusinessProduct">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductOrder">
-              <PropertyRef Name="IdProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -414,11 +380,11 @@
           <EntitySetMapping Name="ProductOrder">
             <EntityTypeMapping TypeName="ContactosyNegociosModel.ProductOrder">
               <MappingFragment StoreEntitySet="ProductOrder">
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="DateEvent" ColumnName="DateEvent" />
                 <ScalarProperty Name="ContactEmail" ColumnName="ContactEmail" />
                 <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
                 <ScalarProperty Name="OrderType" ColumnName="OrderType" />
-                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

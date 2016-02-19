@@ -269,6 +269,18 @@ namespace NegociosYContactos.Controllers
         {
             var result = false;
             var message = string.Empty;
+
+            if (UserAutenticated != null)
+            {
+                if (!string.IsNullOrEmpty(UserAutenticated.UserName))
+                {
+                    if (userName.Equals(UserAutenticated.UserName))
+                    {
+                        return Json(new { Result = result, Message = message });
+                    }
+                }
+            }
+
             IData data = new Data.Classes.Data();
             result = data.ValidateUserName(userName);
             if (result)
