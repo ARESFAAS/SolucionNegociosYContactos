@@ -161,14 +161,14 @@ namespace NegociosYContactos.Controllers
         }
 
         public ActionResult SaveData()
-        {
-            // maintenance functions
-            DeleteFiles();
-            DeleteLogo();
-
+        {           
             IData data = new Data.Classes.Data();
             if (BusinessWeb.Category.Id > 0 && BusinessWeb.Products.Count > 0)
             {
+                // maintenance functions
+                DeleteFiles();
+                DeleteLogo();
+
                 BusinessWeb = data.SaveBusinessWeb(BusinessWeb);
                 BusinessWeb.ViewMessage = false;
             }
