@@ -54,5 +54,7 @@ namespace NegociosYContactos.Models
         public BusinessUserWeb User { get; set; }
         public List<BusinessProductWeb> Products { get; set; }
         public BusinessCategory Category { get; set; }
+        public bool ViewMessage { get; set; }
+        public string Message { get; set; }
     }    
 }

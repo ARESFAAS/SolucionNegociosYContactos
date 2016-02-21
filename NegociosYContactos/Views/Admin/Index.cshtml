@@ -34,8 +34,6 @@
         }
     });
 </script>
-
-
 @Scripts.Render("~/bundles/jqueryupload")
 @Scripts.Render("~/bundles/colorpicker")
 @Scripts.Render("~/bundles/admin")
@@ -49,6 +47,9 @@
         color: white;
     }
 </style>
+<script>
+    viewMessage('@Model.ViewMessage'.toLowerCase(), '@Model.Message');
+</script>
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
     {% for (var i=0, file; file=o.files[i]; i++) { %}

@@ -167,7 +167,15 @@ namespace NegociosYContactos.Controllers
             DeleteLogo();
 
             IData data = new Data.Classes.Data();
-            BusinessWeb = data.SaveBusinessWeb(BusinessWeb);
+            if (BusinessWeb.Category.Id > 0 && BusinessWeb.Products.Count > 0)
+            {
+                BusinessWeb = data.SaveBusinessWeb(BusinessWeb);
+                BusinessWeb.ViewMessage = false;
+            }
+            else {
+                BusinessWeb.ViewMessage = true;
+                BusinessWeb.Message = "No se guardaron los datos, debe seleccionar una categoria y adicionar al menos un producto";               
+            }
             return View("Index", BusinessWeb);
         }
 
@@ -237,52 +245,58 @@ namespace NegociosYContactos.Controllers
         private void DeleteFiles()
         {
             var pathFolder = string.Format(Server.MapPath(_folderTemplate), UserAutenticated.Id);
-            string[] fileList = Directory.GetFiles(pathFolder, "*.*");
-            foreach (var file in fileList)
+
+            if (Directory.Exists(pathFolder))
             {
-                var fileNameTemp = Path.GetFileName(file);
-                var deleteFile = true;
-                foreach (var product in BusinessWeb.Products)
+                string[] fileList = Directory.GetFiles(pathFolder, "*.*");
+                foreach (var file in fileList)
                 {
-                    var productImageTemp = Path.GetFileName(product.UrlImage);
-                    if (productImageTemp.Equals(fileNameTemp))
+                    var fileNameTemp = Path.GetFileName(file);
+                    var deleteFile = true;
+                    foreach (var product in BusinessWeb.Products)
                     {
-                        deleteFile = false;
-                        break;
+                        var productImageTemp = Path.GetFileName(product.UrlImage);
+                        if (productImageTemp.Equals(fileNameTemp))
+                        {
+                            deleteFile = false;
+                            break;
+                        }
                     }
-                }
-                if (deleteFile)
-                {
-                    System.IO.File.Delete(file);
-                }
-            }
-
-        }
-
-        private void DeleteLogo()
-        {
-            var pathFolder = string.Format(Server.MapPath(_folderLogoTemplate), UserAutenticated.Id);
-            string[] fileList = Directory.GetFiles(pathFolder, "*.*");
-            foreach (var file in fileList)
-            {
-                var fileNameTemp = Path.GetFileName(file);
-                var deleteFile = true;
-                var logoImageTemp = Path.GetFileName(BusinessWeb.UrlImage);
-
-                if (logoImageTemp != null)
-                {
-                    if (logoImageTemp.Equals(fileNameTemp))
-                    {
-                        deleteFile = false;
-                    }
-
                     if (deleteFile)
                     {
                         System.IO.File.Delete(file);
                     }
                 }
             }
+        }
 
+        private void DeleteLogo()
+        {
+            var pathFolder = string.Format(Server.MapPath(_folderLogoTemplate), UserAutenticated.Id);
+
+            if (Directory.Exists(pathFolder))
+            {
+                string[] fileList = Directory.GetFiles(pathFolder, "*.*");
+                foreach (var file in fileList)
+                {
+                    var fileNameTemp = Path.GetFileName(file);
+                    var deleteFile = true;
+                    var logoImageTemp = Path.GetFileName(BusinessWeb.UrlImage);
+
+                    if (logoImageTemp != null)
+                    {
+                        if (logoImageTemp.Equals(fileNameTemp))
+                        {
+                            deleteFile = false;
+                        }
+
+                        if (deleteFile)
+                        {
+                            System.IO.File.Delete(file);
+                        }
+                    }
+                }
+            }
         }
 
         public JsonResult GetCategories() {

@@ -281,7 +281,7 @@ namespace NegociosYContactos.Data.Classes
                         actualBusiness.Address = businesWeb.Address;
                         actualBusiness.IdCategory = businesWeb.Category.Id;
 
-                        foreach (var item in context.BusinessProduct)
+                        foreach (var item in context.BusinessProduct.Where(x => x.IdBusiness == idBusinessTemp))
                         {
                             context.BusinessProduct.Remove(item);
                         }
@@ -357,7 +357,7 @@ namespace NegociosYContactos.Data.Classes
                         {
                             Id = x.Id,
                             Name = x.Name,
-                            UrlImage = string.Concat("../", x.UrlImage),
+                            UrlImage = string.Concat("../../", x.UrlImage),
                             Address = x.Address,
                             Active = x.Active,
                             InitDate = x.InitDate,
@@ -411,7 +411,7 @@ namespace NegociosYContactos.Data.Classes
                                     IdBusiness = x.IdBusiness != null ? x.IdBusiness.Value : 0,
                                     Description = x.Description,
                                     Name = x.Name,
-                                    UrlImage = string.Concat("../", x.UrlImage),
+                                    UrlImage = string.Concat("../../", x.UrlImage),
                                     Value = x.Value
                                 }).ToList();
 
@@ -426,7 +426,7 @@ namespace NegociosYContactos.Data.Classes
                                     Name = x.Name,
                                     Premium = x.Premium,
                                     Style = x.Style,
-                                    UrlImage = string.Concat("../", x.UrlImage),
+                                    UrlImage = string.Concat("../../", x.UrlImage),
                                     Address = x.Address,
                                     Category = new BusinessCategory { Id = x.Category.Id, Description = x.Category.Description }
                                 }).FirstOrDefault();
@@ -446,7 +446,7 @@ namespace NegociosYContactos.Data.Classes
                                 IdBusiness = x.IdBusiness != null ? x.IdBusiness.Value : 0,
                                 Description = x.Description,
                                 Name = x.Name,
-                                UrlImage = string.Concat("../", x.UrlImage),
+                                UrlImage = string.Concat("../../", x.UrlImage),
                                 Value = x.Value
                             }).ToList();
 
@@ -461,7 +461,7 @@ namespace NegociosYContactos.Data.Classes
                                     Name = x.Name,
                                     Premium = x.Premium,
                                     Style = x.Style,
-                                    UrlImage = string.Concat("../", x.UrlImage),
+                                    UrlImage = string.Concat("../../", x.UrlImage),
                                     Address = x.Address,
                                     Category = new BusinessCategory { Id = x.Category.Id, Description = x.Category.Description }
                                 }).FirstOrDefault();
@@ -515,7 +515,7 @@ namespace NegociosYContactos.Data.Classes
                                      Description = y.Description,
                                      IdBusiness = y.IdBusiness.Value,
                                      Name = y.Name,
-                                     UrlImage = string.Concat("../", y.UrlImage),
+                                     UrlImage = string.Concat("../../", y.UrlImage),
                                      Value = y.Value
                                  }).FirstOrDefault(),
                                 ContactEmail = x.ContactEmail,
@@ -537,7 +537,7 @@ namespace NegociosYContactos.Data.Classes
                                      Description = y.Description,
                                      IdBusiness = y.IdBusiness.Value,
                                      Name = y.Name,
-                                     UrlImage = string.Concat("../", y.UrlImage),
+                                     UrlImage = string.Concat("../../", y.UrlImage),
                                      Value = y.Value
                                  }).FirstOrDefault(),
                             ContactEmail = order.ContactEmail,

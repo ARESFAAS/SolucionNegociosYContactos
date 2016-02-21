@@ -1,5 +1,4 @@
 ﻿$(function () {
-    //$('#divNavBar').hide();
     fileUploadConfig();
     dialogConfig();
     uploadLogo();
@@ -582,6 +581,13 @@ function selectableConfig() {
             });
         }
     });
+}
+
+function viewMessage(result, message)
+{
+    if (result == 'true') {
+        alert(message);
+    }
 }
 
 String.prototype.format = function () {
