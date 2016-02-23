@@ -29,7 +29,7 @@
                     <li>@Html.ActionLink("Inicio", "Index", "Home", new { Class = "homeLink", href = Url.Action("Index", "Home") })</li>
                     <li>@Html.ActionLink("Buscar", "Index", "Search") </li>
                     <li class="dropdown">
-                        <div style="padding:14px 15px;cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divAbout">Conócenos</div>
+                        <div style="padding:14px 15px;cursor:pointer;color:black;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" id="divAbout">Conócenos</div>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                             <li>@Html.ActionLink("Términos y Condiciones", "Terms", "Home")</li>
@@ -132,8 +132,8 @@
     </div>
     <div class="social">
         <ul>
-            <li><a href="http://www.facebook.com/sharer.php?u=@Url.Encode(@Request.Url.AbsoluteUri)/&t=ContactosYNegocios" target="_blank" class="icon-facebook"></a></li>
-            <li><a href="http://twitter.com/share?url=@Url.Encode(@Request.Url.AbsoluteUri)&text=ContactosYNegocios" target="_blank" class="icon-twitter"></a></li>
+            <li><a href="http://www.facebook.com/sharer.php?u=@Url.Encode(@Request.Url.AbsoluteUri)/&t=NegociosYContactos" target="_blank" class="icon-facebook"></a></li>
+            <li><a href="http://twitter.com/share?url=@Url.Encode(@Request.Url.AbsoluteUri)&text=NegociosYContactos" target="_blank" class="icon-twitter"></a></li>
             <li><a href="https://plus.google.com/share?url=@Url.Encode(@Request.Url.AbsoluteUri)" target="_blank" class="icon-googleplus"></a></li>
         </ul>
     </div>

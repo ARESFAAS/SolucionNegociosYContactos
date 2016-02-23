@@ -258,7 +258,9 @@
 <div id="divCategoria" style="display:none;background-color:lightblue;border-color:black;border:outset;">
     <input id="txtCategoria" idCategory="@Model.Category.Id" value="@Model.Category.Description">
     <hr />
-    <ol id="lstCategorySelect"></ol>
+    <div style="height:300px;">
+        <ol id="lstCategorySelect"></ol>
+    </div>
 </div>
 <br /><br />
 <p style="text-align:right;"><a href="@Url.Action("SaveData","Admin")" class="btn btn-primary">Crea tu espacio o actualizalo ahora</a></p>
