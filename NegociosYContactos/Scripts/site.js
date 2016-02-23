@@ -161,19 +161,19 @@ function loadApiFacebook() {
 }
 
 function showSocial() {
-    if ($(window).width() > 800) {
-        $('body').mousemove(function () {
-            if (event.pageX <= 70) {
-                $('.social').show(1000);
-            }
-            else {
-                $('.social').hide(1000);
-            }
-        });
-    }
-    else {
+    //if ($(window).width() > 800) {
+    //    $('body').mousemove(function () {
+    //        if (event.pageX <= 70) {
+    //            $('.social').show(1000);
+    //        }
+    //        else {
+    //            $('.social').hide(1000);
+    //        }
+    //    });
+    //}
+    //else {
         $('.social').show(1000);
-    }
+    //}
 }
 
 function showNavBar() {
